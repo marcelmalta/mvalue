@@ -3,59 +3,78 @@
    (ATUALIZADO: filtros LOGO-only em mobile/tablet, fix erros)
    ========================================================= */
 
-/* ========= CSS responsivo para os botões de origem (injetado) ========= */
+/* ========= CSS responsivo para os botões de origem (LOGO-only, sem cor de fundo) ========= */
 (function injectFiltroCSS(){
-  if (document.querySelector('style[data-filtros-responsive]')) return;
+  const id = 'filtros-logo-only';
+  if (document.querySelector(`style[data-${id}]`)) return;
+
   const css = `
-    /* Grid fluido p/ botões de origem */
+    /* Grid fluido */
     #filtroOrigem{
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
-      gap:8px; width:100%;
+      grid-template-columns: repeat(auto-fit, minmax(52px, 1fr));
+      gap:10px; width:100%;
     }
-    /* Botão base */
+
+    /* Botão base (apenas logo) */
     #filtroOrigem label{
-      display:flex; align-items:center; justify-content:center; gap:6px;
-      padding:8px 10px; height:48px;
-      border-radius:9999px;
-      font-weight:800; font-size:13px;
-      border:1.5px solid #e5e7eb; background:#fff;
-      transition: box-shadow .2s ease, transform .2s ease;
-      user-select:none;
-      cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      height:56px; /* desktop default, ajusta nos breakpoints */
+      border-radius:14px;
+      border:1.5px solid #e5e7eb;
+      background:#fff;            /* SEM cor de fundo da marca */
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      cursor:pointer; user-select:none;
+      padding:0;                  /* sem padding para logo ocupar melhor */
     }
-    #filtroOrigem label:hover{ box-shadow:0 4px 10px rgba(0,0,0,.06); transform: translateY(-1px); }
+    #filtroOrigem label:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0,0,0,.06);
+    }
     #filtroOrigem input{ position:absolute; opacity:0; width:0; height:0; }
 
-    /* Logo responsiva */
-    #filtroOrigem label img.filtro-logo{ display:block; object-fit:contain; width:24px; height:24px; pointer-events:none; }
-    @media (min-width:768px){ #filtroOrigem label img.filtro-logo{ width:28px; height:28px; } }   /* tablet */
-    @media (min-width:1024px){ #filtroOrigem label img.filtro-logo{ width:30px; height:30px; } }  /* desktop */
-
-    /* Esconde texto até >=1280px */
-    #filtroOrigem label .texto{ display:none; }
-    @media (min-width:1280px){
-      #filtroOrigem{ grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
-      #filtroOrigem label .texto{ display:inline; }
-      #filtroOrigem label img.filtro-logo{ width:26px; height:26px; } /* discreto quando texto aparece */
+    /* Logo ocupa bem o botão */
+    #filtroOrigem label img.filtro-logo{
+      display:block; object-fit:contain; pointer-events:none;
+      width:36px; height:36px;    /* desktop */
     }
 
-    /* Estados ativos por loja (mantidos) */
-    #filtroOrigem label.ativo[data-src="shopee"]{       background:linear-gradient(145deg,#ee4d2d,#ff8a70); color:#fff; border-color:#ee4d2d; }
-    #filtroOrigem label.ativo[data-src="petlove"]{      background:linear-gradient(145deg,#00AEEF,#b3ecff); color:#00324a; border-color:#00AEEF; }
-    #filtroOrigem label.ativo[data-src="amazon"]{       background:linear-gradient(145deg,#ff9900,#232f3e); color:#fff; border-color:#232f3e; }
-    #filtroOrigem label.ativo[data-src="mercadolivre"]{ background:linear-gradient(145deg,#fff6a6,#ffe600); color:#0b4ea2; border-color:#ffe600; }
-    #filtroOrigem label.ativo[data-src="magalu"]{       background:linear-gradient(145deg,#2196f3,#6ec6ff); color:#0d1b2a; border-color:#1976d2; }
-    #filtroOrigem label.ativo[data-src="petz"]{         background:linear-gradient(145deg,#b3e5ff,#e6f5ff); color:#004e92; border-color:#00b2ff; }
-    #filtroOrigem label.ativo[data-src="cobasi"]{       background:linear-gradient(145deg,#b3dbff,#e8f3ff); color:#005a8c; border-color:#0077be; }
-    #filtroOrigem label.ativo[data-src="americanas"]{   background:linear-gradient(145deg,#ffcccc,#ffe6e6); color:#b71c1c; border-color:#d50000; }
-    #filtroOrigem label.ativo[data-src="aliexpress"]{   background:linear-gradient(145deg,#ffd5bf,#fff0e6); color:#d84315; border-color:#ff5a00; }
-    #filtroOrigem label.ativo[data-src="carrefour"]{    background:linear-gradient(145deg,#cfe8ff,#eaf3ff); color:#003b73; border-color:#005eb8; }
-    #filtroOrigem label.ativo[data-src="casasbahia"]{   background:linear-gradient(145deg,#d0dbff,#eef3ff); color:#001a66; border-color:#0033a0; }
-    #filtroOrigem label.ativo[data-src="ponto"]{        background:linear-gradient(145deg,#f0f0f0,#ffffff); color:#111; border-color:#111; }
+    /* Tablet */
+    @media (max-width:1024px){
+      #filtroOrigem label{ height:52px; border-radius:12px; }
+      #filtroOrigem label img.filtro-logo{ width:32px; height:32px; }
+    }
+
+    /* Mobile */
+    @media (max-width:640px){
+      #filtroOrigem{
+        grid-template-columns: repeat(auto-fit, minmax(48px, 1fr));
+        gap:8px;
+      }
+      #filtroOrigem label{ height:48px; border-radius:12px; }
+      #filtroOrigem label img.filtro-logo{ width:28px; height:28px; }
+    }
+
+    /* SEM texto (sempre escondido) */
+    #filtroOrigem label .texto{ display:none !important; }
+
+    /* Estado ativo: apenas borda na cor da marca (sem preencher fundo) */
+    #filtroOrigem label.ativo[data-src="shopee"]       { border-color:#EE4D2D; }
+    #filtroOrigem label.ativo[data-src="petlove"]      { border-color:#00AEEF; }
+    #filtroOrigem label.ativo[data-src="amazon"]       { border-color:#232F3E; }
+    #filtroOrigem label.ativo[data-src="mercadolivre"] { border-color:#FFE600; }
+    #filtroOrigem label.ativo[data-src="magalu"]       { border-color:#1976D2; }
+    #filtroOrigem label.ativo[data-src="petz"]         { border-color:#00B2FF; }
+    #filtroOrigem label.ativo[data-src="cobasi"]       { border-color:#0077BE; }
+    #filtroOrigem label.ativo[data-src="americanas"]   { border-color:#D50000; }
+    #filtroOrigem label.ativo[data-src="aliexpress"]   { border-color:#FF5A00; }
+    #filtroOrigem label.ativo[data-src="carrefour"]    { border-color:#005EB8; }
+    #filtroOrigem label.ativo[data-src="casasbahia"]   { border-color:#0033A0; }
+    #filtroOrigem label.ativo[data-src="ponto"]        { border-color:#111111; }
   `;
+
   const style = document.createElement('style');
-  style.setAttribute('data-filtros-responsive','true');
+  style.setAttribute(`data-${id}`,'true');
   style.textContent = css;
   document.head.appendChild(style);
 })();
@@ -386,14 +405,14 @@ function criarBarraFiltros(){
   barra.id = "barraFiltros";
   barra.className = "hidden rounded-xl mt-1.5 p-2 shadow-md flex flex-col items-center justify-center gap-2 max-w-6xl mx-auto";
 
-  // origem com LOGO-only (texto aparece >=1280px)
-  const origemHTML = Object.entries(STORE_META).map(([k,v])=>`
-    <label data-src="${k}" class="ativo" aria-label="${v.nome}" title="${v.nome}">
-      <input type="checkbox" class="origemCheck" value="${k}" checked />
-      <img src="${v.logo}" alt="" class="filtro-logo" />
-      <span class="texto">${v.nome}</span>
-    </label>
-  `).join("");
+  // origem com LOGO-only (sem texto visível)
+const origemHTML = Object.entries(STORE_META).map(([k,v])=>`
+  <label data-src="${k}" class="ativo" aria-label="${v.nome}" title="${v.nome}">
+    <input type="checkbox" class="origemCheck" value="${k}" checked />
+    <img src="${v.logo}" alt="" class="filtro-logo" />
+    <!-- sem span de texto -->
+  </label>
+`).join("");
 
   barra.innerHTML = `
     <div class="w-full">
