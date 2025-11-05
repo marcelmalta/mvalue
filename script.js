@@ -3,62 +3,66 @@
    (ATUALIZADO: filtros LOGO-only em mobile/tablet, fix erros)
    ========================================================= */
 
-/* ========= CSS responsivo para os botões de origem (LOGO-only, sem cor de fundo) ========= */
+/* ========= CSS responsivo para os botões de origem (LOGO-only, maior) ========= */
 (function injectFiltroCSS(){
   const id = 'filtros-logo-only';
-  if (document.querySelector(`style[data-${id}]`)) return;
+  const prev = document.querySelector(`style[data-${id}]`);
+  if (prev) prev.remove(); // garante override
 
   const css = `
-    /* Grid fluido */
+    /* Grid fluido com botões mais "largos" */
     #filtroOrigem{
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(52px, 1fr));
-      gap:10px; width:100%;
+      grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+      gap:12px; width:100%;
     }
 
-    /* Botão base (apenas logo) */
+    /* Botão base (apenas logo) — MAIOR */
     #filtroOrigem label{
       display:flex; align-items:center; justify-content:center;
-      height:56px; /* desktop default, ajusta nos breakpoints */
-      border-radius:14px;
+      height:72px;                    /* ↑ desktop maior */
+      border-radius:16px;
       border:1.5px solid #e5e7eb;
-      background:#fff;            /* SEM cor de fundo da marca */
+      background:#fff;                /* sem fundo da marca */
       transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
-      cursor:pointer; user-select:none;
-      padding:0;                  /* sem padding para logo ocupar melhor */
+      cursor:pointer; user-select:none; padding:0;
     }
     #filtroOrigem label:hover{
       transform: translateY(-1px);
-      box-shadow: 0 4px 10px rgba(0,0,0,.06);
+      box-shadow: 0 6px 14px rgba(0,0,0,.08);
     }
     #filtroOrigem input{ position:absolute; opacity:0; width:0; height:0; }
 
-    /* Logo ocupa bem o botão */
+    /* LOGO bem preenchido */
     #filtroOrigem label img.filtro-logo{
       display:block; object-fit:contain; pointer-events:none;
-      width:36px; height:36px;    /* desktop */
+      width:48px; height:48px;        /* ↑ desktop maior */
     }
 
     /* Tablet */
     @media (max-width:1024px){
-      #filtroOrigem label{ height:52px; border-radius:12px; }
-      #filtroOrigem label img.filtro-logo{ width:32px; height:32px; }
+      #filtroOrigem{
+        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+        gap:10px;
+      }
+      #filtroOrigem label{ height:64px; border-radius:14px; }
+      #filtroOrigem label img.filtro-logo{ width:42px; height:42px; }
     }
 
     /* Mobile */
     @media (max-width:640px){
       #filtroOrigem{
-        grid-template-columns: repeat(auto-fit, minmax(48px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(56px, 1fr));
         gap:8px;
       }
-      #filtroOrigem label{ height:48px; border-radius:12px; }
-      #filtroOrigem label img.filtro-logo{ width:28px; height:28px; }
+      #filtroOrigem label{ height:56px; border-radius:12px; }
+      #filtroOrigem label img.filtro-logo{ width:36px; height:36px; }
     }
 
-    /* SEM texto (sempre escondido) */
+    /* SEM texto sempre */
     #filtroOrigem label .texto{ display:none !important; }
 
-    /* Estado ativo: apenas borda na cor da marca (sem preencher fundo) */
+    /* Estado ativo: só borda colorida por marca */
     #filtroOrigem label.ativo[data-src="shopee"]       { border-color:#EE4D2D; }
     #filtroOrigem label.ativo[data-src="petlove"]      { border-color:#00AEEF; }
     #filtroOrigem label.ativo[data-src="amazon"]       { border-color:#232F3E; }
