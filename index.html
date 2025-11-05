@@ -308,6 +308,52 @@
     to   { transform:translateX(-50%); }
   }
   </style>
+
+  <!-- ========== OVERRIDE: Aumenta logos dos botões e limita cápsulas (desktop/tablet/mobile) ========== -->
+  <style id="filtro-override">
+    /* Faz os botões se ajustarem ao conteúdo com limites e deixa o logo MAIOR */
+    #filtroOrigem{
+      display:flex; flex-wrap:wrap; gap:12px; align-items:center; width:100%;
+    }
+    #filtroOrigem label{
+      padding:10px 12px;
+      border-radius:16px;
+      min-width: clamp(68px, 12vw, 180px);
+      max-width: clamp(90px, 20vw, 200px);
+      height:auto; /* altura passa a ser ditada pelo logo */
+    }
+    #filtroOrigem label img.filtro-logo{
+      width:auto;
+      height: clamp(36px, 6vw, 64px) !important; /* LOGO grande */
+      max-width: 92%;
+      object-fit: contain;
+    }
+    @media (min-width:1025px){
+      #filtroOrigem label img.filtro-logo{
+        height: clamp(42px, 5.2vw, 72px) !important;
+      }
+    }
+    @media (max-width:1024px){
+      #filtroOrigem{ gap:10px; }
+      #filtroOrigem label{ border-radius:14px; }
+      #filtroOrigem label img.filtro-logo{
+        height: clamp(38px, 7vw, 60px) !important;
+      }
+    }
+    @media (max-width:640px){
+      #filtroOrigem{ gap:8px; }
+      #filtroOrigem label{
+        padding:8px 10px;
+        min-width: clamp(64px, 28vw, 150px);
+        max-width: clamp(90px, 42vw, 170px);
+      }
+      #filtroOrigem label img.filtro-logo{
+        height: clamp(34px, 9vw, 56px) !important;
+      }
+    }
+    /* Garante que qualquer texto dentro do botão fique oculto */
+    #filtroOrigem label .texto{ display:none !important; }
+  </style>
 </head>
 
 <body class="bg-[var(--bege)] text-gray-900 font-sans">
