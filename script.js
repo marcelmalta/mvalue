@@ -427,7 +427,6 @@ const origemHTML = Object.entries(STORE_META).map(([k,v])=>`
   <label data-src="${k}" class="ativo" aria-label="${v.nome}" title="${v.nome}">
     <input type="checkbox" class="origemCheck" value="${k}" checked />
     <img src="${v.logo}" alt="" class="filtro-logo" />
-    <!-- sem span de texto -->
   </label>
 `).join("");
 
