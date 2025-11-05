@@ -9,7 +9,7 @@
   <title>PetShop+ — Tudo para Cães e Gatos</title>
 
   <!-- Favicon (PNG com fundo transparente) -->
-  <link rel="icon" type="image/png" href="assets/logo/petshopplus-favicon.png" sizes="64x64" />
+  <link rel="icon" type="image/png" href="logo/petshopplus-favicon.png" sizes="64x64" />
 
   <!-- =========================================================
        Tailwind (CDN)
@@ -296,18 +296,25 @@
     <div class="bg-white px-2 py-2 flex flex-col sm:flex-row items-center justify-between border-b border-[var(--dourado)]/40">
       <div class="flex items-center gap-2">
         <!-- LOGO RESPONSIVO (sem emoji) -->
-        <a href="/" class="block">
-          <picture>
-            <!-- desktop (>=1024px) -->
-            <source media="(min-width:1024px)" srcset="assets/logo/petshopplus-logo-desktop.png" />
-            <!-- tablet/mobile (default) -->
-            <img
-              src="assets/logo/petshopplus-logo-tablet.png"
-              alt="PetShop+ — seu pet em primeiro lugar"
-              class="h-10 sm:h-12 md:h-14 w-auto select-none"
-              loading="eager" />
-          </picture>
-        </a>
+<a href="/" class="block">
+  <!-- Preload ajuda no carregamento -->
+  <link rel="preload" as="image" href="logos/petshopplus-logo-desktop.png">
+  <link rel="preload" as="image" href="logos/petshopplus-logo-tablet.png">
+
+  <picture>
+    <!-- desktop (>=1024px) -->
+    <source media="(min-width:1024px)" srcset="logos/petshopplus-logo-desktop.png" type="image/png" />
+    <!-- tablet/mobile (fallback) -->
+    <img
+      src="logos/petshopplus-logo-tablet.png"
+      alt="PetShop+ — seu pet em primeiro lugar"
+      class="h-10 sm:h-12 md:h-14 w-auto select-none"
+      loading="eager"
+      onerror="this.onerror=null;this.src='logos/petshopplus-logo-desktop.png';"
+    />
+  </picture>
+</a>
+
         <span class="hidden sm:inline text-[12px] text-[var(--marrom)]/70 font-semibold">
           — Tudo para Cães e Gatos
         </span>
