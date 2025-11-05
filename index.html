@@ -6,7 +6,10 @@
        ========================================================= -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ShihTzuShop — Tudo para o seu Shih Tzu</title>
+  <title>PetShop+ — Tudo para Cães e Gatos</title>
+
+  <!-- Favicon (PNG com fundo transparente) -->
+  <link rel="icon" type="image/png" href="assets/logo/petshopplus-favicon.png" sizes="64x64" />
 
   <!-- =========================================================
        Tailwind (CDN)
@@ -49,10 +52,6 @@
     animation: shimmer 1.2s infinite;
   }
   @keyframes shimmer{ 100% { transform: translateX(100%); } }
-
-  /* =========================================================
-     Cabeçalhos, textos etc (mantidos simples para Tailwind)
-     ========================================================= */
 
   /* =========================
      Card — Imagem Produto
@@ -151,7 +150,6 @@
 
   /* =========================
      Selo com logo da loja
-     (altura generosa para não cortar logo)
      ========================= */
   .card-selo{
     width:100%;
@@ -168,8 +166,6 @@
     object-fit:contain; transition:transform .25s ease;
   }
   .card-selo:hover .card-logo{ transform:scale(1.1); }
-
-  /* Ajuste fino (logos mais “finas” levemente maiores) */
   .card-logo.amz, .card-logo.pnt, .card-logo.mgl { height:26px; }
 
   /* =========================
@@ -266,31 +262,20 @@
     padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
   }
 
-  /* =========================================================
+  /* =========================
      CARROSSEL INFINITO — SELO MULTIMARCAS
-     (CSS puro: leve, responsivo, sem JS extra)
-     ========================================================= */
-  .ml-selo {
-    overflow:hidden;
-    position:relative;
-  }
+     ========================= */
+  .ml-selo { overflow:hidden; position:relative; }
   .logos-container {
-    display:flex;
-    gap:32px;
-    align-items:center;
-    animation:slide 40s linear infinite;
-    width:max-content;
+    display:flex; gap:32px; align-items:center;
+    animation:slide 40s linear infinite; width:max-content;
   }
-  .logos-container:hover { animation-play-state: paused; } /* pausa no hover */
-  .logos-container img {
-    height:26px;
-    object-fit:contain;
-    transition:transform .3s;
-  }
+  .logos-container:hover { animation-play-state: paused; }
+  .logos-container img { height:26px; object-fit:contain; transition:transform .3s; }
   .logos-container img:hover { transform:scale(1.1); }
   @keyframes slide {
     from { transform:translateX(0); }
-    to   { transform:translateX(-50%); } /* -50% porque duplicamos o bloco */
+    to   { transform:translateX(-50%); }
   }
   </style>
 </head>
@@ -304,18 +289,27 @@
     <!-- faixa topo -->
     <div class="bg-[var(--marrom)] text-[var(--bege)] text-[10px] flex justify-center gap-4 py-0.5 font-medium">
       <span>🛡️ Loja Verificada</span>
-      <span>🐾 Itens selecionados para Shih Tzu</span>
+      <span>🐾 Itens selecionados para Cães e Gatos</span>
     </div>
 
     <!-- branding -->
     <div class="bg-white px-2 py-2 flex flex-col sm:flex-row items-center justify-between border-b border-[var(--dourado)]/40">
       <div class="flex items-center gap-2">
-        <span class="text-2xl">🐶</span>
-        <h1 class="text-xl sm:text-2xl font-extrabold text-[var(--marrom)] tracking-tight">
-          ShihTzuShop
-        </h1>
+        <!-- LOGO RESPONSIVO (sem emoji) -->
+        <a href="/" class="block">
+          <picture>
+            <!-- desktop (>=1024px) -->
+            <source media="(min-width:1024px)" srcset="assets/logo/petshopplus-logo-desktop.png" />
+            <!-- tablet/mobile (default) -->
+            <img
+              src="assets/logo/petshopplus-logo-tablet.png"
+              alt="PetShop+ — seu pet em primeiro lugar"
+              class="h-10 sm:h-12 md:h-14 w-auto select-none"
+              loading="eager" />
+          </picture>
+        </a>
         <span class="hidden sm:inline text-[12px] text-[var(--marrom)]/70 font-semibold">
-          — Tudo para o seu Shih Tzu
+          — Tudo para Cães e Gatos
         </span>
       </div>
     </div>
@@ -392,7 +386,7 @@
                flex items-center justify-center gap-2 py-1 rounded-md mt-3 mb-2
                shadow-md border border-[var(--marrom)]/40">
         <span>📦</span>
-        <span>Todos os Produtos para Shih Tzu</span>
+        <span>Todos os Produtos para Cães e Gatos</span>
       </div>
 
       <!-- Lista de Cards (JS popula) -->
