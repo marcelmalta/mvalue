@@ -183,18 +183,23 @@ function autoFillDiscount(p){
   return p;
 }
 
-/* ====== fallback .svg → .png para logos ====== */
 function attachLogoFallback(imgEl){
   if (!imgEl) return;
   imgEl.onerror = () => {
-    const src = imgEl.getAttribute("src") || "";
-    if (!imgEl.dataset.fallback && src.endsWith(".svg")) {
-      imgEl.dataset.fallback = "true";
-      imgEl.src = src.replace(".svg",".png");
-    } else {
-      const parent = imgEl.closest(".card-selo") || imgEl.closest("label");
-      if (parent) parent.style.display = "none";
-    }
+    const PAW =
+      'data:image/svg+xml;utf8,' + encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+          <rect width="100%" height="100%" fill="#fff"/>
+          <g fill="#9ca3af" transform="translate(48 50)">
+            <circle r="10" cx="-22" cy="-10"/><circle r="10" cx="-8" cy="-18"/>
+            <circle r="10" cx="8" cy="-18"/><circle r="10" cx="22" cy="-10"/>
+            <circle r="18" cx="0" cy="8"/>
+          </g>
+        </svg>`);
+    imgEl.src = PAW;                // mostra placeholder
+    imgEl.classList.add('filtro-logo');
+    const label = imgEl.closest('label');
+    if (label) label.style.visibility = 'visible';
   };
 }
 
