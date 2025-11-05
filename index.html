@@ -217,31 +217,61 @@
   }
 
   /* =========================
-     Origem buttons (marcas) – via JS
-     ========================= */
-  #filtroOrigem{
-    display:grid;
-    grid-template-columns: repeat(4, minmax(0,1fr));
-    gap:8px; width:100%;
-  }
-  #filtroOrigem label{
-    display:flex; align-items:center; justify-content:center; gap:6px;
-    padding:7px 10px; border-radius:9999px; font-weight:800; font-size:13px;
-    border:1.5px solid #e5e7eb; background:#fff;
-  }
-  #filtroOrigem input{ position:absolute; opacity:0; width:0; height:0; }
-  #filtroOrigem label.ativo[data-src="shopee"]{
-    background:linear-gradient(145deg,#ee4d2d,#ff8a70); color:#fff; border-color:#ee4d2d;
-  }
-  #filtroOrigem label.ativo[data-src="petlove"]{
-    background:linear-gradient(145deg,#00AEEF,#b3ecff); color:#00324a; border-color:#00AEEF;
-  }
-  #filtroOrigem label.ativo[data-src="amazon"]{
-    background:linear-gradient(145deg,#ff9900,#232f3e); color:#fff; border-color:#232f3e;
-  }
-  #filtroOrigem label.ativo[data-src="mercadolivre"]{
-    background:linear-gradient(145deg,#fff6a6,#ffe600); color:#0b4ea2; border-color:#ffe600;
-  }
+   Origem buttons (marcas) – via JS (ATUALIZADO)
+   ========================= */
+#filtroOrigem{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+  gap:8px; width:100%;
+}
+
+#filtroOrigem label{
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  padding:8px 10px;
+  height:48px;                         /* altura consistente */
+  border-radius:9999px;
+  font-weight:800; font-size:13px;
+  border:1.5px solid #e5e7eb; background:#fff;
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+#filtroOrigem label:hover{ box-shadow:0 4px 10px rgba(0,0,0,.06); transform: translateY(-1px); }
+
+#filtroOrigem input{ position:absolute; opacity:0; width:0; height:0; }
+
+/* Logo dentro do botão */
+#filtroOrigem label img.filtro-logo{
+  display:block; object-fit:contain;
+  width:24px; height:24px;             /* mobile */
+  pointer-events:none;
+}
+
+/* Esconde o texto até >=1280px (desktop grande) */
+#filtroOrigem label .texto{ display:none; }
+@media (min-width: 768px){             /* tablet */
+  #filtroOrigem label img.filtro-logo{ width:28px; height:28px; }
+}
+@media (min-width: 1024px){            /* desktop padrão */
+  #filtroOrigem label img.filtro-logo{ width:30px; height:30px; }
+}
+@media (min-width: 1280px){            /* desktop grande: mostra texto */
+  #filtroOrigem{ grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+  #filtroOrigem label .texto{ display:inline; }
+  #filtroOrigem label img.filtro-logo{ width:26px; height:26px; } /* fica mais discreto */
+}
+
+/* Estados ativos por loja (mantidos) */
+#filtroOrigem label.ativo[data-src="shopee"]{
+  background:linear-gradient(145deg,#ee4d2d,#ff8a70); color:#fff; border-color:#ee4d2d;
+}
+#filtroOrigem label.ativo[data-src="petlove"]{
+  background:linear-gradient(145deg,#00AEEF,#b3ecff); color:#00324a; border-color:#00AEEF;
+}
+#filtroOrigem label.ativo[data-src="amazon"]{
+  background:linear-gradient(145deg,#ff9900,#232f3e); color:#fff; border-color:#232f3e;
+}
+#filtroOrigem label.ativo[data-src="mercadolivre"]{
+  background:linear-gradient(145deg,#fff6a6,#ffe600); color:#0b4ea2; border-color:#ffe600;
+}
 
   /* =========================
      Modal
