@@ -2,6 +2,8 @@
    script.js
    ShihTzuShop — Cards + Modal + Comparador Multilojas
    (Atual) — mantém tudo + GTIN fix + botão flutuante fechar filtro
+   + HOVERCARD/TOOLTIP grande (desktop/TOUCH)
+   + Cards compactos (50% da altura)
    ========================================================= */
 
 /* ========= CSS inject: +30% nos botões/logo + botão flutuante ========= */
@@ -23,6 +25,7 @@
       cursor:pointer; user-select:none; overflow:hidden;
       max-width:182px; min-width:83px;
       transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      visibility: visible;
     }
     @media (min-width:1025px){
       #filtroOrigem label:hover{ transform: translateY(-2px) scale(1.02); box-shadow: 0 10px 18px rgba(0,0,0,.10); }
@@ -212,7 +215,7 @@ const IMG_PLACEHOLDER =
 /* cria <img> com lazy, onload/onerror e esqueleto */
 function buildImg(src, alt, className=""){
   const wrap = document.createElement("div");
-  wrap.className = "card-img-wrap skel w-full h-24 sm:h-28 flex items-center justify-center";
+  wrap.className = "card-img-wrap skel w-full flex items-center justify-center";
   const img = document.createElement("img");
   img.loading = "lazy"; img.decoding = "async";
   img.referrerPolicy = "no-referrer";
@@ -318,7 +321,7 @@ function renderBanner(containerId, tipos) {
     card.appendChild(imgWrap);
     const ribbon = buildRibbon(p.desconto); if(ribbon) card.appendChild(ribbon);
     const seloWrap = document.createElement("div");
-    seloWrap.className = "mt-1 card-selo";
+    seloWrap.className = "card-selo";
     seloWrap.innerHTML = `<img src="${meta.logo}" class="card-logo" alt="${meta.nome}">`;
     card.appendChild(seloWrap);
     attachLogoFallback(seloWrap.querySelector("img"));
@@ -360,6 +363,67 @@ function comparablesFor(product, list=produtos){
   return groupByKey(list).get(key) || [];
 }
 
+/* ===================== HOVERCARD / TOOLTIP ===================== */
+const hoverTip = {
+  el: null,
+  hideTimer: null,
+  ensure(){
+    if (this.el) return this.el;
+    this.el = document.getElementById("hoverTip");
+    return this.el;
+  },
+  positionNearRect(rect){
+    const tip = this.ensure();
+    if (!tip) return;
+    const margin = 8;
+    const vw = window.innerWidth, vh = window.innerHeight;
+    let x = rect.left + rect.width / 2 - tip.offsetWidth / 2;
+    let y = rect.bottom + margin;
+
+    // Ajustes para não sair da tela
+    x = Math.max(8, Math.min(x, vw - tip.offsetWidth - 8));
+    if (y + tip.offsetHeight + 8 > vh){
+      y = rect.top - tip.offsetHeight - margin;
+      if (y < 8) y = vh - tip.offsetHeight - 8;
+    }
+    tip.style.left = `${x}px`;
+    tip.style.top  = `${y}px`;
+  },
+  fill(product){
+    const tip = this.ensure(); if (!tip) return;
+    const meta = STORE_META[product.tipo] || { corTexto:"#111", logo:"" };
+    tip.querySelector(".tip-img img").src = product.imagem || "";
+    tip.querySelector(".tip-title").textContent = product.nome || "";
+    tip.querySelector(".tip-price").textContent = fmt(product.precoAtual);
+    tip.querySelector(".tip-price").style.color = meta.corTexto;
+    tip.querySelector(".tip-old").textContent = product.precoAntigo ? fmt(product.precoAntigo) : "";
+    tip.querySelector(".tip-off").textContent = product.desconto || "";
+    tip.querySelector(".tip-off").style.color = meta.corTexto;
+    tip.querySelector(".tip-store").src = meta.logo || "";
+    const desc = (product.detalhes && product.detalhes[0]) ? `• ${product.detalhes[0]}` : "";
+    tip.querySelector(".tip-desc").textContent = desc;
+  },
+  show(product, anchorRect){
+    clearTimeout(this.hideTimer);
+    const tip = this.ensure(); if (!tip) return;
+    this.fill(product);
+    tip.classList.add("show");
+    tip.setAttribute("aria-hidden","false");
+    // Força reflow para posicionar após conteúdo
+    requestAnimationFrame(()=>{
+      this.positionNearRect(anchorRect);
+    });
+  },
+  hide(delay=120){
+    clearTimeout(this.hideTimer);
+    const tip = this.ensure(); if (!tip) return;
+    this.hideTimer = setTimeout(()=>{
+      tip.classList.remove("show");
+      tip.setAttribute("aria-hidden","true");
+    }, delay);
+  }
+};
+
 /* ===================== LISTA PRINCIPAL ===================== */
 function renderLista(lista) {
   const wrap = el("#listaProdutos"); if (!wrap) return;
@@ -369,8 +433,8 @@ function renderLista(lista) {
     const meta = STORE_META[p.tipo];
 
     const card = document.createElement("div");
-    card.className = "relative card-geral p-1";
-    card.dataset.tipo = p.tipo;                      // <— para CSS por [data-tipo]
+    card.className = "relative card-geral";
+    card.dataset.tipo = p.tipo;
     card.style.border = `2px solid ${meta.corBorda}80`;
 
     const imgWrap = buildImg(p.imagem, p.nome);
@@ -380,23 +444,23 @@ function renderLista(lista) {
     const ribbon = buildRibbon(p.desconto); if(ribbon) card.appendChild(ribbon);
 
     const seloWrap = document.createElement("div");
-    seloWrap.className = "card-selo mt-1";
+    seloWrap.className = "card-selo";
     seloWrap.innerHTML = `<img src="${meta.logo}" class="card-logo" alt="${meta.nome}">`;
     card.appendChild(seloWrap);
     attachLogoFallback(seloWrap.querySelector("img"));
 
     card.insertAdjacentHTML("beforeend", `
-      <div class="card-nome">${p.nome}</div>
+      <div class="card-nome" title="${p.nome.replace(/"/g,'&quot;')}">${p.nome}</div>
       <div class="card-old">${p.precoAntigo ? fmt(p.precoAntigo) : ""}</div>
       <div class="card-price" style="color:${meta.corTexto}">${fmt(p.precoAtual)}</div>
       <div class="card-off" style="color:${meta.off}">${p.desconto || ""}</div>
     `);
 
+    // Ações mini (mantém tudo antigo, só compacta)
     const actions = document.createElement("div");
-    actions.className = "mt-1.5 flex items-center justify-center gap-1";
-
+    actions.className = "card-actions-mini";
     const btnCmp = document.createElement("button");
-    btnCmp.className = "px-2 py-1 rounded-md text-[10px] font-bold border border-gray-300 bg-white hover:bg-gray-50";
+    btnCmp.className = "btn-mini";
     btnCmp.textContent = "🔎 Comparar";
     btnCmp.addEventListener("click", (e)=>{ 
       e.stopPropagation(); 
@@ -404,18 +468,41 @@ function renderLista(lista) {
       if (g) abrirComparadorPorGTIN(g);
       else   abrirComparador(p);
     });
-
     const btnVer = document.createElement("button");
-    btnVer.className = "px-2 py-1 rounded-md text-[10px] font-bold border border-gray-300 bg-white hover:bg-gray-50";
+    btnVer.className = "btn-mini";
     btnVer.textContent = "👁️ Ver";
     btnVer.addEventListener("click", (e)=>{ e.stopPropagation(); openModal(p); });
-
     actions.appendChild(btnCmp);
     actions.appendChild(btnVer);
     card.appendChild(actions);
 
+    // HOVERCARD — desktop (hover) e mobile (touchstart)
+    card.addEventListener("pointerenter", () => {
+      const rect = card.getBoundingClientRect();
+      hoverTip.show(p, rect);
+    });
+    card.addEventListener("pointerleave", () => hoverTip.hide(80));
+    card.addEventListener("touchstart", (e)=>{
+      // Mostra o tooltip por alguns segundos no toque leve
+      const rect = card.getBoundingClientRect();
+      hoverTip.show(p, rect);
+      setTimeout(()=>hoverTip.hide(0), 2000);
+    }, {passive:true});
+
+    // Click abre modal (mantido)
     card.addEventListener("click", () => openModal(p));
+
     wrap.appendChild(card);
+  });
+
+  // Esconde tooltip durante rolagem para evitar “colagem”
+  let scrollHide;
+  ['scroll','touchmove'].forEach(evt=>{
+    window.addEventListener(evt, ()=>{
+      clearTimeout(scrollHide);
+      hoverTip.hide(0);
+      scrollHide = setTimeout(()=>hoverTip.hide(0), 100);
+    }, {passive:true});
   });
 }
 
@@ -530,6 +617,9 @@ function openModal(obj) {
       else   abrirComparador(p);
     };
   })();
+
+  // Garantia: esconder tooltip ao abrir modal
+  hoverTip.hide(0);
 
   modal.classList.remove("hidden");
   modal.classList.add("flex");
@@ -905,8 +995,6 @@ function renderComparador(grupo, baseProduct){
     const top = document.createElement("div");
     top.className = "flex items-center gap-2";
     const imgW = buildImg(p.imagem, p.nome, "h-14");
-    imgW.classList.remove("h-24","sm:h-28");
-    imgW.classList.add("h-16","sm:h-20");
     top.appendChild(imgW);
 
     const nm = document.createElement("div");

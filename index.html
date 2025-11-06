@@ -44,15 +44,13 @@
 
   /* Pitch em 1 linha que corta antes do botão */
   .hdr-pitch.smartPitch{
-    min-width:0; /* permite ellipsis no grid */
-    display:flex; align-items:center; gap:.5ch;
+    min-width:0; display:flex; align-items:center; gap:.5ch;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
     font-weight:600; color:#111827; line-height:1;
     max-width: clamp(40%, 72vw, 78%);
   }
   .smartPitch .brandMark{
     font-weight:900; letter-spacing:.2px;
-    /* será sobrescrito pelo tema gold abaixo (mantido por fallback) */
     background:linear-gradient(90deg,#111827,#0f766e 55%,#065f46);
     -webkit-background-clip:text; background-clip:text; color:transparent;
   }
@@ -66,73 +64,34 @@
     border-radius:6px; z-index:-1;
   }
 
-  /* =========================
-   styles-extra.css (opcional)
-   Tema Black+Gold + Identidade por Loja (caso queira deixar fora do HTML)
-   ========================= */
+  /* Tema Black + Gold (metálico) p/ header e pitch */
+  :root{ --gold-1:#d4af37; --gold-2:#f3d478; --gold-3:#b8891a; --black-true:#0a0a0a; }
+  #hdr{ border-bottom:1px solid rgba(0,0,0,.12); }
+  .hdr-pitch.smartPitch{ color:#111; text-shadow:0 0 0 rgba(0,0,0,0); }
+  .smartPitch .brandMark{
+    font-weight:1000; letter-spacing:.3px;
+    background: linear-gradient(92deg,var(--black-true) 0%,var(--gold-3) 22%,var(--gold-1) 45%,var(--gold-2) 60%,var(--gold-1) 75%,var(--black-true) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent; position:relative;
+  }
+  .smartPitch .brandMark::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.55) 50%,transparent 100%);
+    mix-blend-mode:soft-light; opacity:.25; transform:translateX(-120%);
+    animation:brandSheen 3.8s linear infinite; border-radius:.2em;
+  }
+  @keyframes brandSheen { 100% { transform:translateX(120%);} }
+  .smartPitch .claim{ color:#111; }
+  .smartPitch .claim .highlight{
+    font-weight:900; background:linear-gradient(90deg,var(--gold-3),var(--gold-1),var(--gold-2));
+    -webkit-background-clip:text; background-clip:text; color:transparent; position:relative;
+  }
+  .smartPitch .claim .highlight::after{
+    content:""; position:absolute; left:0; right:0; bottom:-2px; height:7px;
+    background:linear-gradient(90deg,rgba(212,175,55,.28),rgba(243,212,120,.25));
+    border-radius:6px; z-index:-1;
+  }
 
-/* Tema Black + Gold (metálico) para header e pitch */
-:root{
-  --gold-1:#d4af37; --gold-2:#f3d478; --gold-3:#b8891a; --black-true:#0a0a0a;
-}
-
-#hdr{ border-bottom:1px solid rgba(0,0,0,.12); }
-.hdr-pitch.smartPitch{ color:#111; text-shadow:0 0 0 rgba(0,0,0,0); }
-
-.smartPitch .brandMark{
-  font-weight:1000; letter-spacing:.3px;
-  background: linear-gradient(92deg,var(--black-true) 0%,var(--gold-3) 22%,var(--gold-1) 45%,var(--gold-2) 60%,var(--gold-1) 75%,var(--black-true) 100%);
-  -webkit-background-clip:text; background-clip:text; color:transparent; position:relative;
-}
-.smartPitch .brandMark::after{
-  content:""; position:absolute; inset:0;
-  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.55) 50%,transparent 100%);
-  mix-blend-mode:soft-light; opacity:.25; transform:translateX(-120%);
-  animation:brandSheen 3.8s linear infinite; border-radius:.2em;
-}
-@keyframes brandSheen { 100% { transform:translateX(120%);} }
-
-.smartPitch .claim{ color:#111; }
-.smartPitch .claim .highlight{
-  font-weight:900; background:linear-gradient(90deg,var(--gold-3),var(--gold-1),var(--gold-2));
-  -webkit-background-clip:text; background-clip:text; color:transparent; position:relative;
-}
-.smartPitch .claim .highlight::after{
-  content:""; position:absolute; left:0; right:0; bottom:-2px; height:7px;
-  background:linear-gradient(90deg,rgba(212,175,55,.28),rgba(243,212,120,.25));
-  border-radius:6px; z-index:-1;
-}
-
-/* Botão “Filtrar/Comparar” */
-.btn-filter{
-  background:linear-gradient(135deg,#0c0c0c,#1a1a1a 45%,#000 55%);
-  border:1px solid rgba(255,255,255,.08);
-  box-shadow:0 3px 10px rgba(0,0,0,.18), inset 0 0 0 1px rgba(255,255,255,.06);
-}
-.btn-filter:hover{
-  box-shadow:0 8px 18px rgba(0,0,0,.22), inset 0 0 0 1px rgba(255,255,255,.10);
-  filter:saturate(1.06);
-}
-.btn-filter .lbl-lg,.btn-filter .lbl-sm{
-  background:linear-gradient(90deg,var(--gold-2),var(--gold-1));
-  -webkit-background-clip:text; background-clip:text; color:transparent; font-weight:1000;
-}
-
-/* Identidade por loja em cards (opcional ao que já vem no HTML) */
-.card-geral[data-tipo="mercadolivre"]{ border-color:#ffe100; box-shadow:0 2px 10px rgba(255,225,0,.12); }
-.card-geral[data-tipo="amazon"]{ border-color:#232f3e; box-shadow:0 2px 10px rgba(35,47,62,.14); }
-.card-geral[data-tipo="magalu"]{ border-color:#2563eb; box-shadow:0 2px 10px rgba(37,99,235,.14); }
-.card-geral[data-tipo="shopee"]{ border-color:#ee4d2d; box-shadow:0 2px 10px rgba(238,77,45,.14); }
-.card-geral[data-tipo="petz"]{ border-color:#00a3ff; box-shadow:0 2px 10px rgba(0,163,255,.14); }
-.card-geral[data-tipo="cobasi"]{ border-color:#0ea5a4; box-shadow:0 2px 10px rgba(14,165,164,.14); }
-.card-geral[data-tipo="americanas"]{ border-color:#D50000; box-shadow:0 2px 10px rgba(213,0,0,.14); }
-.card-geral[data-tipo="aliexpress"]{ border-color:#FF5A00; box-shadow:0 2px 10px rgba(255,90,0,.14); }
-.card-geral[data-tipo="carrefour"]{ border-color:#005EB8; box-shadow:0 2px 10px rgba(0,94,184,.14); }
-.card-geral[data-tipo="casasbahia"]{ border-color:#0033A0; box-shadow:0 2px 10px rgba(0,51,160,.14); }
-.card-geral[data-tipo="ponto"]{ border-color:#111; box-shadow:0 2px 10px rgba(0,0,0,.14); }
-
-
-  /* Botão — rótulo dinâmico, não achata (sem JS) */
+  /* Botão “Filtrar/Comparar” */
   .btn-filter{
     display:inline-flex; align-items:center; gap:.45rem;
     white-space:nowrap;
@@ -141,7 +100,7 @@
     border:1px solid rgba(0,0,0,.08); box-shadow:0 1px 0 rgba(0,0,0,.06);
     background:linear-gradient(120deg,#2b1b12,#3a2518,#1d140f);
   }
-  .btn-filter .ico{ font-size:14px; line-height:1; }
+  .btn-filter .ico{ font-size:14px; line-height:1; filter: drop-shadow(0 1px 0 rgba(212,175,55,.45)); }
   .btn-filter .lbl-lg{ display:none; }   /* mobile: curto */
   .btn-filter .lbl-sm{ display:inline; }
   @media (min-width:640px){              /* ≥ tablet: rótulo longo */
@@ -149,11 +108,7 @@
     .btn-filter .lbl-lg{ display:inline; }
     .btn-filter .lbl-sm{ display:none; }
   }
-  /* Telas ultra estreitas: só ícone para preservar o pitch */
-  @media (max-width:340px){
-    .btn-filter{ padding:.44rem .6rem; }
-    .btn-filter .lbl{ display:none; }
-  }
+  @media (max-width:340px){ .btn-filter{ padding:.44rem .6rem; } .btn-filter .lbl{ display:none; } }
 
   /* Responsividade do pitch */
   @media (max-width:360px){ .hdr-pitch.smartPitch{ max-width:64vw; font-size:11px; } }
@@ -161,23 +116,17 @@
   @media (min-width:640px){ .hdr-pitch.smartPitch{ font-size:12.5px; } }
   @media (min-width:1024px){ .hdr-pitch.smartPitch{ font-size:13px; } }
 
-  /* ===== Pitch 2 linhas compactas no desktop, sem aumentar a faixa ===== */
-  .smartPitch--2lines{ /* mobile/tablet continua 1 linha */ }
+  /* Pitch 2 linhas compactas no desktop */
   @media (min-width:1024px){
     .hdr-pitch.smartPitch.smartPitch--2lines{
       white-space: normal;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      line-height: 1.05;
-      max-height: calc(2 * 1em * 1.05);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 86%;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+      line-height: 1.05; max-height: calc(2 * 1em * 1.05);
+      overflow: hidden; text-overflow: ellipsis; max-width: 86%;
     }
   }
 
-  /* Ocultar header no modo filtro (uma única vez) */
+  /* Ocultar header no modo filtro */
   body.modo-filtro #hdr{ display:none; }
 
   /* ===================== Skeleton ===================== */
@@ -189,59 +138,69 @@
   }
   @keyframes shimmer{ 100% { transform: translateX(100%); } }
 
-  /* Card — imagem */
-  .card-img-wrap{ position:relative; border-radius:.6rem; }
-  .card-img{ width:100%; height:100%; object-fit:contain; }
-
-  /* Ribbon desconto */
-  .ribbon {
-    position:absolute; top:6px; left:-6px; z-index:5;
-    background:#16a34a; color:#fff; font-weight:800; font-size:10px;
-    padding:4px 10px; border-radius:.4rem; box-shadow:0 2px 8px rgba(0,0,0,.12);
-    transform: rotate(-3deg);
-  }
-
-  /* ===================== Lista de Produtos — Grid fluido ===================== */
+  /* =========================================================
+     CARDS — versão COMPACTA (50% da altura)
+     ========================================================= */
   #listaProdutos{
     display:flex; flex-wrap:wrap; justify-content:center;
     gap:6px; padding-bottom:8px; transition: all .35s ease;
   }
   .card-geral{
-    position:relative; background:#fff; border-radius:.7rem;
+    position:relative; background:#fff; border-radius:.6rem;
     display:flex; flex-direction:column; align-items:center;
-    transition:transform .25s ease, box-shadow .25s ease;
+    transition:transform .2s ease, box-shadow .2s ease;
     width:23%;
+    padding:6px 6px 5px 6px;
   }
-  .card-geral:hover{ transform:scale(1.035); box-shadow:0 6px 16px rgba(0,0,0,.12); }
+  .card-geral:hover{ transform:scale(1.03); box-shadow:0 6px 16px rgba(0,0,0,.10); }
+
+  /* Imagem MENOR (altura ~56px mobile) */
   .card-img-wrap{
-    width:100%; height:84px; display:flex; align-items:center; justify-content:center;
-    overflow:hidden; border-radius:.55rem;
+    width:100%; height:56px; display:flex; align-items:center; justify-content:center;
+    overflow:hidden; border-radius:.5rem;
   }
-  .card-img{ max-height:84px; object-fit:contain; transition:transform .3s ease; }
+  @media (min-width:640px){ .card-img-wrap{ height:64px; } }
+  @media (min-width:1024px){ .card-img-wrap{ height:72px; } }
+  .card-img{ max-height:100%; object-fit:contain; transition:transform .25s ease; }
   .card-geral:hover .card-img{ transform:scale(1.04); }
 
-  /* Selo com logo */
+  /* Selo com logo, ainda menor */
   .card-selo{
     width:100%; display:flex; align-items:center; justify-content:center; gap:6px;
     background:#fff; border:1px solid #e5e7eb; border-radius:.45rem;
-    margin-top:3px; min-height:32px; padding:4px 8px;
+    margin-top:3px; min-height:28px; padding:3px 6px;
   }
+  .card-logo{ width: 100%; height: 22px; max-width: none; object-fit: contain; }
+  @media (min-width:640px){ .card-logo{ height: 26px; } }
+  @media (min-width:1024px){ .card-logo{ height: 30px; } }
 
-  /* Logos */
-  .card-logo{ height:24px; width:auto; max-width:90px; object-fit:contain; transition:transform .25s ease; }
-  .card-selo:hover .card-logo{ transform:scale(1.1); }
-  .card-logo.amz, .card-logo.pnt, .card-logo.mgl { height:26px; }
+  /* Tipografia COMPACTA */
+  .card-nome{
+    font-size:9.5px; line-height:1.05rem; height:1.05rem; /* 1 linha */
+    overflow:hidden; text-align:center; margin-top:3px; font-weight:800; color:#1f2937;
+    text-overflow: ellipsis; white-space: nowrap;
+  }
+  .card-old{ font-size:9px; color:#6b7280; text-decoration:line-through; line-height:1; margin-top:1px; }
+  .card-price{ font-size:12px; font-weight:900; line-height:1; margin-top:1px; }
+  .card-off{ font-size:10px; font-weight:800; line-height:1; margin-top:1px; }
 
-  /* Textos do card */
-  .card-nome{ font-size:10px; line-height:1.1rem; height:34px; overflow:hidden; text-align:center; margin-top:4px; font-weight:700; color:#1f2937; }
-  .card-old{ font-size:10px; color:#6b7280; text-decoration:line-through; }
-  .card-price{ font-size:13px; font-weight:900; }
-  .card-off{ font-size:11px; font-weight:800; }
+  /* Ações (botões mini) */
+  .card-actions-mini{ margin-top:5px; display:flex; gap:4px; justify-content:center; align-items:center; }
+  .btn-mini{ padding:3px 6px; border-radius:6px; border:1px solid #e5e7eb; background:#fff; font-size:9.5px; font-weight:800; }
+  .btn-mini:hover{ background:#f9fafb; }
 
-  /* Responsivo (5 por linha no mobile) */
+  /* Responsivo (5 por linha no mobile, mas mais BAIXOS) */
   @media (max-width:640px){ .card-geral{ width: calc(20% - 6px); } }
   @media (min-width:641px) and (max-width:1024px){ .card-geral{ width:18%; } }
   @media (min-width:1025px){ .card-geral{ width:11.5%; } }
+
+  /* Ribbon desconto */
+  .ribbon {
+    position:absolute; top:4px; left:-6px; z-index:5;
+    background:#16a34a; color:#fff; font-weight:900; font-size:9px;
+    padding:3px 8px; border-radius:.35rem; box-shadow:0 2px 8px rgba(0,0,0,.12);
+    transform: rotate(-3deg);
+  }
 
   /* Modo filtro (esconde banners) */
   #bannerA, #bannerB{ transition: all .35s ease; }
@@ -318,224 +277,42 @@
   body.modo-filtro #barraFiltros{ padding-top: 6px !important; padding-bottom: 6px !important; margin-bottom: 6px !important; }
 
   /* Logo mais largo na faixa do card */
-  .card-selo{ padding: 4px 6px !important; min-height: 34px; border-radius: .5rem; }
-  @media (min-width:1024px){ .card-selo{ min-height: 42px; } }
-  .card-logo{ width: 100% !important; height: 28px !important; max-width: none !important; object-fit: contain !important; }
-  @media (min-width:640px){ .card-logo{ height: 32px !important; } }
-  @media (min-width:1024px){ .card-logo{ height: 36px !important; } }
+  .card-selo{ padding: 3px 6px !important; min-height: 28px; border-radius: .5rem; }
   .card-selo:hover .card-logo{ transform: none !important; }
 
-  /* ====== Tema Black + Gold (metálico) ====== */
-  #hdr{ border-bottom:1px solid rgba(0,0,0,.12); }
-  .hdr-pitch.smartPitch{ color:#111; text-shadow: 0 0 0 rgba(0,0,0,0); }
+  /* ===================== Identidade por loja (borda/sombra) ===================== */
+  .card-geral[data-tipo="mercadolivre"]{ border-color:#ffe100; box-shadow:0 2px 10px rgba(255,225,0,.08); }
+  .card-geral[data-tipo="amazon"]{ border-color:#232f3e; box-shadow:0 2px 10px rgba(35,47,62,.08); }
+  .card-geral[data-tipo="magalu"]{ border-color:#2563eb; box-shadow:0 2px 10px rgba(37,99,235,.08); }
+  .card-geral[data-tipo="shopee"]{ border-color:#ee4d2d; box-shadow:0 2px 10px rgba(238,77,45,.08); }
+  .card-geral[data-tipo="petz"]{ border-color:#00a3ff; box-shadow:0 2px 10px rgba(0,163,255,.08); }
+  .card-geral[data-tipo="cobasi"]{ border-color:#0ea5a4; box-shadow:0 2px 10px rgba(14,165,164,.08); }
+  .card-geral[data-tipo="petlove"]{ border-color:#00AEEF; box-shadow:0 2px 10px rgba(0,174,239,.08); }
+  .card-geral[data-tipo="americanas"]{ border-color:#D50000; box-shadow:0 2px 10px rgba(213,0,0,.08); }
+  .card-geral[data-tipo="aliexpress"]{ border-color:#FF5A00; box-shadow:0 2px 10px rgba(255,90,0,.08); }
+  .card-geral[data-tipo="carrefour"]{ border-color:#005EB8; box-shadow:0 2px 10px rgba(0,94,184,.08); }
+  .card-geral[data-tipo="casasbahia"]{ border-color:#0033A0; box-shadow:0 2px 10px rgba(0,51,160,.08); }
+  .card-geral[data-tipo="ponto"]{ border-color:#111; box-shadow:0 2px 10px rgba(0,0,0,.08); }
 
-  .smartPitch .brandMark{
-    font-weight:1000; letter-spacing:.3px;
-    background: linear-gradient(92deg,
-              var(--black-true) 0%,
-              var(--gold-3) 22%,
-              var(--gold-1) 45%,
-              var(--gold-2) 60%,
-              var(--gold-1) 75%,
-              var(--black-true) 100%);
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-    position:relative;
+  /* ===================== HOVERCARD / TOOLTIP GRANDE ===================== */
+  #hoverTip{
+    position: fixed; z-index: 70; pointer-events: none;
+    background: #fff; border:1px solid rgba(0,0,0,.08); border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(0,0,0,.16), 0 4px 10px rgba(0,0,0,.08);
+    width: min(320px, 92vw); opacity: 0; transform: translateY(6px) scale(.98);
+    transition: opacity .15s ease, transform .15s ease;
+    padding: 10px; display:none;
   }
-  .smartPitch .brandMark::after{
-    content:""; position:absolute; inset:0;
-    background: linear-gradient(90deg, transparent 0%,
-                                rgba(255,255,255,.55) 50%,
-                                transparent 100%);
-    mix-blend-mode: soft-light; opacity:.25;
-    transform: translateX(-120%);
-    animation: brandSheen 3.8s linear infinite;
-    border-radius:.2em;
-  }
-  @keyframes brandSheen { 100% { transform: translateX(120%);} }
-
-  .smartPitch .claim{ color:#111; }
-  .smartPitch .claim .highlight{
-    font-weight:900;
-    background: linear-gradient(90deg, var(--gold-3), var(--gold-1), var(--gold-2));
-    -webkit-background-clip:text; background-clip: text; color:transparent;
-    position:relative;
-  }
-  .smartPitch .claim .highlight::after{
-    content:""; position:absolute; left:0; right:0; bottom:-2px; height:7px;
-    background: linear-gradient(90deg, rgba(212,175,55,.28), rgba(243,212,120,.25));
-    border-radius:6px; z-index:-1;
-  }
-
-  .btn-filter{
-    background: linear-gradient(135deg, #0c0c0c, #1a1a1a 45%, #000 55%);
-    border: 1px solid rgba(255,255,255,.08);
-    box-shadow:
-      0 3px 10px rgba(0,0,0,.18),
-      inset 0 0 0 1px rgba(255,255,255,.06);
-  }
-  .btn-filter:hover{
-    box-shadow:
-      0 8px 18px rgba(0,0,0,.22),
-      inset 0 0 0 1px rgba(255,255,255,.10);
-    filter: saturate(1.06);
-  }
-  .btn-filter .ico{ filter: drop-shadow(0 1px 0 rgba(212,175,55,.45)); }
-  .btn-filter .lbl-lg, .btn-filter .lbl-sm{
-    background: linear-gradient(90deg, var(--gold-2), var(--gold-1));
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-    font-weight:1000;
-  }
-
-  /* ===================== Identidade por Loja (cards) ===================== */
-  /* Suporta .card-geral.<tipo> OU [data-tipo="<tipo>"] */
-  .card-geral[data-tipo],
-  .card-geral.mercadolivre, .card-geral.amazon, .card-geral.magalu,
-  .card-geral.shopee, .card-geral.petz, .card-geral.cobasi,
-  .card-geral.petlove, .card-geral.americanas, .card-geral.aliexpress,
-  .card-geral.carrefour, .card-geral.casasbahia, .card-geral.ponto {
-    border-width: 1.5px;
-  }
-
-  /* ---------- Mercado Livre ---------- */
-  .card-geral[data-tipo="mercadolivre"], .card-geral.mercadolivre{
-    border-color:#ffe100;
-    box-shadow:0 2px 10px rgba(255,225,0,.12);
-  }
-  .card-geral[data-tipo="mercadolivre"] .card-img-wrap,
-  .card-geral.mercadolivre .card-img-wrap{
-    background:linear-gradient(145deg,#fff9b2,#ffe600);
-  }
-  .card-geral[data-tipo="mercadolivre"] .ribbon,
-  .card-geral.mercadolivre .ribbon{ background:#0b4ea2; }
-  .card-geral[data-tipo="mercadolivre"] .card-price,
-  .card-geral.mercadolivre .card-price{ color:#0b4ea2; }
-
-  /* ---------- Amazon ---------- */
-  .card-geral[data-tipo="amazon"], .card-geral.amazon{
-    border-color:#232f3e;
-    box-shadow:0 2px 10px rgba(35,47,62,.14);
-  }
-  .card-geral[data-tipo="amazon"] .card-img-wrap,
-  .card-geral.amazon .card-img-wrap{
-    background:linear-gradient(145deg,#0b1320,#232f3e);
-  }
-  .card-geral[data-tipo="amazon"] .ribbon,
-  .card-geral.amazon .ribbon{ background:#ff9900; color:#111; }
-  .card-geral[data-tipo="amazon"] .card-price,
-  .card-geral.amazon .card-price{ color:#ff9900; }
-
-  /* ---------- Magalu ---------- */
-  .card-geral[data-tipo="magalu"], .card-geral.magalu{
-    border-color:#2563eb; box-shadow:0 2px 10px rgba(37,99,235,.14);
-  }
-  .card-geral[data-tipo="magalu"] .card-img-wrap,
-  .card-geral.magalu .card-img-wrap{ background:linear-gradient(145deg,#c7d2fe,#2563eb); }
-  .card-geral[data-tipo="magalu"] .ribbon,
-  .card-geral.magalu .ribbon{ background:#2563eb; }
-  .card-geral[data-tipo="magalu"] .card-price,
-  .card-geral.magalu .card-price{ color:#1d4ed8; }
-
-  /* ---------- Shopee ---------- */
-  .card-geral[data-tipo="shopee"], .card-geral.shopee{
-    border-color:#ee4d2d; box-shadow:0 2px 10px rgba(238,77,45,.14);
-  }
-  .card-geral[data-tipo="shopee"] .card-img-wrap,
-  .card-geral.shopee .card-img-wrap{ background:linear-gradient(145deg,#ffd3c9,#ee4d2d); }
-  .card-geral[data-tipo="shopee"] .ribbon,
-  .card-geral.shopee .ribbon{ background:#ee4d2d; }
-  .card-geral[data-tipo="shopee"] .card-price,
-  .card-geral.shopee .card-price{ color:#c2412d; }
-
-  /* ---------- Petz ---------- */
-  .card-geral[data-tipo="petz"], .card-geral.petz{
-    border-color:#00a3ff; box-shadow:0 2px 10px rgba(0,163,255,.14);
-  }
-  .card-geral[data-tipo="petz"] .card-img-wrap,
-  .card-geral.petz .card-img-wrap{ background:linear-gradient(145deg,#b3ecff,#00a3ff); }
-  .card-geral[data-tipo="petz"] .ribbon,
-  .card-geral.petz .ribbon{ background:#004b6b; }
-  .card-geral[data-tipo="petz"] .card-price,
-  .card-geral.petz .card-price{ color:#006a97; }
-
-  /* ---------- Cobasi ---------- */
-  .card-geral[data-tipo="cobasi"], .card-geral.cobasi{
-    border-color:#0ea5a4; box-shadow:0 2px 10px rgba(14,165,164,.14);
-  }
-  .card-geral[data-tipo="cobasi"] .card-img-wrap,
-  .card-geral.cobasi .card-img-wrap{ background:linear-gradient(145deg,#b9f3ef,#0ea5a4); }
-  .card-geral[data-tipo="cobasi"] .ribbon,
-  .card-geral.cobasi .ribbon{ background:#0e6f6e; }
-  .card-geral[data-tipo="cobasi"] .card-price,
-  .card-geral.cobasi .card-price{ color:#0b5857; }
-
-  /* ---------- Petlove (faltava) ---------- */
-  .card-geral[data-tipo="petlove"], .card-geral.petlove{
-    border-color:#00AEEF; box-shadow:0 2px 10px rgba(0,174,239,.18);
-  }
-  .card-geral[data-tipo="petlove"] .card-img-wrap,
-  .card-geral.petlove .card-img-wrap{ background:linear-gradient(145deg,#d9f6ff,#00AEEF); }
-  .card-geral[data-tipo="petlove"] .ribbon,
-  .card-geral.petlove .ribbon{ background:#007aa3; }
-  .card-geral[data-tipo="petlove"] .card-price,
-  .card-geral.petlove .card-price{ color:#006585; }
-
-  /* ---------- Americanas (faltava) ---------- */
-  .card-geral[data-tipo="americanas"], .card-geral.americanas{
-    border-color:#e30613; box-shadow:0 2px 10px rgba(227,6,19,.16);
-  }
-  .card-geral[data-tipo="americanas"] .card-img-wrap,
-  .card-geral.americanas .card-img-wrap{ background:linear-gradient(145deg,#ffd6da,#e30613); }
-  .card-geral[data-tipo="americanas"] .ribbon,
-  .card-geral.americanas .ribbon{ background:#b70411; }
-  .card-geral[data-tipo="americanas"] .card-price,
-  .card-geral.americanas .card-price{ color:#b70411; }
-
-  /* ---------- AliExpress (faltava) ---------- */
-  .card-geral[data-tipo="aliexpress"], .card-geral.aliexpress{
-    border-color:#ff6a00; box-shadow:0 2px 10px rgba(255,106,0,.16);
-  }
-  .card-geral[data-tipo="aliexpress"] .card-img-wrap,
-  .card-geral.aliexpress .card-img-wrap{ background:linear-gradient(145deg,#ffd5b3,#ff6a00); }
-  .card-geral[data-tipo="aliexpress"] .ribbon,
-  .card-geral.aliexpress .ribbon{ background:#ff6a00; }
-  .card-geral[data-tipo="aliexpress"] .card-price,
-  .card-geral.aliexpress .card-price{ color:#c85000; }
-
-  /* ---------- Carrefour (faltava) ---------- */
-  .card-geral[data-tipo="carrefour"], .card-geral.carrefour{
-    border-color:#003e7e; box-shadow:0 2px 10px rgba(0,62,126,.16);
-  }
-  .card-geral[data-tipo="carrefour"] .card-img-wrap,
-  .card-geral.carrefour .card-img-wrap{ background:linear-gradient(145deg,#c3d9ff,#003e7e); }
-  .card-geral[data-tipo="carrefour"] .ribbon,
-  .card-geral.carrefour .ribbon{ background:#e3002b; }
-  .card-geral[data-tipo="carrefour"] .card-price,
-  .card-geral.carrefour .card-price{ color:#003e7e; }
-
-  /* ---------- Casas Bahia (faltava) ---------- */
-  .card-geral[data-tipo="casasbahia"], .card-geral.casasbahia{
-    border-color:#1b3c8c; box-shadow:0 2px 10px rgba(27,60,140,.16);
-  }
-  .card-geral[data-tipo="casasbahia"] .card-img-wrap,
-  .card-geral.casasbahia .card-img-wrap{ background:linear-gradient(145deg,#c9d6ff,#1b3c8c); }
-  .card-geral[data-tipo="casasbahia"] .ribbon,
-  .card-geral.casasbahia .ribbon{ background:#e31c3d; }
-  .card-geral[data-tipo="casasbahia"] .card-price,
-  .card-geral.casasbahia .card-price{ color:#1b3c8c; }
-
-  /* ---------- Ponto (faltava) ---------- */
-  .card-geral[data-tipo="ponto"], .card-geral.ponto{
-    border-color:#111827; box-shadow:0 2px 10px rgba(17,24,39,.14);
-  }
-  .card-geral[data-tipo="ponto"] .card-img-wrap,
-  .card-geral.ponto .card-img-wrap{ background:linear-gradient(145deg,#e5e7eb,#111827); }
-  .card-geral[data-tipo="ponto"] .ribbon,
-  .card-geral.ponto .ribbon{ background:#111827; }
-  .card-geral[data-tipo="ponto"] .card-price,
-  .card-geral.ponto .card-price{ color:#111827; }
-
-  /* Fallback genérico caso uma loja não tenha tema definido */
-  .card-geral:not([data-tipo]) .card-img-wrap{ background:linear-gradient(145deg,#f3f4f6,#e5e7eb); }
+  #hoverTip.show{ display:block; opacity:1; transform: translateY(0) scale(1); }
+  #hoverTip .tip-top{ display:flex; gap:10px; align-items:center; }
+  #hoverTip .tip-img{ width:96px; height:96px; display:flex; align-items:center; justify-content:center; border-radius:10px; overflow:hidden; background:#f3f4f6; }
+  #hoverTip .tip-img img{ width:100%; height:100%; object-fit:contain; }
+  #hoverTip .tip-title{ font-size:13px; font-weight:900; line-height:1.2; color:#111827; }
+  #hoverTip .tip-price{ font-size:20px; font-weight:1000; line-height:1; margin-top:4px; }
+  #hoverTip .tip-old{ font-size:11px; color:#6b7280; text-decoration:line-through; }
+  #hoverTip .tip-off{ font-size:11px; font-weight:900; }
+  #hoverTip .tip-desc{ margin-top:6px; font-size:12px; color:#374151; }
+  #hoverTip .tip-store{ margin-left:auto; height:20px; }
 
   /* Mobile: garante 1 linha pro brand + “Compare Preços!” sem corte */
   @media (max-width: 639px){
@@ -543,11 +320,7 @@
     .claim--sm{ display:inline !important; }
     .claim--lg{ display:none !important; }
   }
-
-  /* Desktop: mantém 2 linhas compactas como já aplicado */
-  @media (min-width:1024px){
-    .hdr-pitch.smartPitch.smartPitch--2lines{ max-width: 88%; }
-  }
+  @media (min-width:1024px){ .hdr-pitch.smartPitch.smartPitch--2lines{ max-width: 88%; } }
   </style>
 
   <!-- =========================================================
@@ -577,7 +350,7 @@
     .tag-badge{ background:#111; color:#fff; border-radius:9999px; font-size:10px; padding:2px 8px; border:1px solid #e5e7eb; }
     .rank-chip{ margin-top:4px; display:inline-block; background:linear-gradient(90deg,#fef3c7,#fde68a); color:#7c2d12; font-weight:800; font-size:10px; padding:3px 8px; border-radius:9999px; border:1px solid #f59e0b99; }
     .btn-compare{ font-size:11px; font-weight:800; padding:4px 8px; border-radius:8px; border:1px solid #e5e7eb; background:#fff; }
-    .btn-compare:hover{ background:#f9fafb; }
+    ..btn-compare:hover{ background:#f9fafb; }
     .btn-buy{ font-size:11px; font-weight:900; padding:5px 10px; border-radius:8px; color:#fff; background:#111; border:1px solid #111; }
 
     body.modo-filtro main.space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 0 !important; }
@@ -780,6 +553,25 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- =========================================================
+       TOOLTIP / HOVERCARD (inicialmente oculto)
+       ========================================================= -->
+  <div id="hoverTip" role="tooltip" aria-hidden="true">
+    <div class="tip-top">
+      <div class="tip-img"><img alt="Preview" /></div>
+      <div class="tip-info" style="min-width:0; display:flex; flex-direction:column; gap:2px;">
+        <img class="tip-store" alt="Loja" />
+        <div class="tip-title"></div>
+        <div style="display:flex; align-items:center; gap:6px; margin-top:2px;">
+          <span class="tip-old"></span>
+          <span class="tip-off"></span>
+        </div>
+        <div class="tip-price"></div>
+      </div>
+    </div>
+    <div class="tip-desc"></div>
   </div>
 
   <!-- =========================================================
