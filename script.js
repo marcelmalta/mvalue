@@ -1,9 +1,10 @@
 /* =========================================================
    ShihTzuShop — Cards + Modal + Comparador Multilojas
-   (Atual) — mantém todas as suas funções + adiciona comparador
+   (Atual) — mantém todas as suas funções + botão flutuante
+   de “Fechar filtro” no corpo (sem cobrir os cards)
    ========================================================= */
 
-/* ========= CSS: +30% nos botões/logo (desktop/tablet/mobile) ========= */
+/* ========= CSS inject: +30% nos botões/logo + botão flutuante ========= */
 (function injectFiltroCSS(){
   const id = 'filtros-logo-only';
   document.querySelector(`style[data-${id}]`)?.remove();
@@ -46,7 +47,7 @@
     /* Sem texto no botão */
     #filtroOrigem label .texto{ display:none !important; }
 
-    /* Realce comum quando ATIVO (vale para todas as marcas) */
+    /* Realce quando ATIVO */
     #filtroOrigem label.ativo{
       border-width:2px;
       transform: translateY(-1px);
@@ -66,6 +67,38 @@
     #filtroOrigem label.ativo[data-src="carrefour"]{ --ring: rgba(0,94,184,.18); background: linear-gradient(145deg,#E7F1FF,#D7E9FF); color:#003B73; border-color:#005EB8; }
     #filtroOrigem label.ativo[data-src="casasbahia"]{ --ring: rgba(0,51,160,.18); background: linear-gradient(145deg,#E7EDFF,#D8E4FF); color:#001A66; border-color:#0033A0; }
     #filtroOrigem label.ativo[data-src="ponto"]{ --ring: rgba(255,106,42,.18); background: linear-gradient(145deg,#FFE8D9,#FFD8BF); color:#6B2E00; border-color:#FF6A2A; }
+
+    /* ===== Botão flutuante de fechar filtro ===== */
+    #btnFecharFiltroFloat{
+      position: fixed;
+      right: max(14px, env(safe-area-inset-right, 0px) + 12px);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 60;
+      background: #111827;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 9999px;
+      padding: 10px 14px;
+      font-weight: 800;
+      font-size: 12px;
+      line-height: 1;
+      letter-spacing: .3px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.18), 0 2px 6px rgba(0,0,0,.12);
+      cursor: pointer;
+      display: none; /* só aparece no modo-filtro */
+    }
+    #btnFecharFiltroFloat:hover{ filter: brightness(1.1); }
+    body.modo-filtro #btnFecharFiltroFloat{ display: inline-flex; align-items: center; gap: 6px; }
+    #btnFecharFiltroFloat .x{ font-size: 14px; margin-top: -1px; }
+
+    /* Em telas pequenas, desce pra base lateral pra evitar cobrir cards */
+    @media (max-width: 640px){
+      #btnFecharFiltroFloat{
+        top: auto; bottom: max(16px, env(safe-area-inset-bottom, 0px) + 16px);
+        transform: none;
+      }
+    }
   `;
   const style = document.createElement('style');
   style.setAttribute(`data-${id}`,'true');
@@ -89,60 +122,32 @@ const STORE_META = {
   ponto: { nome:"Ponto", corBorda:"#111111", corTexto:"#FF5500", bgCard:"linear-gradient(to bottom,#F0F0F0,#FFFFFF)", logo:"logos/ponto.svg", btn:["#111111","#444444"], off:"#FF5500" },
 };
 
-/* ===================== PRODUTOS (agora com GTIN) ===================== */
+/* ===================== PRODUTOS (com GTIN onde aplicável) ===================== */
 const produtos = [
-  // ===== exemplos gerais (sem GTIN, continuam funcionando normalmente) =====
   { tipo:"shopee", nome:"Laços Premium — kit 20 un. (cores sortidas)", precoAntigo:69.90, precoAtual:39.90, desconto:"43% OFF", parcelas:"6x sem juros", detalhes:["Elástico macio","Não puxa o pelo","Cores vivas"], imagem:"https://images.unsplash.com/photo-1596495578065-8c1b2f6a3513?q=80&w=800&auto=format&fit=crop", link:"#"},
   { tipo:"shopee", nome:"Peitoral Conforto X-Soft (PP/P) — Anti-puxão", precoAntigo:89.90, precoAtual:54.90, desconto:"39% OFF", parcelas:"6x sem juros", detalhes:["Ajuste rápido","Almofadado","Anel em metal"], imagem:"https://images.unsplash.com/photo-1560807707-8cc77767d783?q=80&w=800&auto=format&fit=crop", link:"#"},
   { tipo:"petlove", nome:"Shampoo Hipoalergênico (300ml) — Pelos longos", precoAntigo:54.90, precoAtual:39.90, desconto:"27% OFF", parcelas:"3x sem juros", detalhes:["pH balanceado","Sem parabenos","Cheiro suave"], imagem:"https://images.unsplash.com/photo-1625314887424-9f189ffd40dc?q=80&w=800&auto=format&fit=crop", link:"#"},
   { tipo:"petlove", nome:"Cama Donut Antiestresse (P) — Bege", precoAntigo:189.90, precoAtual:129.90, desconto:"32% OFF", parcelas:"6x sem juros", detalhes:["Tecido soft","Antiderrapante","Zíper para lavar"], imagem:"https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?q=80&w=800&auto=format&fit=crop", link:"#"},
   { tipo:"amazon", nome:"Escova Slicker + Pente 2 em 1 — Anti-embolo", precoAntigo:59.90, precoAtual:39.90, desconto:"33% OFF", parcelas:"Em até 10x", detalhes:["Cerdas macias","Cabo ergonômico"], imagem:"https://images.unsplash.com/photo-1567359781514-3b964e06a3ab?q=80&w=800&auto=format&fit=crop", link:"#"},
   { tipo:"amazon", nome:"Hidratante de Almofadinhas (50g) — Natural", precoAntigo:49.90, precoAtual:31.90, desconto:"36% OFF", parcelas:"Em até 10x", detalhes:["Manteiga de karité","Sem álcool"], imagem:"https://images.unsplash.com/photo-1525253013412-55c1a69a5738?q=80&w=800&auto=format&fit=crop", link:"#"},
-
-  /* ====== COMPARADOR (MESMO PRODUTO — MESMO GTIN) ======
-     Produto: Simparic Zoetis 40 mg (10,1–20 kg) — 1 unidade
-     GTIN/EAN: 7898049719488
-  */
+  /* COMPARADOR — Simparic 40 mg (GTIN 7898049719488) */
   {
-    tipo: "mercadolivre",
-    gtin: "7898049719488",
+    tipo: "mercadolivre", gtin: "7898049719488",
     nome: "Simparic Zoetis 40 mg 10,1–20 kg — 1 unidade",
-    brand: "Zoetis",
-    doseMg: 40,
-    weightRange: "10,1–20 kg",
-    packQty: 1,
-    precoAntigo: 118.33,
-    precoAtual: 74.60,
-    desconto: "36% OFF",
-    parcelas: "12x R$ 7,35",
-    rating: 4.8,
-    reviews: 29113,
-    badges: ["Novo","Mais vendido"],
-    categoryRank: "1º em Tratamentos Anti-Pulgas",
-    cashback: "até R$ 2,24",
+    brand: "Zoetis", doseMg: 40, weightRange: "10,1–20 kg", packQty: 1,
+    precoAntigo: 118.33, precoAtual: 74.60, desconto: "36% OFF", parcelas: "12x R$ 7,35",
+    rating: 4.8, reviews: 29113, badges: ["Novo","Mais vendido"],
+    categoryRank: "1º em Tratamentos Anti-Pulgas", cashback: "até R$ 2,24",
     imagem: "https://http2.mlstatic.com/D_NQ_NP_2X_905561-MLA88406142177_072025-F.webp",
     link: "https://mercadolivre.com/sec/1t7W5Sn",
-    detalhes: [
-      "Proteção contra parasitas por 5 semanas.",
-      "Indicado para cães de 10,1 a 20 kg.",
-      "Unidades por kit: 1."
-    ]
+    detalhes: ["Proteção contra parasitas por 5 semanas.","Indicado para cães de 10,1 a 20 kg.","Unidades por kit: 1."]
   },
   {
-    tipo: "cobasi",
-    gtin: "7898049719488",
+    tipo: "cobasi", gtin: "7898049719488",
     nome: "Simparic Zoetis 40 mg 10,1–20 kg — 1 unidade",
-    brand: "Zoetis",
-    doseMg: 40,
-    weightRange: "10,1–20 kg",
-    packQty: 1,
-    precoAntigo: 133.90,
-    precoAtual: 79.90,
-    desconto: "40% OFF",
-    parcelas: "à vista",
-    rating: 4.8,
-    reviews: 1370,
-    badges: ["Produto original", "Compra Programada", "Amigo Cobasi"],
+    brand: "Zoetis", doseMg: 40, weightRange: "10,1–20 kg", packQty: 1,
+    precoAntigo: 133.90, precoAtual: 79.90, desconto: "40% OFF", parcelas: "à vista",
+    rating: 4.8, reviews: 1370, badges: ["Produto original","Compra Programada","Amigo Cobasi"],
     loyaltyPoints: 79,
     shippingOptions: [
       { nome: "Retire na loja", prazo: "até 11h", preco: 0, freteGratis: true },
@@ -153,42 +158,25 @@ const produtos = [
     imagem: "https://cobasi.vteximg.com.br/arquivos/ids/1089375-368-368/Antipulgas%20Simparic%2040mg%20para%20Caes%2010%20a%2020kg.webp?v=638974276600530000",
     link: "#",
     detalhes: [
-      "Elimina 100% de pulgas e carrapatos.",
-      "Comprimido mastigável e altamente palatável.",
-      "Combate também três tipos de sarnas.",
-      "Indicado para cães a partir de 8 semanas de idade.",
+      "Elimina 100% de pulgas e carrapatos.","Comprimido mastigável e altamente palatável.",
+      "Combate também três tipos de sarnas.","Indicado para cães a partir de 8 semanas de idade.",
       "Começa a fazer efeito em 3 horas e protege por até 35 dias."
     ]
   },
   {
-    tipo: "magalu",
-    gtin: "7898049719488",
+    tipo: "magalu", gtin: "7898049719488",
     nome: "Simparic Zoetis 40 mg 10,1–20 kg — 1 unidade",
-    brand: "Zoetis",
-    doseMg: 40,
-    weightRange: "10,1–20 kg",
-    packQty: 1,
-    precoAntigo: 85.87,
-    precoAtual: 74.97,
-    precoPix: 59.98,
-    desconto: "≈30% OFF",
-    parcelas: "1x R$ 74,97 sem juros",
-    rating: 4.7,
-    reviews: 232,
-    badges: ["Magalu garante", "Olist Plus"],
-    cupom: "PET10",
-    cupomDescricao: "10% OFF (válido até 16/11)",
+    brand: "Zoetis", doseMg: 40, weightRange: "10,1–20 kg", packQty: 1,
+    precoAntigo: 85.87, precoAtual: 74.97, precoPix: 59.98, desconto: "≈30% OFF",
+    parcelas: "1x R$ 74,97 sem juros", rating: 4.7, reviews: 232,
+    badges: ["Magalu garante","Olist Plus"], cupom: "PET10", cupomDescricao: "10% OFF (válido até 16/11)",
     freteAPartir: 28.47,
     imagem: "https://a-static.mlcdn.com.br/800x560/antipulgas-simparic-1-comp-10-a-20kg-zoetis/olistplus/opmjuho68xxtdv8l/43719ef3c6447d809db36e10d861f933.jpeg",
     link: "https://divulgador.magalu.com/3BWYo8lG",
-    detalhes: [
-      "Proteção contra parasitas por 5 semanas.",
-      "Indicado para cães de 10,1 a 20 kg.",
-      "Unidades por kit: 1."
-    ]
+    detalhes: ["Proteção contra parasitas por 5 semanas.","Indicado para cães de 10,1 a 20 kg.","Unidades por kit: 1."]
   },
 
-  // ===== resto dos exemplos que você já tinha =====
+  /* Outros exemplos */
   { tipo:"mercadolivre", nome:"Conjunto Bandana + Gravata (3 peças) — Shih Tzu", precoAntigo:49.90, precoAtual:32.90, desconto:"34% OFF", parcelas:"10x sem juros", detalhes:["Tecido respirável","Lavável","Ajuste com velcro"], imagem:"https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=800&auto=format&fit=crop", link:"#"},
   { tipo:"petz", nome:"Tapete Higiênico Premium p/ Cães (30 un.)", precoAntigo:119.90, precoAtual:89.90, parcelas:"3x sem juros", detalhes:["Gel superabsorvente","Adesivo antideslizante","Neutraliza odores"], imagem:"https://images.unsplash.com/photo-1543465077-db45d34b88a5?q=80&w=800&auto=format&fit=crop", link:"#"},
   { tipo:"petz", nome:"Escova Dupla — Macia & Pinos (p/ pelos longos)", precoAntigo:69.90, precoAtual:44.90, parcelas:"4x sem juros", detalhes:["Remoção de nós","Evita quebra do pelo","Cabo ergonômico"], imagem:"https://images.unsplash.com/photo-1561736778-92e52a7769ef?q=80&w=800&auto=format&fit=crop", link:"#"},
@@ -277,7 +265,6 @@ function attachLogoFallback(imgEl){
 
 /* ===================== Helpers GTIN + índice por GTIN ===================== */
 const onlyDigits = (s="") => (s||"").replace(/\D+/g,"");
-
 function gtin14CheckDigit(body13){
   let sum=0;
   for(let i=0;i<body13.length;i++){
@@ -286,8 +273,6 @@ function gtin14CheckDigit(body13){
   }
   const mod = sum%10; return mod===0?0:10-mod;
 }
-
-/* Normaliza EAN/UPC para GTIN-14 válido (ou "" se inválido) */
 function normalizeGTIN(raw){
   let d = onlyDigits(raw);
   if (!d) return "";
@@ -299,8 +284,7 @@ function normalizeGTIN(raw){
   const calc = gtin14CheckDigit(body);
   return (dv===calc)?d:(body+String(calc));
 }
-
-/* Índice { GTIN-14: { loja: produto } } para lookup rápido */
+/* Índice { GTIN-14: { loja: produto } } */
 const indexByGTIN = new Map();
 function indexarPorGTIN(arr){
   indexByGTIN.clear();
@@ -316,7 +300,6 @@ function indexarPorGTIN(arr){
 function renderBanner(containerId, tipos) {
   const faixa = el(`#${containerId}`); if (!faixa) return;
   faixa.innerHTML = "";
-
   produtos.filter(p => tipos.includes(p.tipo)).forEach(obj => {
     const p = autoFillDiscount({...obj});
     const meta = STORE_META[p.tipo];
@@ -324,55 +307,39 @@ function renderBanner(containerId, tipos) {
     card.className = "relative rounded-lg flex-shrink-0 w-28 sm:w-36 p-1 cursor-pointer hover:scale-105 transition";
     card.style.border = `2px solid ${meta.corBorda}80`;
     card.style.boxShadow = `0 1px 4px rgba(0,0,0,.08)`;
-
     const imgWrap = buildImg(p.imagem, p.nome);
     imgWrap.style.background = meta.bgCard;
     card.appendChild(imgWrap);
     const ribbon = buildRibbon(p.desconto); if(ribbon) card.appendChild(ribbon);
-
     const seloWrap = document.createElement("div");
     seloWrap.className = "mt-1 card-selo";
     seloWrap.innerHTML = `<img src="${meta.logo}" class="card-logo" alt="${meta.nome}">`;
     card.appendChild(seloWrap);
     attachLogoFallback(seloWrap.querySelector("img"));
-
     card.insertAdjacentHTML("beforeend", `
       <h2 class="text-[10px] font-semibold text-center line-clamp-2 h-8 text-gray-800 mt-1">${p.nome}</h2>
       <p class="card-old">${p.precoAntigo ? fmt(p.precoAntigo) : ""}</p>
       <p class="card-price" style="color:${meta.corTexto}">${fmt(p.precoAtual)}</p>
       <span class="card-off" style="color:${meta.off}">${p.desconto || ""}</span>
     `);
-
     card.addEventListener("click", () => openModal(p));
     faixa.appendChild(card);
   });
 }
 
 /* ===================== NORMALIZAÇÃO p/ COMPARAÇÃO ===================== */
-/* Prioridade: se existir p.sku ou p.key, usar; senão derivar do nome */
 function normalizeKey(obj){
   if (obj.sku) return `sku:${String(obj.sku).trim().toLowerCase()}`;
   if (obj.key) return `key:${String(obj.key).trim().toLowerCase()}`;
-
   let name = (obj.nome || "").toLowerCase();
-
-  // remove conteúdos entre parênteses (ex.: (40mg), (300ml))
   name = name.replace(/\([^)]*\)/g, " ");
-  // remove travessões/dashes e variantes
   name = name.replace(/[—–\-]/g, " ");
-  // remove tamanhos/cor comuns
   name = name.replace(/\b(pp|p|m|g|gg|xg|xl|xxl|preto|branco|bege|azul|rosa|vermelho)\b/g, " ");
-  // remove números isolados sem contexto (deixa 10,1 a 20kg, 40mg, 3 comprimidos)
   name = name.replace(/\b(\d+(?:,\d+)?)\b(?!\s*(kg|mg|ml|comprimid))/g, " ");
-
-  // colapsa espaços
   name = name.replace(/\s+/g, " ").trim();
-
-  // pega até 6 tokens mais relevantes
   const tokens = name.split(" ").filter(Boolean);
   return "nm:" + tokens.slice(0, 6).join(" ");
 }
-
 function groupByKey(list){
   const map = new Map();
   list.forEach(p=>{
@@ -382,7 +349,6 @@ function groupByKey(list){
   });
   return map;
 }
-
 function comparablesFor(product, list=produtos){
   const key = normalizeKey(product);
   return groupByKey(list).get(key) || [];
@@ -419,7 +385,6 @@ function renderLista(lista) {
       <div class="card-off" style="color:${meta.off}">${p.desconto || ""}</div>
     `);
 
-    // ===== Botões de ação (Comparar + Ver) =====
     const actions = document.createElement("div");
     actions.className = "mt-1.5 flex items-center justify-center gap-1";
 
@@ -442,7 +407,6 @@ function renderLista(lista) {
     actions.appendChild(btnVer);
     card.appendChild(actions);
 
-    // abrir modal ao clicar no card (fora dos botões)
     card.addEventListener("click", () => openModal(p));
     wrap.appendChild(card);
   });
@@ -510,7 +474,6 @@ function openModal(obj) {
     });
   }
 
-  // ---- Extras no modal (rating / rank / cashback / Pix / cupom / GTIN) ----
   (() => {
     const holderId = "modalExtras";
     let extras = el("#"+holderId);
@@ -532,7 +495,6 @@ function openModal(obj) {
       ${p.cashback ? `<div class="text-emerald-700 font-semibold">💸 ${p.cashback}</div>` : ``}
       ${p.gtin ? `<div class="text-[11px] text-gray-500">GTIN/EAN: ${normalizeGTIN(p.gtin)}</div>` : ``}
     `;
-
     if (p.precoPix){
       const pixLine = document.createElement("div");
       pixLine.className = "text-sm text-emerald-700 font-semibold text-center -mt-1";
@@ -545,8 +507,6 @@ function openModal(obj) {
       cupLine.textContent = `Cupom ${p.cupom} — ${p.cupomDescricao||""}`;
       (el("#modalPrice")?.parentElement || el("#modalBox")).appendChild(cupLine);
     }
-
-    // Botão comparar dentro do modal (recolocado aqui para evitar duplicatas)
     let btnCmp = el("#btnModalComparar");
     if (!btnCmp){
       btnCmp = document.createElement("button");
@@ -563,7 +523,6 @@ function openModal(obj) {
     };
   })();
 
-  // exibe
   modal.classList.remove("hidden");
   modal.classList.add("flex");
   requestAnimationFrame(()=> {
@@ -571,7 +530,6 @@ function openModal(obj) {
     box.classList.add("scale-100","opacity-100");
   });
 }
-
 function closeModal(){
   const modal = el("#productModal");
   const box   = el("#modalBox");
@@ -628,7 +586,6 @@ function aplicarFiltros(){
   });
 
   ativarFiltro(true);
-  // ao filtrar, garantimos que o usuário está na lista (não no comparador)
   toggleComparador(false);
   renderLista(filtrados);
 
@@ -649,7 +606,6 @@ function criarBarraFiltros(){
   barra.id = "barraFiltros";
   barra.className = "hidden rounded-xl mt-1.5 p-2 shadow-md flex flex-col items-center justify-center gap-2 max-w-6xl mx-auto";
 
-  // origem com LOGO-only (sem texto visível)
   const origemHTML = Object.entries(STORE_META).map(([k,v])=>`
     <label data-src="${k}" class="ativo" aria-label="${v.nome}" title="${v.nome}">
       <input type="checkbox" class="origemCheck" value="${k}" checked />
@@ -659,7 +615,6 @@ function criarBarraFiltros(){
 
   barra.innerHTML = `
     <div class="f-controls w-full flex flex-wrap items-center justify-center gap-2">
-      <!-- Busca com botão limpar (IDs preservados) -->
       <div class="search-wrap relative min-w-[240px] max-w-[680px] w-full">
         <svg class="icon absolute left-3 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" width="18" height="18" fill="none">
           <path d="M21 21l-4.3-4.3M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
@@ -669,7 +624,6 @@ function criarBarraFiltros(){
                 class="clear hidden absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full border grid place-items-center leading-none">×</button>
       </div>
 
-      <!-- Selects (IDs preservados) -->
       <select id="filtroPreco" class="select-pill px-3 py-1.5 rounded-full border h-10">
         <option value="">Preço</option>
         <option value="0">Até R$ 50</option>
@@ -691,13 +645,9 @@ function criarBarraFiltros(){
   if (selo) selo.insertAdjacentElement("afterend", barra);
   else document.body.insertBefore(barra, document.body.firstChild);
 
-  // eventos (IDs preservados)
   const busca = barra.querySelector("#buscaInput");
   const clear = barra.querySelector("#clearBusca");
-  const showClear = () => {
-    if (!clear) return;
-    clear.classList.toggle("hidden", !busca.value);
-  };
+  const showClear = () => { if (clear) clear.classList.toggle("hidden", !busca.value); };
 
   ["input","change"].forEach(evt=>{
     if (busca) busca.addEventListener(evt, ()=>{ showClear(); aplicarFiltros(); });
@@ -719,25 +669,50 @@ function criarBarraFiltros(){
     });
   });
 
-  // fallback para logos dos filtros
   barra.querySelectorAll("#filtroOrigem img").forEach(attachLogoFallback);
-
   barra.classList.add("hidden");
 }
 
-/* mostra/oculta modo filtro e restaura listas */
+/* ======= Sincroniza texto do botão ABRIR no header (se visível) ======= */
+function syncOpenButton(){
+  const isOn  = document.body.classList.contains("modo-filtro");
+  const open  = document.getElementById("btnBuscaFlutuante");
+  if (open){
+    open.classList.toggle("ativo", isOn);
+    open.setAttribute("aria-expanded", isOn ? "true" : "false");
+    open.textContent = isOn ? "⨯ Fechar Filtro" : "🔍 Buscar / Filtrar";
+  }
+}
+
+/* ======= Botão flutuante (corpo) para FECHAR filtro ======= */
+function ensureCloseFloat(){
+  let btn = document.getElementById("btnFecharFiltroFloat");
+  if (btn) return btn;
+
+  btn = document.createElement("button");
+  btn.id = "btnFecharFiltroFloat";
+  btn.type = "button";
+  btn.setAttribute("aria-label", "Fechar filtros");
+  btn.innerHTML = `<span class="x">✖</span> <span class="txt">Fechar filtros</span>`;
+  btn.addEventListener("click", ()=> ativarFiltro(false));
+  document.body.appendChild(btn);
+  return btn;
+}
+
+/* ======= Mostrar/ocultar modo filtro ======= */
 function ativarFiltro(ativo){
-  const body = document.body;
-  const btn = document.getElementById("btnBuscaFlutuante");
-  const barra = document.getElementById("barraFiltros");
-  const header = document.querySelector("header.sticky");
-  const selo = document.querySelector(".ml-selo");
+  const body   = document.body;
+  const header = document.querySelector("header.sticky, header");
+  const selo   = document.querySelector(".ml-selo");
+  const barra  = document.getElementById("barraFiltros");
 
   if (ativo){
     body.classList.add("modo-filtro");
-    if (btn){ btn.classList.add("ativo"); btn.textContent = "⨯ Fechar Filtro"; }
+    // Fecha/oculta o header (como você pediu manter)
     if (header) header.classList.add("hidden");
-    if (selo) selo.classList.add("hidden");
+    if (selo)   selo.classList.add("hidden");
+
+    // exibe barra filtros
     if (barra){
       barra.classList.remove("hidden");
       barra.style.opacity = "0"; barra.style.transform = "translateY(-10px)";
@@ -745,33 +720,37 @@ function ativarFiltro(ativo){
         barra.style.transition = "all .35s ease"; barra.style.opacity="1"; barra.style.transform="translateY(0)";
       });
     }
+
+    // garante botão flutuante visível no corpo
+    ensureCloseFloat();
     window.scrollTo({ top: 0, behavior: "smooth" });
   } else {
     body.classList.remove("modo-filtro");
-    if (btn){ btn.classList.remove("ativo"); btn.textContent = "🔍 Buscar / Filtrar"; }
     if (header) header.classList.remove("hidden");
-    if (selo) selo.classList.remove("hidden");
+    if (selo)   selo.classList.remove("hidden");
     if (barra){
       barra.style.transition = "all .3s ease";
       barra.style.opacity="0"; barra.style.transform="translateY(-10px)";
       setTimeout(()=> barra.classList.add("hidden"), 280);
     }
-    // restaurar conteúdo padrão
+    // restaura conteúdo padrão
     renderBanner("bannerA", ["shopee","amazon","magalu","americanas","aliexpress"]);
     renderBanner("bannerB", ["petlove","mercadolivre","petz","cobasi","carrefour","casasbahia","ponto"]);
     toggleComparador(false);
     renderLista(produtos);
   }
+  syncOpenButton();
 }
 
-/* =============== BOTÃO FLUTUANTE (toggle) =============== */
-(function bindFloat(){
-  const btnFloat = document.getElementById("btnBuscaFlutuante");
-  if (!btnFloat) return;
-  btnFloat.addEventListener("click", () => {
-    const ativo = document.body.classList.contains("modo-filtro");
-    ativarFiltro(!ativo);
-  });
+/* =============== BOTÕES DO HEADER (abrir) =============== */
+(function bindHeaderButtons(){
+  const btnOpen  = document.getElementById("btnBuscaFlutuante");
+  if (btnOpen){
+    btnOpen.addEventListener("click", () => {
+      const ativo = document.body.classList.contains("modo-filtro");
+      ativarFiltro(!ativo);
+    });
+  }
 })();
 
 /* =============== ROLAGEM AUTOMÁTICA BANNERS =============== */
@@ -792,7 +771,6 @@ function autoScroll(containerId){
 /* ===================== COMPARADOR (UI) ===================== */
 function toggleComparador(show){
   const secCmp  = el("#secComparador");
-  // Se não houver uma seção “lista”, calculamos a área principal a partir do #listaProdutos
   let secList = el("#secListaProdutos");
   if (!secList){
     const lista = el("#listaProdutos");
@@ -809,7 +787,6 @@ function toggleComparador(show){
     secList.classList.remove("hidden");
   }
 }
-
 function abrirComparadorPorGTIN(gtin14){
   closeModal();
   const pack = indexByGTIN.get(gtin14);
@@ -823,16 +800,14 @@ function abrirComparadorPorGTIN(gtin14){
   renderComparador(grupo, grupo[0]);
   toggleComparador(true);
 }
-
 function abrirComparador(baseProduct){
-  closeModal(); // fecha modal, se aberto
+  closeModal();
   const g = normalizeGTIN(baseProduct.gtin);
   if (g){ abrirComparadorPorGTIN(g); return; }
   const grupo = comparablesFor(baseProduct);
   renderComparador(grupo, baseProduct);
   toggleComparador(true);
 }
-
 function renderComparador(grupo, baseProduct){
   const cont = el("#listaComparativos");
   if (!cont) return;
@@ -850,13 +825,11 @@ function renderComparador(grupo, baseProduct){
     return;
   }
 
-  // ordena por preço atual
   const ordenados = [...grupo].sort((a,b)=> a.precoAtual - b.precoAtual);
   const menor = ordenados[0];
   const maior = ordenados[ordenados.length-1];
   const media = ordenados.reduce((acc,p)=>acc+p.precoAtual,0)/ordenados.length;
 
-  // Header resumo (nome normalizado + métricas)
   const head = document.createElement("div");
   head.className = "col-span-full bg-white border border-gray-200 rounded-lg p-3 shadow-sm";
   head.innerHTML = `
@@ -888,7 +861,6 @@ function renderComparador(grupo, baseProduct){
   cont.appendChild(head);
   el("#btnVoltarLista")?.addEventListener("click", ()=> toggleComparador(false));
 
-  // Cards por loja
   ordenados.forEach(p=>{
     const meta = STORE_META[p.tipo];
     const card = document.createElement("div");
@@ -925,7 +897,6 @@ function renderComparador(grupo, baseProduct){
       </div>
     `;
 
-    // preview imagem + nome compacto
     const top = document.createElement("div");
     top.className = "flex items-center gap-2";
     const imgW = buildImg(p.imagem, p.nome, "h-14");
@@ -947,7 +918,6 @@ function renderComparador(grupo, baseProduct){
 
 /* ===================== INIT ===================== */
 window.addEventListener("DOMContentLoaded", ()=>{
-  // conteúdo padrão
   renderBanner("bannerA", ["shopee","amazon","magalu","americanas","aliexpress"]);
   renderBanner("bannerB", ["petlove","mercadolivre","petz","cobasi","carrefour","casasbahia","ponto"]);
   renderLista(produtos);
@@ -956,26 +926,7 @@ window.addEventListener("DOMContentLoaded", ()=>{
   autoScroll("bannerB");
   document.body.classList.remove("modo-filtro");
 
-  // Índice de GTIN para comparador por código
   indexarPorGTIN(produtos);
-
-  // toolbar (se quiser colocar botões fixos no topo)
-  const tb = document.querySelector(".ml-toolbar");
-  if (tb){
-    const btnBack = document.createElement("button");
-    btnBack.className = "hidden ml-auto px-3 py-1.5 rounded-md bg-black text-white text-xs font-bold";
-    btnBack.id = "toolbarVoltar";
-    btnBack.textContent = "← Voltar para a lista";
-    btnBack.onclick = ()=> toggleComparador(false);
-    tb.appendChild(btnBack);
-
-    // Observa alternância do comparador p/ mostrar/ocultar
-    const obs = new MutationObserver(()=>{
-      const secCmp = el("#secComparador");
-      if (secCmp && !secCmp.classList.contains("hidden")) btnBack.classList.remove("hidden");
-      else btnBack.classList.add("hidden");
-    });
-    const secC = el("#secComparador");
-    if (secC) obs.observe(secC, { attributes:true, attributeFilter:["class"] });
-  }
+  syncOpenButton();      // ajusta texto do botão abrir, se existir
+  ensureCloseFloat();    // injeta o botão flutuante (fica oculto até entrar no modo-filtro)
 });
