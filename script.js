@@ -1,13 +1,10 @@
 /* =========================================================
-   script.js
    ShihTzuShop — Cards + Modal + Comparador Multilojas
-   (Atual) — mantém tudo + GTIN fix + botão flutuante fechar filtro
-   + HOVERCARD/TOOLTIP grande (desktop/TOUCH)
-   + Cards compactos (50% da altura)
-   + Logos menores (cards, carrossel, pílulas de filtro)
+   (Atual) — mantém todas as suas funções + botão flutuante
+             de “Fechar filtros”, carrossel compacto e tooltips
    ========================================================= */
 
-/* ========= CSS inject: logos menores nas pílulas e botão flutuante ========= */
+/* ========= CSS: BOTÕES/LOGOS dos filtros (compactos) ========= */
 (function injectFiltroCSS(){
   const id = 'filtros-logo-only';
   document.querySelector(`style[data-${id}]`)?.remove();
@@ -15,46 +12,46 @@
   const css = `
     /* Container */
     #filtroOrigem{
-      display:flex; flex-wrap:wrap; gap:12px; width:100%; align-items:center;
+      display:flex; flex-wrap:wrap; gap:10px; width:100%; align-items:center;
     }
 
-    /* Cápsula responsiva (um pouco mais baixa) */
+    /* Cápsula responsiva (compacta) */
     #filtroOrigem label{
       display:inline-flex; align-items:center; justify-content:center;
-      padding:10px 12px;
-      border-radius:16px; border:1.5px solid #e5e7eb; background:#fff;
+      padding:8px 10px;
+      border-radius:14px; border:1.5px solid #e5e7eb; background:#fff;
       cursor:pointer; user-select:none; overflow:hidden;
-      max-width:182px; min-width:78px; height:44px;
+      max-width:142px; min-width:68px;
       transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
-      visibility: visible;
     }
     @media (min-width:1025px){
-      #filtroOrigem label:hover{ transform: translateY(-2px) scale(1.02); box-shadow: 0 10px 18px rgba(0,0,0,.10); }
+      #filtroOrigem label:hover{ transform: translateY(-1px) scale(1.01); box-shadow: 0 8px 16px rgba(0,0,0,.08); }
     }
 
-    /* Logo menor nas pílulas */
+    /* Logo (compacto) */
     #filtroOrigem label img.filtro-logo{
       display:block; object-fit:contain; pointer-events:none;
-      width:auto; height:22px; max-width:100%;
+      max-width:100%; height:auto; max-height:36px;
     }
     @media (max-width:1024px){
-      #filtroOrigem{ gap:10px; }
-      #filtroOrigem label{ padding:10px 11px; border-radius:14px; max-width:156px; min-width:74px; height:42px; }
-      #filtroOrigem label img.filtro-logo{ height:22px; }
+      #filtroOrigem{ gap:9px; }
+      #filtroOrigem label{ padding:8px 9px; border-radius:12px; max-width:128px; min-width:64px; }
+      #filtroOrigem label img.filtro-logo{ max-height:34px; }
     }
     @media (max-width:640px){
-      #filtroOrigem{ gap:9px; }
-      #filtroOrigem label{ padding:9px 10px; border-radius:12px; max-width:135px; min-width:70px; height:40px; }
-      #filtroOrigem label img.filtro-logo{ height:22px; }
+      #filtroOrigem{ gap:8px; }
+      #filtroOrigem label{ padding:7px 8px; border-radius:12px; max-width:116px; min-width:60px; }
+      #filtroOrigem label img.filtro-logo{ max-height:30px; }
     }
 
-    /* Sem texto no botão (mantém o comportamento) */
+    /* Esconde texto nos botões (só logo) */
     #filtroOrigem label .texto{ display:none !important; }
 
-    /* Realce quando ATIVO */
+    /* Realce comum quando ATIVO (vale para todas as marcas) */
     #filtroOrigem label.ativo{
-      border-width:2px; transform: translateY(-1px);
-      box-shadow: 0 0 0 3px var(--ring, rgba(0,0,0,.08)), 0 6px 14px rgba(0,0,0,.12);
+      border-width:2px;
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 3px var(--ring, rgba(0,0,0,.06)), 0 6px 14px rgba(0,0,0,.10);
     }
 
     /* ===== Ativos por marca ===== */
@@ -70,41 +67,96 @@
     #filtroOrigem label.ativo[data-src="carrefour"]{ --ring: rgba(0,94,184,.18); background: linear-gradient(145deg,#E7F1FF,#D7E9FF); color:#003B73; border-color:#005EB8; }
     #filtroOrigem label.ativo[data-src="casasbahia"]{ --ring: rgba(0,51,160,.18); background: linear-gradient(145deg,#E7EDFF,#D8E4FF); color:#001A66; border-color:#0033A0; }
     #filtroOrigem label.ativo[data-src="ponto"]{ --ring: rgba(255,106,42,.18); background: linear-gradient(145deg,#FFE8D9,#FFD8BF); color:#6B2E00; border-color:#FF6A2A; }
+  `;
+  const style = document.createElement('style');
+  style.setAttribute(`data-${id}`,'true');
+  style.textContent = css;
+  document.head.appendChild(style);
+})();
 
-    /* ===== Botão flutuante de fechar filtro ===== */
+/* === CSS para carrossel compacto (mais cards por tela) === */
+(function injectCarouselTightCSS(){
+  const id = 'carousel-tight-v2';
+  document.querySelector(`style[data-${id}]`)?.remove();
+  const css = `
+    /* Cards do carrossel apenas */
+    .banner-card{
+      width: 5.75rem;           /* ~92px */
+      padding: 4px !important;
+      border-radius: 10px;
+    }
+    @media (min-width: 640px){  /* sm */
+      .banner-card{ width: 6.75rem; }   /* ~108px */
+    }
+    @media (min-width: 1024px){ /* lg */
+      .banner-card{ width: 7.25rem; }   /* ~116px */
+    }
+
+    /* Imagem menor só no carrossel */
+    .banner-card .card-img-wrap{
+      height: 72px !important;
+    }
+    @media (min-width: 640px){
+      .banner-card .card-img-wrap{ height: 84px !important; }
+    }
+
+    /* Logo menor só no carrossel */
+    .banner-card .card-logo{
+      height: 14px;
+      width: auto;
+      opacity: .95;
+    }
+
+    /* Tipografia mais compacta no carrossel */
+    .banner-card h2{
+      font-size: 9px !important;
+      line-height: 1.15;
+      height: 28px;
+      margin-top: 2px !important;
+    }
+    .banner-card .card-old{
+      font-size: 9px; color:#9CA3AF; margin-top:2px;
+    }
+    .banner-card .card-price{
+      font-size: 11px; font-weight: 800; margin-top:1px;
+    }
+    .banner-card .card-off{
+      font-size: 10px; font-weight: 800;
+      display:inline-block; margin-top:1px;
+    }
+
+    .banner-card .ribbon{
+      font-size: 9px; padding: 2px 6px;
+      top: 6px; left: 6px; border-radius: 6px;
+    }
+
+    /* Botão flutuante para fechar filtro — lateral, sem cobrir cards */
     #btnFecharFiltroFloat{
       position: fixed;
-      right: max(14px, env(safe-area-inset-right, 0px) + 12px);
+      right: 10px;
       top: 50%;
       transform: translateY(-50%);
       z-index: 60;
-      background: #111827;
-      color: #fff;
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 9999px;
-      padding: 10px 14px;
-      font-weight: 800;
-      font-size: 12px;
-      line-height: 1;
-      letter-spacing: .3px;
-      box-shadow: 0 8px 24px rgba(0,0,0,.18), 0 2px 6px rgba(0,0,0,.12);
-      cursor: pointer;
-      display: none; /* só aparece no modo-filtro */
+      display: none;
+      align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 14px; font-size: 13px; font-weight: 900;
+      color: #7f1d1d; background:#fff; border-radius: 9999px;
+      border: 1.5px solid #fca5a5; box-shadow: 0 6px 16px rgba(0,0,0,.10);
+      white-space: nowrap;
     }
-    #btnFecharFiltroFloat:hover{ filter: brightness(1.1); }
-    body.modo-filtro #btnFecharFiltroFloat{ display: inline-flex; align-items: center; gap: 6px; }
-    #btnFecharFiltroFloat .x{ font-size: 14px; margin-top: -1px; }
+    #btnFecharFiltroFloat:hover{ background:#fff7f7; color:#991b1b; }
+    body.modo-filtro #btnFecharFiltroFloat{ display: inline-flex; }
 
-    /* Em telas pequenas, desce pra base lateral pra evitar cobrir cards */
     @media (max-width: 640px){
       #btnFecharFiltroFloat{
-        top: auto; bottom: max(16px, env(safe-area-inset-bottom, 0px) + 16px);
-        transform: none;
+        right: 6px;
+        padding: 10px 12px;
+        font-size: 12px;
       }
     }
   `;
   const style = document.createElement('style');
-  style.setAttribute(`data-${id}`,'true');
+  style.setAttribute(`data-${id}`, 'true');
   style.textContent = css;
   document.head.appendChild(style);
 })();
@@ -125,61 +177,106 @@ const STORE_META = {
   ponto: { nome:"Ponto", corBorda:"#111111", corTexto:"#FF5500", bgCard:"linear-gradient(to bottom,#F0F0F0,#FFFFFF)", logo:"logos/ponto.svg", btn:["#111111","#444444"], off:"#FF5500" },
 };
 
-/* ===================== PRODUTOS (exemplos) ===================== */
+/* ===================== PRODUTOS (exemplos; inclui GTIN) ===================== */
 const produtos = [
+  // Exemplos gerais
   { tipo:"shopee", nome:"Laços Premium — kit 20 un. (cores sortidas)", precoAntigo:69.90, precoAtual:39.90, desconto:"43% OFF", parcelas:"6x sem juros", detalhes:["Elástico macio","Não puxa o pelo","Cores vivas"], imagem:"https://images.unsplash.com/photo-1596495578065-8c1b2f6a3513?q=80&w=800&auto=format&fit=crop", link:"#"},
   { tipo:"shopee", nome:"Peitoral Conforto X-Soft (PP/P) — Anti-puxão", precoAntigo:89.90, precoAtual:54.90, desconto:"39% OFF", parcelas:"6x sem juros", detalhes:["Ajuste rápido","Almofadado","Anel em metal"], imagem:"https://images.unsplash.com/photo-1560807707-8cc77767d783?q=80&w=800&auto=format&fit=crop", link:"#"},
   { tipo:"petlove", nome:"Shampoo Hipoalergênico (300ml) — Pelos longos", precoAntigo:54.90, precoAtual:39.90, desconto:"27% OFF", parcelas:"3x sem juros", detalhes:["pH balanceado","Sem parabenos","Cheiro suave"], imagem:"https://images.unsplash.com/photo-1625314887424-9f189ffd40dc?q=80&w=800&auto=format&fit=crop", link:"#"},
   { tipo:"petlove", nome:"Cama Donut Antiestresse (P) — Bege", precoAntigo:189.90, precoAtual:129.90, desconto:"32% OFF", parcelas:"6x sem juros", detalhes:["Tecido soft","Antiderrapante","Zíper para lavar"], imagem:"https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?q=80&w=800&auto=format&fit=crop", link:"#"},
   { tipo:"amazon", nome:"Escova Slicker + Pente 2 em 1 — Anti-embolo", precoAntigo:59.90, precoAtual:39.90, desconto:"33% OFF", parcelas:"Em até 10x", detalhes:["Cerdas macias","Cabo ergonômico"], imagem:"https://images.unsplash.com/photo-1567359781514-3b964e06a3ab?q=80&w=800&auto=format&fit=crop", link:"#"},
   { tipo:"amazon", nome:"Hidratante de Almofadinhas (50g) — Natural", precoAntigo:49.90, precoAtual:31.90, desconto:"36% OFF", parcelas:"Em até 10x", detalhes:["Manteiga de karité","Sem álcool"], imagem:"https://images.unsplash.com/photo-1525253013412-55c1a69a5738?q=80&w=800&auto=format&fit=crop", link:"#"},
-  /* COMPARADOR — Simparic 40 mg (GTIN 7898049719488) */
+
+  /* ====== COMPARADOR (MESMO PRODUTO — MESMO GTIN) ======
+     Produto: Simparic Zoetis 40 mg (10,1–20 kg) — 1 unidade
+     GTIN/EAN: 7898049719488
+  */
   {
-    tipo:"mercadolivre", gtin:"7898049719488",
-    nome:"Simparic Zoetis 40 mg 10,1–20 kg — 1 unidade",
-    brand:"Zoetis", doseMg:40, weightRange:"10,1–20 kg", packQty:1,
-    precoAntigo:118.33, precoAtual:74.60, desconto:"36% OFF", parcelas:"12x R$ 7,35",
-    rating:4.8, reviews:29113, badges:["Novo","Mais vendido"],
-    categoryRank:"1º em Tratamentos Anti-Pulgas", cashback:"até R$ 2,24",
-    imagem:"https://http2.mlstatic.com/D_NQ_NP_2X_905561-MLA88406142177_072025-F.webp",
-    link:"https://mercadolivre.com/sec/1t7W5Sn",
-    detalhes:["Proteção contra parasitas por 5 semanas.","Indicado para cães de 10,1 a 20 kg.","Unidades por kit: 1."]
+    tipo: "mercadolivre",
+    gtin: "7898049719488",
+    nome: "Simparic Zoetis 40 mg 10,1–20 kg — 1 unidade",
+    brand: "Zoetis",
+    doseMg: 40,
+    weightRange: "10,1–20 kg",
+    packQty: 1,
+    precoAntigo: 118.33,
+    precoAtual: 74.60,
+    desconto: "36% OFF",
+    parcelas: "12x R$ 7,35",
+    rating: 4.8,
+    reviews: 29113,
+    badges: ["Novo","Mais vendido"],
+    categoryRank: "1º em Tratamentos Anti-Pulgas",
+    cashback: "até R$ 2,24",
+    imagem: "https://http2.mlstatic.com/D_NQ_NP_2X_905561-MLA88406142177_072025-F.webp",
+    link: "https://mercadolivre.com/sec/1t7W5Sn",
+    detalhes: [
+      "Proteção contra parasitas por 5 semanas.",
+      "Indicado para cães de 10,1 a 20 kg.",
+      "Unidades por kit: 1."
+    ]
   },
   {
-    tipo:"cobasi", gtin:"7898049719488",
-    nome:"Simparic Zoetis 40 mg 10,1–20 kg — 1 unidade",
-    brand:"Zoetis", doseMg:40, weightRange:"10,1–20 kg", packQty:1,
-    precoAntigo:133.90, precoAtual:79.90, desconto:"40% OFF", parcelas:"à vista",
-    rating:4.8, reviews:1370, badges:["Produto original","Compra Programada","Amigo Cobasi"],
-    loyaltyPoints:79,
-    shippingOptions:[
-      { nome:"Retire na loja", prazo:"até 11h", preco:0, freteGratis:true },
-      { nome:"Econômica", prazo:"até 1 dia útil", preco:15.90 },
-      { nome:"Cobasi Já", prazo:"até 1 hora*", preco:17.90 }
+    tipo: "cobasi",
+    gtin: "7898049719488",
+    nome: "Simparic Zoetis 40 mg 10,1–20 kg — 1 unidade",
+    brand: "Zoetis",
+    doseMg: 40,
+    weightRange: "10,1–20 kg",
+    packQty: 1,
+    precoAntigo: 133.90,
+    precoAtual: 79.90,
+    desconto: "40% OFF",
+    parcelas: "à vista",
+    rating: 4.8,
+    reviews: 1370,
+    badges: ["Produto original", "Compra Programada", "Amigo Cobasi"],
+    loyaltyPoints: 79,
+    shippingOptions: [
+      { nome: "Retire na loja", prazo: "até 11h", preco: 0, freteGratis: true },
+      { nome: "Econômica", prazo: "até 1 dia útil", preco: 15.90 },
+      { nome: "Cobasi Já", prazo: "até 1 hora*", preco: 17.90 }
     ],
-    pickupAvailable:true,
-    imagem:"https://cobasi.vteximg.com.br/arquivos/ids/1089375-368-368/Antipulgas%20Simparic%2040mg%20para%20Caes%2010%20a%2020kg.webp?v=638974276600530000",
-    link:"#",
-    detalhes:[
-      "Elimina 100% de pulgas e carrapatos.","Comprimido mastigável e altamente palatável.",
-      "Combate também três tipos de sarnas.","Indicado para cães a partir de 8 semanas de idade.",
+    pickupAvailable: true,
+    imagem: "https://cobasi.vteximg.com.br/arquivos/ids/1089375-368-368/Antipulgas%20Simparic%2040mg%20para%20Caes%2010%20a%2020kg.webp?v=638974276600530000",
+    link: "#",
+    detalhes: [
+      "Elimina 100% de pulgas e carrapatos.",
+      "Comprimido mastigável e altamente palatável.",
+      "Combate também três tipos de sarnas.",
+      "Indicado para cães a partir de 8 semanas de idade.",
       "Começa a fazer efeito em 3 horas e protege por até 35 dias."
     ]
   },
   {
-    tipo:"magalu", gtin:"7898049719488",
-    nome:"Simparic Zoetis 40 mg 10,1–20 kg — 1 unidade",
-    brand:"Zoetis", doseMg:40, weightRange:"10,1–20 kg", packQty:1,
-    precoAntigo:85.87, precoAtual:74.97, precoPix:59.98, desconto:"≈30% OFF",
-    parcelas:"1x R$ 74,97 sem juros", rating:4.7, reviews:232,
-    badges:["Magalu garante","Olist Plus"], cupom:"PET10", cupomDescricao:"10% OFF (válido até 16/11)",
-    freteAPartir:28.47,
-    imagem:"https://a-static.mlcdn.com.br/800x560/antipulgas-simparic-1-comp-10-a-20kg-zoetis/olistplus/opmjuho68xxtdv8l/43719ef3c6447d809db36e10d861f933.jpeg",
-    link:"https://divulgador.magalu.com/3BWYo8lG",
-    detalhes:["Proteção contra parasitas por 5 semanas.","Indicado para cães de 10,1 a 20 kg.","Unidades por kit: 1."]
+    tipo: "magalu",
+    gtin: "7898049719488",
+    nome: "Simparic Zoetis 40 mg 10,1–20 kg — 1 unidade",
+    brand: "Zoetis",
+    doseMg: 40,
+    weightRange: "10,1–20 kg",
+    packQty: 1,
+    precoAntigo: 85.87,
+    precoAtual: 74.97,
+    precoPix: 59.98,
+    desconto: "≈30% OFF",
+    parcelas: "1x R$ 74,97 sem juros",
+    rating: 4.7,
+    reviews: 232,
+    badges: ["Magalu garante", "Olist Plus"],
+    cupom: "PET10",
+    cupomDescricao: "10% OFF (válido até 16/11)",
+    freteAPartir: 28.47,
+    imagem: "https://a-static.mlcdn.com.br/800x560/antipulgas-simparic-1-comp-10-a-20kg-zoetis/olistplus/opmjuho68xxtdv8l/43719ef3c6447d809db36e10d861f933.jpeg",
+    link: "https://divulgador.magalu.com/3BWYo8lG",
+    detalhes: [
+      "Proteção contra parasitas por 5 semanas.",
+      "Indicado para cães de 10,1 a 20 kg.",
+      "Unidades por kit: 1."
+    ]
   },
 
-  /* Outros exemplos */
+  // Outros exemplos
   { tipo:"mercadolivre", nome:"Conjunto Bandana + Gravata (3 peças) — Shih Tzu", precoAntigo:49.90, precoAtual:32.90, desconto:"34% OFF", parcelas:"10x sem juros", detalhes:["Tecido respirável","Lavável","Ajuste com velcro"], imagem:"https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=800&auto=format&fit=crop", link:"#"},
   { tipo:"petz", nome:"Tapete Higiênico Premium p/ Cães (30 un.)", precoAntigo:119.90, precoAtual:89.90, parcelas:"3x sem juros", detalhes:["Gel superabsorvente","Adesivo antideslizante","Neutraliza odores"], imagem:"https://images.unsplash.com/photo-1543465077-db45d34b88a5?q=80&w=800&auto=format&fit=crop", link:"#"},
   { tipo:"petz", nome:"Escova Dupla — Macia & Pinos (p/ pelos longos)", precoAntigo:69.90, precoAtual:44.90, parcelas:"4x sem juros", detalhes:["Remoção de nós","Evita quebra do pelo","Cabo ergonômico"], imagem:"https://images.unsplash.com/photo-1561736778-92e52a7769ef?q=80&w=800&auto=format&fit=crop", link:"#"},
@@ -216,7 +313,7 @@ const IMG_PLACEHOLDER =
 /* cria <img> com lazy, onload/onerror e esqueleto */
 function buildImg(src, alt, className=""){
   const wrap = document.createElement("div");
-  wrap.className = "card-img-wrap skel w-full flex items-center justify-center";
+  wrap.className = "card-img-wrap skel w-full h-24 sm:h-28 flex items-center justify-center";
   const img = document.createElement("img");
   img.loading = "lazy"; img.decoding = "async";
   img.referrerPolicy = "no-referrer";
@@ -269,19 +366,16 @@ function attachLogoFallback(imgEl){
 /* ===================== Helpers GTIN + índice por GTIN ===================== */
 const onlyDigits = (s="") => (s||"").replace(/\D+/g,"");
 
-/* ✔️ GTIN-14 dígito verificador corrigido (peso 3 começa da direita) */
 function gtin14CheckDigit(body13){
-  let sum = 0;
-  for (let i = 0; i < 13; i++){
-    const n = body13.charCodeAt(i) - 48;          // dígito
-    const posFromRight = 13 - i;                   // 1..13
-    const weight = (posFromRight % 2 === 1) ? 3 : 1; // ímpar (da direita) = 3
-    sum += n * weight;
+  let sum=0;
+  for(let i=0;i<body13.length;i++){
+    const n = body13.charCodeAt(i)-48;
+    sum += (i%2===0?3:1)*n;
   }
-  const mod = sum % 10;
-  return mod === 0 ? 0 : 10 - mod;
+  const mod = sum%10; return mod===0?0:10-mod;
 }
 
+/* Normaliza EAN/UPC para GTIN-14 válido (ou "" se inválido) */
 function normalizeGTIN(raw){
   let d = onlyDigits(raw);
   if (!d) return "";
@@ -294,7 +388,7 @@ function normalizeGTIN(raw){
   return (dv===calc)?d:(body+String(calc));
 }
 
-/* Índice { GTIN-14: { loja: produto } } */
+/* Índice { GTIN-14: { loja: produto } } para lookup rápido */
 const indexByGTIN = new Map();
 function indexarPorGTIN(arr){
   indexByGTIN.clear();
@@ -306,32 +400,39 @@ function indexarPorGTIN(arr){
   }
 }
 
-/* ===================== BANNERS ===================== */
+/* ===================== BANNERS (compactos) ===================== */
 function renderBanner(containerId, tipos) {
   const faixa = el(`#${containerId}`); if (!faixa) return;
   faixa.innerHTML = "";
+
   produtos.filter(p => tipos.includes(p.tipo)).forEach(obj => {
     const p = autoFillDiscount({...obj});
     const meta = STORE_META[p.tipo];
+
     const card = document.createElement("div");
-    card.className = "relative rounded-lg flex-shrink-0 w-28 sm:w-36 p-1 cursor-pointer hover:scale-105 transition";
+    card.className = "relative banner-card rounded-lg flex-shrink-0 cursor-pointer hover:scale-[1.03] transition";
     card.style.border = `2px solid ${meta.corBorda}80`;
-    card.style.boxShadow = `0 1px 4px rgba(0,0,0,.08)`;
+    card.style.boxShadow = `0 1px 4px rgba(0,0,0,.06)`;
+
     const imgWrap = buildImg(p.imagem, p.nome);
     imgWrap.style.background = meta.bgCard;
     card.appendChild(imgWrap);
+
     const ribbon = buildRibbon(p.desconto); if(ribbon) card.appendChild(ribbon);
+
     const seloWrap = document.createElement("div");
-    seloWrap.className = "card-selo";
+    seloWrap.className = "mt-1 card-selo";
     seloWrap.innerHTML = `<img src="${meta.logo}" class="card-logo" alt="${meta.nome}">`;
     card.appendChild(seloWrap);
     attachLogoFallback(seloWrap.querySelector("img"));
+
     card.insertAdjacentHTML("beforeend", `
-      <h2 class="text-[10px] font-semibold text-center line-clamp-2 h-8 text-gray-800 mt-1">${p.nome}</h2>
+      <h2 class="font-semibold text-center line-clamp-2 text-gray-800">${p.nome}</h2>
       <p class="card-old">${p.precoAntigo ? fmt(p.precoAntigo) : ""}</p>
       <p class="card-price" style="color:${meta.corTexto}">${fmt(p.precoAtual)}</p>
       <span class="card-off" style="color:${meta.off}">${p.desconto || ""}</span>
     `);
+
     card.addEventListener("click", () => openModal(p));
     faixa.appendChild(card);
   });
@@ -341,15 +442,19 @@ function renderBanner(containerId, tipos) {
 function normalizeKey(obj){
   if (obj.sku) return `sku:${String(obj.sku).trim().toLowerCase()}`;
   if (obj.key) return `key:${String(obj.key).trim().toLowerCase()}`;
+
   let name = (obj.nome || "").toLowerCase();
+
   name = name.replace(/\([^)]*\)/g, " ");
   name = name.replace(/[—–\-]/g, " ");
   name = name.replace(/\b(pp|p|m|g|gg|xg|xl|xxl|preto|branco|bege|azul|rosa|vermelho)\b/g, " ");
   name = name.replace(/\b(\d+(?:,\d+)?)\b(?!\s*(kg|mg|ml|comprimid))/g, " ");
   name = name.replace(/\s+/g, " ").trim();
+
   const tokens = name.split(" ").filter(Boolean);
   return "nm:" + tokens.slice(0, 6).join(" ");
 }
+
 function groupByKey(list){
   const map = new Map();
   list.forEach(p=>{
@@ -359,71 +464,11 @@ function groupByKey(list){
   });
   return map;
 }
+
 function comparablesFor(product, list=produtos){
   const key = normalizeKey(product);
   return groupByKey(list).get(key) || [];
 }
-
-/* ===================== HOVERCARD / TOOLTIP ===================== */
-const hoverTip = {
-  el: null,
-  hideTimer: null,
-  ensure(){
-    if (this.el) return this.el;
-    this.el = document.getElementById("hoverTip");
-    return this.el;
-  },
-  positionNearRect(rect){
-    const tip = this.ensure();
-    if (!tip) return;
-    const margin = 8;
-    const vw = window.innerWidth, vh = window.innerHeight;
-    let x = rect.left + rect.width / 2 - tip.offsetWidth / 2;
-    let y = rect.bottom + margin;
-
-    // Ajustes para não sair da tela
-    x = Math.max(8, Math.min(x, vw - tip.offsetWidth - 8));
-    if (y + tip.offsetHeight + 8 > vh){
-      y = rect.top - tip.offsetHeight - margin;
-      if (y < 8) y = vh - tip.offsetHeight - 8;
-    }
-    tip.style.left = `${x}px`;
-    tip.style.top  = `${y}px`;
-  },
-  fill(product){
-    const tip = this.ensure(); if (!tip) return;
-    const meta = STORE_META[product.tipo] || { corTexto:"#111", logo:"" };
-    tip.querySelector(".tip-img img").src = product.imagem || "";
-    tip.querySelector(".tip-title").textContent = product.nome || "";
-    tip.querySelector(".tip-price").textContent = fmt(product.precoAtual);
-    tip.querySelector(".tip-price").style.color = meta.corTexto;
-    tip.querySelector(".tip-old").textContent = product.precoAntigo ? fmt(product.precoAntigo) : "";
-    tip.querySelector(".tip-off").textContent = product.desconto || "";
-    tip.querySelector(".tip-off").style.color = meta.corTexto;
-    tip.querySelector(".tip-store").src = meta.logo || "";
-    const desc = (product.detalhes && product.detalhes[0]) ? `• ${product.detalhes[0]}` : "";
-    tip.querySelector(".tip-desc").textContent = desc;
-  },
-  show(product, anchorRect){
-    clearTimeout(this.hideTimer);
-    const tip = this.ensure(); if (!tip) return;
-    this.fill(product);
-    tip.classList.add("show");
-    tip.setAttribute("aria-hidden","false");
-    // Força reflow para posicionar após conteúdo
-    requestAnimationFrame(()=>{
-      this.positionNearRect(anchorRect);
-    });
-  },
-  hide(delay=120){
-    clearTimeout(this.hideTimer);
-    const tip = this.ensure(); if (!tip) return;
-    this.hideTimer = setTimeout(()=>{
-      tip.classList.remove("show");
-      tip.setAttribute("aria-hidden","true");
-    }, delay);
-  }
-};
 
 /* ===================== LISTA PRINCIPAL ===================== */
 function renderLista(lista) {
@@ -434,8 +479,7 @@ function renderLista(lista) {
     const meta = STORE_META[p.tipo];
 
     const card = document.createElement("div");
-    card.className = "relative card-geral";
-    card.dataset.tipo = p.tipo;
+    card.className = "relative card-geral p-1";
     card.style.border = `2px solid ${meta.corBorda}80`;
 
     const imgWrap = buildImg(p.imagem, p.nome);
@@ -445,23 +489,24 @@ function renderLista(lista) {
     const ribbon = buildRibbon(p.desconto); if(ribbon) card.appendChild(ribbon);
 
     const seloWrap = document.createElement("div");
-    seloWrap.className = "card-selo";
+    seloWrap.className = "card-selo mt-1";
     seloWrap.innerHTML = `<img src="${meta.logo}" class="card-logo" alt="${meta.nome}">`;
     card.appendChild(seloWrap);
     attachLogoFallback(seloWrap.querySelector("img"));
 
     card.insertAdjacentHTML("beforeend", `
-      <div class="card-nome" title="${p.nome.replace(/"/g,'&quot;')}">${p.nome}</div>
+      <div class="card-nome">${p.nome}</div>
       <div class="card-old">${p.precoAntigo ? fmt(p.precoAntigo) : ""}</div>
       <div class="card-price" style="color:${meta.corTexto}">${fmt(p.precoAtual)}</div>
       <div class="card-off" style="color:${meta.off}">${p.desconto || ""}</div>
     `);
 
-    // Ações mini (mantém tudo antigo, só compacta)
+    // Ações
     const actions = document.createElement("div");
-    actions.className = "card-actions-mini";
+    actions.className = "mt-1.5 flex items-center justify-center gap-1";
+
     const btnCmp = document.createElement("button");
-    btnCmp.className = "btn-mini";
+    btnCmp.className = "px-2 py-1 rounded-md text-[10px] font-bold border border-gray-300 bg-white hover:bg-gray-50";
     btnCmp.textContent = "🔎 Comparar";
     btnCmp.addEventListener("click", (e)=>{ 
       e.stopPropagation(); 
@@ -469,41 +514,19 @@ function renderLista(lista) {
       if (g) abrirComparadorPorGTIN(g);
       else   abrirComparador(p);
     });
+
     const btnVer = document.createElement("button");
-    btnVer.className = "btn-mini";
+    btnVer.className = "px-2 py-1 rounded-md text-[10px] font-bold border border-gray-300 bg-white hover:bg-gray-50";
     btnVer.textContent = "👁️ Ver";
     btnVer.addEventListener("click", (e)=>{ e.stopPropagation(); openModal(p); });
+
     actions.appendChild(btnCmp);
     actions.appendChild(btnVer);
     card.appendChild(actions);
 
-    // HOVERCARD — desktop (hover) e mobile (touchstart)
-    card.addEventListener("pointerenter", () => {
-      const rect = card.getBoundingClientRect();
-      hoverTip.show(p, rect);
-    });
-    card.addEventListener("pointerleave", () => hoverTip.hide(80));
-    card.addEventListener("touchstart", (e)=>{
-      // Mostra o tooltip por alguns segundos no toque leve
-      const rect = card.getBoundingClientRect();
-      hoverTip.show(p, rect);
-      setTimeout(()=>hoverTip.hide(0), 2000);
-    }, {passive:true});
-
-    // Click abre modal (mantido)
+    // abrir modal ao clicar no card
     card.addEventListener("click", () => openModal(p));
-
     wrap.appendChild(card);
-  });
-
-  // Esconde tooltip durante rolagem para evitar “colagem”
-  let scrollHide;
-  ['scroll','touchmove'].forEach(evt=>{
-    window.addEventListener(evt, ()=>{
-      clearTimeout(scrollHide);
-      hoverTip.hide(0);
-      scrollHide = setTimeout(()=>hoverTip.hide(0), 100);
-    }, {passive:true});
   });
 }
 
@@ -569,7 +592,7 @@ function openModal(obj) {
     });
   }
 
-  // extras (rating, rank, cashback, GTIN, Pix, cupom) + botão comparar
+  // ---- Extras no modal ----
   (() => {
     const holderId = "modalExtras";
     let extras = el("#"+holderId);
@@ -591,6 +614,7 @@ function openModal(obj) {
       ${p.cashback ? `<div class="text-emerald-700 font-semibold">💸 ${p.cashback}</div>` : ``}
       ${p.gtin ? `<div class="text-[11px] text-gray-500">GTIN/EAN: ${normalizeGTIN(p.gtin)}</div>` : ``}
     `;
+
     if (p.precoPix){
       const pixLine = document.createElement("div");
       pixLine.className = "text-sm text-emerald-700 font-semibold text-center -mt-1";
@@ -603,6 +627,8 @@ function openModal(obj) {
       cupLine.textContent = `Cupom ${p.cupom} — ${p.cupomDescricao||""}`;
       (el("#modalPrice")?.parentElement || el("#modalBox")).appendChild(cupLine);
     }
+
+    // Botão comparar dentro do modal
     let btnCmp = el("#btnModalComparar");
     if (!btnCmp){
       btnCmp = document.createElement("button");
@@ -619,8 +645,11 @@ function openModal(obj) {
     };
   })();
 
-  // Garantia: esconder tooltip ao abrir modal
-  hoverTip.hide(0);
+  // exibe
+  const header = document.querySelector("header.sticky");
+  const selo = document.querySelector(".ml-selo");
+  if(header) header.classList.add("hidden");
+  if(selo) selo.classList.add("hidden");
 
   modal.classList.remove("hidden");
   modal.classList.add("flex");
@@ -629,12 +658,19 @@ function openModal(obj) {
     box.classList.add("scale-100","opacity-100");
   });
 }
+
 function closeModal(){
   const modal = el("#productModal");
   const box   = el("#modalBox");
   if (!modal || !box) return;
   box.classList.add("scale-95","opacity-0");
-  setTimeout(()=>{ modal.classList.add("hidden"); modal.classList.remove("flex"); },200);
+  setTimeout(()=>{
+    modal.classList.add("hidden"); modal.classList.remove("flex");
+    const header = document.querySelector("header.sticky");
+    const selo = document.querySelector(".ml-selo");
+    if(header) header.classList.remove("hidden");
+    if(selo) selo.classList.remove("hidden");
+  },200);
 }
 (function bindModal(){
   const closeBtn = el("#closeModal");
@@ -751,9 +787,7 @@ function criarBarraFiltros(){
   ["input","change"].forEach(evt=>{
     if (busca) busca.addEventListener(evt, ()=>{ showClear(); aplicarFiltros(); });
   });
-  if (clear) clear.addEventListener("click", ()=>{
-    busca.value = ""; showClear(); aplicarFiltros();
-  });
+  if (clear) clear.addEventListener("click", ()=>{ busca.value = ""; showClear(); aplicarFiltros(); });
 
   ["filtroPreco","filtroCategoria"].forEach(id=>{
     const elx = barra.querySelector(`#${id}`);
@@ -769,47 +803,23 @@ function criarBarraFiltros(){
   });
 
   barra.querySelectorAll("#filtroOrigem img").forEach(attachLogoFallback);
+
   barra.classList.add("hidden");
 }
 
-/* ======= Sincroniza texto do botão ABRIR no header (se visível) ======= */
-function syncOpenButton(){
-  const isOn  = document.body.classList.contains("modo-filtro");
-  const open  = document.getElementById("btnBuscaFlutuante");
-  if (open){
-    open.classList.toggle("ativo", isOn);
-    open.setAttribute("aria-expanded", isOn ? "true" : "false");
-    open.textContent = isOn ? "⨯ Fechar Filtro" : "🔍 Buscar / Filtrar / Comparar";
-  }
-}
-
-/* ======= Botão flutuante (corpo) para FECHAR filtro ======= */
-function ensureCloseFloat(){
-  let btn = document.getElementById("btnFecharFiltroFloat");
-  if (btn) return btn;
-
-  btn = document.createElement("button");
-  btn.id = "btnFecharFiltroFloat";
-  btn.type = "button";
-  btn.setAttribute("aria-label", "Fechar filtros");
-  btn.innerHTML = `<span class="x">✖</span> <span class="txt">Fechar filtros</span>`;
-  btn.addEventListener("click", ()=> ativarFiltro(false));
-  document.body.appendChild(btn);
-  return btn;
-}
-
-/* ======= Mostrar/ocultar modo filtro ======= */
+/* mostra/oculta modo filtro e restaura listas */
 function ativarFiltro(ativo){
-  const body   = document.body;
-  const header = document.querySelector("header.sticky, header");
-  const selo   = document.querySelector(".ml-selo");
-  const barra  = document.getElementById("barraFiltros");
+  const body = document.body;
+  const btn = document.getElementById("btnBuscaFlutuante");
+  const barra = document.getElementById("barraFiltros");
+  const header = document.querySelector("header.sticky");
+  const selo = document.querySelector(".ml-selo");
 
   if (ativo){
     body.classList.add("modo-filtro");
+    if (btn){ btn.classList.add("ativo"); btn.innerHTML = '<span>⨯</span> Fechar Filtro'; }
     if (header) header.classList.add("hidden");
-    if (selo)   selo.classList.add("hidden");
-
+    if (selo) selo.classList.add("hidden");
     if (barra){
       barra.classList.remove("hidden");
       barra.style.opacity = "0"; barra.style.transform = "translateY(-10px)";
@@ -817,36 +827,62 @@ function ativarFiltro(ativo){
         barra.style.transition = "all .35s ease"; barra.style.opacity="1"; barra.style.transform="translateY(0)";
       });
     }
-
-    ensureCloseFloat();
     window.scrollTo({ top: 0, behavior: "smooth" });
   } else {
     body.classList.remove("modo-filtro");
+    if (btn){ btn.classList.remove("ativo"); btn.innerHTML = '🔎 Buscar / Filtrar'; }
     if (header) header.classList.remove("hidden");
-    if (selo)   selo.classList.remove("hidden");
+    if (selo) selo.classList.remove("hidden");
     if (barra){
       barra.style.transition = "all .3s ease";
       barra.style.opacity="0"; barra.style.transform="translateY(-10px)";
       setTimeout(()=> barra.classList.add("hidden"), 280);
     }
-    // restaura conteúdo padrão
+    // restaurar conteúdo padrão
     renderBanner("bannerA", ["shopee","amazon","magalu","americanas","aliexpress"]);
     renderBanner("bannerB", ["petlove","mercadolivre","petz","cobasi","carrefour","casasbahia","ponto"]);
     toggleComparador(false);
     renderLista(produtos);
   }
-  syncOpenButton();
 }
 
-/* =============== BOTÕES DO HEADER (abrir) =============== */
-(function bindHeaderButtons(){
-  const btnOpen  = document.getElementById("btnBuscaFlutuante");
-  if (btnOpen){
-    btnOpen.addEventListener("click", () => {
-      const ativo = document.body.classList.contains("modo-filtro");
-      ativarFiltro(!ativo);
+/* =============== BOTÕES: abrir/fechar filtro =============== */
+(function mountCloseFloat(){
+  // cria botão flutuante lateral para fechar filtros (só exibe no modo-filtro)
+  if (!document.getElementById('btnFecharFiltroFloat')){
+    const btn = document.createElement('button');
+    btn.id = 'btnFecharFiltroFloat';
+    btn.type = 'button';
+    btn.title = 'Fechar filtros';
+    btn.setAttribute('aria-label','Fechar filtros');
+    btn.innerHTML = '✖ Fechar filtros';
+    document.body.appendChild(btn);
+
+    btn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      if (document.body.classList.contains('modo-filtro')){
+        ativarFiltro(false);
+      }
     });
   }
+})();
+
+(function bindOpenToggle(){
+  const btnFloat = document.getElementById("btnBuscaFlutuante");
+  if (!btnFloat) return;
+  const syncAria = () => {
+    btnFloat.setAttribute(
+      'aria-expanded',
+      document.body.classList.contains('modo-filtro') ? 'true':'false'
+    );
+    btnFloat.classList.toggle('ativo', document.body.classList.contains('modo-filtro'));
+  };
+  btnFloat.addEventListener("click", () => {
+    const ativo = document.body.classList.contains("modo-filtro");
+    ativarFiltro(!ativo);
+    setTimeout(syncAria, 0);
+  });
+  document.addEventListener('DOMContentLoaded', syncAria);
 })();
 
 /* =============== ROLAGEM AUTOMÁTICA BANNERS =============== */
@@ -883,6 +919,7 @@ function toggleComparador(show){
     secList.classList.remove("hidden");
   }
 }
+
 function abrirComparadorPorGTIN(gtin14){
   closeModal();
   const pack = indexByGTIN.get(gtin14);
@@ -896,6 +933,7 @@ function abrirComparadorPorGTIN(gtin14){
   renderComparador(grupo, grupo[0]);
   toggleComparador(true);
 }
+
 function abrirComparador(baseProduct){
   closeModal();
   const g = normalizeGTIN(baseProduct.gtin);
@@ -904,6 +942,7 @@ function abrirComparador(baseProduct){
   renderComparador(grupo, baseProduct);
   toggleComparador(true);
 }
+
 function renderComparador(grupo, baseProduct){
   const cont = el("#listaComparativos");
   if (!cont) return;
@@ -996,6 +1035,8 @@ function renderComparador(grupo, baseProduct){
     const top = document.createElement("div");
     top.className = "flex items-center gap-2";
     const imgW = buildImg(p.imagem, p.nome, "h-14");
+    imgW.classList.remove("h-24","sm:h-28");
+    imgW.classList.add("h-16","sm:h-20");
     top.appendChild(imgW);
 
     const nm = document.createElement("div");
@@ -1010,8 +1051,170 @@ function renderComparador(grupo, baseProduct){
   });
 }
 
+/* ===================== TOOLTIP / HOVERCARD ===================== */
+(function(){
+  const tip = document.getElementById('hoverTip');
+  if(!tip){ return; }
+
+  const tipImg   = tip.querySelector('.tip-img img');
+  const tipStore = tip.querySelector('.tip-store');
+  const tipTitle = tip.querySelector('.tip-title');
+  const tipOld   = tip.querySelector('.tip-old');
+  const tipOff   = tip.querySelector('.tip-off');
+  const tipPrice = tip.querySelector('.tip-price');
+  const tipDesc  = tip.querySelector('.tip-desc');
+
+  let rafMove = null;
+  function moveHoverTip(px, py){
+    if(rafMove) cancelAnimationFrame(rafMove);
+    rafMove = requestAnimationFrame(()=>{
+      const pad = 16;
+      const vw = window.innerWidth, vh = window.innerHeight;
+      const rect = tip.getBoundingClientRect();
+      let x = px + pad, y = py + pad;
+      if (x + rect.width > vw - 8)  x = vw - rect.width - 8;
+      if (y + rect.height > vh - 8) y = py - rect.height - pad;
+      tip.style.left = x + 'px';
+      tip.style.top  = y + 'px';
+    });
+  }
+
+  function storeMeta(tipo){
+    if (typeof STORE_META === 'object' && STORE_META[tipo]) return STORE_META[tipo];
+    return { nome: tipo || 'Loja', logo: '' };
+  }
+
+  function showHoverTip(prod, px, py){
+    if(!prod) return;
+    const meta = storeMeta(prod.tipo);
+
+    tipImg.src = prod.imagem || '';
+    tipImg.onerror = ()=>{ tipImg.src = ''; };
+
+    if (meta.logo){
+      tipStore.src = meta.logo;
+      tipStore.alt = meta.nome || 'Loja';
+      tipStore.style.display = 'block';
+    } else {
+      tipStore.style.display = 'none';
+    }
+
+    tipTitle.textContent = prod.nome || '';
+    tipOld.textContent   = (prod.precoAntigo ? fmt(prod.precoAntigo) : '');
+    tipOff.textContent   = (prod.desconto || '');
+    tipPrice.textContent = fmt(prod.precoAtual||0);
+
+    if (Array.isArray(prod.detalhes) && prod.detalhes.length){
+      tipDesc.textContent = '• ' + prod.detalhes.slice(0,2).join('  • ');
+    } else {
+      tipDesc.textContent = '';
+    }
+
+    tip.classList.add('show');
+    tip.setAttribute('aria-hidden','false');
+    moveHoverTip(px, py);
+  }
+
+  function hideHoverTip(){
+    tip.classList.remove('show');
+    tip.setAttribute('aria-hidden','true');
+  }
+
+  function bindHoverForCard(cardEl, prod){
+    if(!cardEl || !prod) return;
+
+    // mouse
+    cardEl.addEventListener('mouseenter', e=>{
+      showHoverTip(prod, e.clientX, e.clientY);
+    });
+    cardEl.addEventListener('mousemove', e=>{
+      moveHoverTip(e.clientX, e.clientY);
+    });
+    cardEl.addEventListener('mouseleave', hideHoverTip);
+
+    // touch
+    let touchTimer = null;
+    cardEl.addEventListener('touchstart', e=>{
+      const t = e.touches[0];
+      showHoverTip(prod, t.clientX, t.clientY);
+    }, {passive:true});
+    cardEl.addEventListener('touchmove', e=>{
+      const t = e.touches[0];
+      moveHoverTip(t.clientX, t.clientY);
+    }, {passive:true});
+    cardEl.addEventListener('touchend', ()=>{
+      if (touchTimer) clearTimeout(touchTimer);
+    });
+  }
+
+  window.addEventListener('scroll', hideHoverTip, { passive:true });
+  document.addEventListener('touchstart', (e)=>{
+    if (!tip.contains(e.target)) hideHoverTip();
+  }, { passive:true });
+
+  // Decorar renderLista e renderBanner para anexar tooltips
+  const _renderLista = window.renderLista;
+  if (typeof _renderLista === 'function'){
+    window.renderLista = function(lista){
+      _renderLista(lista);
+      const wrap = document.querySelector('#listaProdutos');
+      if (!wrap) return;
+      const cards = wrap.querySelectorAll('.card-geral');
+      cards.forEach((card, idx)=>{
+        const prod = lista[idx];
+        if (prod) bindHoverForCard(card, prod);
+      });
+    };
+  }
+
+  const _renderBanner = window.renderBanner;
+  if (typeof _renderBanner === 'function'){
+    window.renderBanner = function(containerId, tipos){
+      _renderBanner(containerId, tipos);
+      const faixa = document.getElementById(containerId);
+      if (!faixa) return;
+      const rendered = (window.produtos || []).filter(p => (tipos||[]).includes(p.tipo));
+      const cards = faixa.querySelectorAll('.banner-card');
+      cards.forEach((card, idx)=>{
+        const prod = rendered[idx];
+        if (prod) bindHoverForCard(card, prod);
+      });
+    };
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    // lista
+    const wrap = document.querySelector('#listaProdutos');
+    if (wrap){
+      const cards = wrap.querySelectorAll('.card-geral');
+      cards.forEach((card, idx)=>{
+        const prod = (window.produtos || [])[idx];
+        if (prod) bindHoverForCard(card, prod);
+      });
+    }
+    // banners
+    ['bannerA','bannerB'].forEach(id=>{
+      const faixa = document.getElementById(id);
+      if (!faixa) return;
+      const tipos = (id==='bannerA')
+        ? ['shopee','amazon','magalu','americanas','aliexpress']
+        : ['petlove','mercadolivre','petz','cobasi','carrefour','casasbahia','ponto'];
+      const rendered = (window.produtos || []).filter(p => tipos.includes(p.tipo));
+      const cards = faixa.querySelectorAll('.banner-card');
+      cards.forEach((card, idx)=>{
+        const prod = rendered[idx];
+        if (prod) bindHoverForCard(card, prod);
+      });
+    });
+  });
+
+  // Expor helpers se precisar
+  window.__hoverTip = { show: showHoverTip, hide: hideHoverTip, bind: bindHoverForCard };
+})();
+
 /* ===================== INIT ===================== */
 window.addEventListener("DOMContentLoaded", ()=>{
+  // conteúdo padrão
   renderBanner("bannerA", ["shopee","amazon","magalu","americanas","aliexpress"]);
   renderBanner("bannerB", ["petlove","mercadolivre","petz","cobasi","carrefour","casasbahia","ponto"]);
   renderLista(produtos);
@@ -1020,7 +1223,25 @@ window.addEventListener("DOMContentLoaded", ()=>{
   autoScroll("bannerB");
   document.body.classList.remove("modo-filtro");
 
+  // Índice de GTIN para comparador por código
   indexarPorGTIN(produtos);
-  syncOpenButton();      // ajusta texto do botão abrir
-  ensureCloseFloat();    // injeta botão flutuante (oculto até entrar em modo-filtro)
+
+  // Toolbar opcional (caso exista)
+  const tb = document.querySelector(".ml-toolbar");
+  if (tb){
+    const btnBack = document.createElement("button");
+    btnBack.className = "hidden ml-auto px-3 py-1.5 rounded-md bg-black text-white text-xs font-bold";
+    btnBack.id = "toolbarVoltar";
+    btnBack.textContent = "← Voltar para a lista";
+    btnBack.onclick = ()=> toggleComparador(false);
+    tb.appendChild(btnBack);
+
+    const obs = new MutationObserver(()=>{
+      const secCmp = el("#secComparador");
+      if (secCmp && !secCmp.classList.contains("hidden")) btnBack.classList.remove("hidden");
+      else btnBack.classList.add("hidden");
+    });
+    const secC = el("#secComparador");
+    if (secC) obs.observe(secC, { attributes:true, attributeFilter:["class"] });
+  }
 });
