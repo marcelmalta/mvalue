@@ -310,18 +310,119 @@ const IMG_PLACEHOLDER =
     </g>
   </svg>`);
 
+/* ======= Estado de filtros-alvo (item + similares) ======= */
+window.filtrosAlvo = {
+  gtin: null,
+  simKey: null,
+  rotulo: null
+};
+
+/* gera uma chave de similaridade a partir do nome */
+function makeSimKey(nome=""){
+  const base = (nome||"")
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .toLowerCase();
+
+  const stop = /\b(para|pra|de|do|da|dos|das|com|e|ou|o|a|os|as|kit|combo|original|novo|nova|pro|plus|max|premium|mega|ultra|pet|cao|cão|gato|cachorro|filhote|adulto|racoes?|ração|raças?|pequenas?|medias?|médias?|grandes?)\b/g;
+  let s = base.replace(stop, " ");
+
+  s = s
+    .replace(/\b(\d+(\.\d+)?)(ml|l|g|kg|un|cm|mm)\b/g," ")
+    .replace(/\b(\d+)(gb|tb)\b/g," ")
+    .replace(/\b(\d+)\s?(x|un|pcs?)\b/g," ")
+    .replace(/\b(preto|branco|azul|rosa|vermelho|verde|amarelo|roxo|marrom|bege|cinza|grafite|dourado|prata)\b/g," ");
+
+  s = s.replace(/[^\w\s]/g, " ").replace(/\s{2,}/g, " ").trim();
+
+  const tokens = s.split(" ").filter(Boolean).slice(0, 7);
+  return tokens.join("-").replace(/-{2,}/g,"-").slice(0, 40);
+}
+
+/* anota simKey/gtin nos produtos (uma vez) */
+function indexarSimilares(lista){
+  (lista||[]).forEach(p=>{
+    if (!p.simKey) p.simKey = makeSimKey(p.nome||"");
+    if (p.gtin != null) p.gtin = String(p.gtin).trim();
+  });
+}
+
+/* aplica destaque visual nos cards do alvo selecionado */
+function destacarSelecao(){
+  const { gtin, simKey } = window.filtrosAlvo;
+  const on = !!(gtin || simKey);
+  document.querySelectorAll(".card-geral").forEach(card=>{
+    card.classList.remove("ring-2","ring-amber-400","shadow-amber-200","shadow-lg");
+    if (!on) return;
+    const cGTIN  = card.getAttribute("data-gtin");
+    const cSIMK  = card.getAttribute("data-simkey");
+    const hit = (gtin && cGTIN && String(cGTIN)===String(gtin)) ||
+                (simKey && cSIMK && String(cSIMK)===String(simKey));
+    if (hit) card.classList.add("ring-2","ring-amber-400","shadow-amber-200","shadow-lg");
+  });
+}
+
+/* chip de estado dentro da barra de filtros */
+function ensureChipSelecionado(){
+  const barra = document.getElementById("barraFiltros");
+  if (!barra) return;
+  let chip = barra.querySelector(".chip-similares");
+  const ativo = !!(filtrosAlvo.gtin || filtrosAlvo.simKey);
+
+  if (!ativo){ chip?.remove(); return; }
+
+  if (!chip){
+    chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = "chip-similares flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-extrabold border border-amber-300 bg-amber-50 hover:bg-amber-100";
+    chip.innerHTML = `<span>Selecionado: ${filtrosAlvo.rotulo||"Produto"} <em class="opacity-70">(similares)</em></span>
+                      <span class="ml-1 inline-flex items-center justify-center w-5 h-5 rounded-full border border-amber-300 bg-white">✕</span>`;
+    chip.addEventListener("click", ()=>{
+      filtrosAlvo.gtin = null; filtrosAlvo.simKey = null; filtrosAlvo.rotulo = null;
+      aplicarFiltros(); // re-render com todos
+    });
+    (barra.querySelector(".f-controls")||barra).appendChild(chip);
+  } else {
+    chip.querySelector("span").firstChild.textContent = `Selecionado: ${filtrosAlvo.rotulo||"Produto"} `;
+  }
+}
+
+/* ativa o filtro para um produto e força a lista exibir seus similares */
+function selecionarProdutoNosFiltros(produto){
+  if (!produto) return;
+  if (!produto.simKey) produto.simKey = makeSimKey(produto.nome || "");
+
+  const alvoGTIN = normalizeGTIN(produto.gtin);
+  window.filtrosAlvo.gtin = alvoGTIN || null;
+  window.filtrosAlvo.simKey = alvoGTIN ? null : (produto.simKey || null);
+  window.filtrosAlvo.rotulo = produto.nome || "Produto";
+
+  aplicarFiltros({ modoCatalogo: true });
+}
+
+
 /* cria <img> com lazy, onload/onerror e esqueleto */
-function buildImg(src, alt, className=""){
+function buildImg(src, alt, className = "") {
   const wrap = document.createElement("div");
-  wrap.className = "card-img-wrap skel w-full h-24 sm:h-28 flex items-center justify-center";
+  // Alturas responsivas mais baixas (compactas)
+  const applyHeight = () => {
+    if (window.innerWidth >= 1024) wrap.style.height = "56px";
+    else if (window.innerWidth >= 640) wrap.style.height = "48px";
+    else wrap.style.height = "40px";
+  };
+  applyHeight();
+  window.addEventListener("resize", applyHeight);
+
+  wrap.className = "card-img-wrap skel w-full flex items-center justify-center rounded-md overflow-hidden";
   const img = document.createElement("img");
-  img.loading = "lazy"; img.decoding = "async";
+  img.loading = "lazy";
+  img.decoding = "async";
   img.referrerPolicy = "no-referrer";
   img.src = src || IMG_PLACEHOLDER;
   img.alt = alt || "";
-  img.className = `card-img ${className}`;
+  img.className = `card-img max-h-full object-contain transition-transform duration-200 ${className}`;
   img.onerror = () => { img.src = IMG_PLACEHOLDER; };
   img.onload = () => { wrap.classList.remove("skel"); };
+
   wrap.appendChild(img);
   return wrap;
 }
@@ -482,6 +583,11 @@ function renderLista(lista) {
     card.className = "relative card-geral p-1";
     card.style.border = `2px solid ${meta.corBorda}80`;
 
+    // === atributos p/ highlight ===
+    if (p.gtin)   card.setAttribute("data-gtin", String(p.gtin));
+    if (!p.simKey) p.simKey = makeSimKey(p.nome||"");
+    card.setAttribute("data-simkey", p.simKey);
+
     const imgWrap = buildImg(p.imagem, p.nome);
     imgWrap.style.background = meta.bgCard;
     card.appendChild(imgWrap);
@@ -524,10 +630,14 @@ function renderLista(lista) {
     actions.appendChild(btnVer);
     card.appendChild(actions);
 
-    // abrir modal ao clicar no card
-    card.addEventListener("click", () => openModal(p));
+    // ⚠️ Removido: abrir modal ao clicar no card
+    // card.addEventListener("click", () => openModal(p));
+
     wrap.appendChild(card);
   });
+
+  // aplica destaque se houver seleção
+  destacarSelecao();
 }
 
 /* ===================== MODAL ===================== */
@@ -693,7 +803,11 @@ document.addEventListener("click", (e) => {
 });
 
 /* ===================== FILTROS ===================== */
-function aplicarFiltros(){
+function aplicarFiltros(arg){
+  const isEvent = arg && typeof arg === "object" && "target" in arg && typeof arg.preventDefault === "function";
+  const options = isEvent ? {} : (arg || {});
+  const modoCatalogo = !!options.modoCatalogo;
+
   const busca = (el("#buscaInput")?.value || "").toLowerCase();
   const categoria = (el("#filtroCategoria")?.value || "").toLowerCase();
   const preco = el("#filtroPreco")?.value || "";
@@ -707,23 +821,53 @@ function aplicarFiltros(){
     "rações": ["ração","racao"]
   };
 
+  const { gtin: alvoGTIN, simKey: alvoSIMK } = window.filtrosAlvo;
+  const temAlvo = Boolean(alvoGTIN || alvoSIMK);
+  document.body.classList.toggle("catalogo-focus", temAlvo);
+
   const filtrados = produtos.filter(p=>{
+    // origem
     if (origens.length && !origens.includes(p.tipo)) return false;
-    if (busca && !p.nome.toLowerCase().includes(busca)) return false;
+    // texto
+    if (busca && !temAlvo && !p.nome.toLowerCase().includes(busca)) return false;
+    // categoria
     if (categoria){
       const termos = mapaCat[categoria] || [];
       if (!termos.some(t=>p.nome.toLowerCase().includes(t))) return false;
     }
+    // preço
     if (preco === "0" && p.precoAtual > 50) return false;
     if (preco === "1" && (p.precoAtual < 50 || p.precoAtual > 150)) return false;
     if (preco === "2" && p.precoAtual < 150) return false;
+
+    // ==== interseção com alvo selecionado ====
+    if (alvoGTIN || alvoSIMK){
+      const gOK = alvoGTIN && normalizeGTIN(p.gtin) === alvoGTIN;
+      const kOK = alvoSIMK && String(p.simKey||"") === String(alvoSIMK);
+      if (!(gOK || kOK)) return false;
+    }
+
     return true;
   });
 
-  ativarFiltro(true);
+  if (modoCatalogo){
+    document.body.classList.remove("modo-filtro");
+    document.querySelector("header.sticky")?.classList.remove("hidden");
+    document.querySelector(".ml-selo")?.classList.remove("hidden");
+    document.getElementById("barraFiltros")?.classList.add("hidden");
+    const secLista = document.getElementById("secListaProdutos");
+    if (secLista){
+      requestAnimationFrame(()=>{
+        secLista.scrollIntoView({ behavior:"smooth", block:"start" });
+      });
+    }
+  } else {
+    ativarFiltro(true);
+  }
   toggleComparador(false);
   renderLista(filtrados);
 
+  // estado vazio
   const lista = el("#listaProdutos");
   if (lista && !filtrados.length){
     lista.innerHTML = `
@@ -732,6 +876,9 @@ function aplicarFiltros(){
         <span class="text-sm text-gray-500">Tente mudar os filtros ou limpar a busca.</span>
       </div>`;
   }
+
+  // atualiza chip
+  ensureChipSelecionado();
 }
 
 /* cria a barra de filtros logo abaixo do selo multimarcas */
@@ -805,6 +952,61 @@ function criarBarraFiltros(){
   barra.querySelectorAll("#filtroOrigem img").forEach(attachLogoFallback);
 
   barra.classList.add("hidden");
+}
+/* ===================== BUSCA INTELIGENTE (AUTOCOMPLETE) ===================== */
+function setupAutocomplete(){
+  const input = document.querySelector("#buscaInput");
+  if(!input) return;
+  const box = document.createElement("div");
+  box.id = "autocompleteBox";
+  Object.assign(box.style,{
+    position:"absolute",top:"100%",left:"0",right:"0",
+    background:"#FFF8ED",border:"1px solid #D6A75C",
+    borderRadius:"10px",boxShadow:"0 4px 12px rgba(0,0,0,.12)",
+    zIndex:"80",padding:"6px",display:"none",maxHeight:"280px",overflowY:"auto"
+  });
+  input.parentElement.style.position="relative";
+  input.parentElement.appendChild(box);
+
+  function renderSuggestions(txt){
+    const val=txt.toLowerCase().trim();
+    if(!val){ box.style.display="none"; return; }
+    const matches=produtos.filter(p=>p.nome.toLowerCase().includes(val)).slice(0,8);
+    if(!matches.length){
+      box.innerHTML="<div style='padding:6px;color:#555;font-size:13px;'>Nenhum resultado encontrado</div>";
+      box.style.display="block";return;
+    }
+    box.innerHTML="";
+    matches.forEach(p=>{
+      const meta=STORE_META[p.tipo]||{};
+      const item=document.createElement("div");
+      item.style.display="flex";item.style.alignItems="center";item.style.gap="8px";
+      item.style.padding="5px 6px";item.style.cursor="pointer";item.style.borderRadius="8px";
+      item.style.transition="background .15s";item.onmouseenter=()=>item.style.background="#fff3d6";
+      item.onmouseleave=()=>item.style.background="transparent";
+
+      const img=document.createElement("img");
+      img.src=p.imagem||IMG_PLACEHOLDER;img.alt=p.nome;
+      Object.assign(img.style,{width:"40px",height:"40px",objectFit:"contain",borderRadius:"6px",flexShrink:"0"});
+
+      const name=document.createElement("div");
+      name.style.flex="1";name.style.fontSize="13px";name.style.fontWeight="600";name.style.color="#333";
+      const regex=new RegExp(`(${val})`,"gi");
+      name.innerHTML=p.nome.replace(regex,"<b>$1</b>");
+
+      item.appendChild(img);item.appendChild(name);
+      item.onclick=()=>{
+        selecionarProdutoNosFiltros(p);
+        box.style.display="none";
+      };
+      box.appendChild(item);
+    });
+    box.style.display="block";
+  }
+  input.addEventListener("input",()=>renderSuggestions(input.value));
+  document.addEventListener("click",e=>{
+    if(!box.contains(e.target)&&e.target!==input) box.style.display="none";
+  });
 }
 
 /* mostra/oculta modo filtro e restaura listas */
@@ -1219,6 +1421,7 @@ window.addEventListener("DOMContentLoaded", ()=>{
   renderBanner("bannerB", ["petlove","mercadolivre","petz","cobasi","carrefour","casasbahia","ponto"]);
   renderLista(produtos);
   criarBarraFiltros();
+  setupAutocomplete();
   autoScroll("bannerA");
   autoScroll("bannerB");
   document.body.classList.remove("modo-filtro");
