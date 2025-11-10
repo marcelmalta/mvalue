@@ -401,25 +401,35 @@ function selecionarProdutoNosFiltros(produto){
 
 
 /* cria <img> com lazy, onload/onerror e esqueleto */
-function buildImg(src, alt, className = "") {
+function buildImg(src, alt, opts = "") {
+  const config = typeof opts === "string" ? { imgClass: opts } : (opts || {});
+  const variant = config.variant || "default";
+  const extraImgClass = config.imgClass || config.className || "";
+  const extraWrapClass = config.wrapClass || "";
   const wrap = document.createElement("div");
+  const heights = variant === "compact"
+    ? { desktop: 44, tablet: 38, mobile: 30 }
+    : { desktop: 56, tablet: 48, mobile: 40 };
   // Alturas responsivas mais baixas (compactas)
   const applyHeight = () => {
-    if (window.innerWidth >= 1024) wrap.style.height = "56px";
-    else if (window.innerWidth >= 640) wrap.style.height = "48px";
-    else wrap.style.height = "40px";
+    if (window.innerWidth >= 1024) wrap.style.height = `${heights.desktop}px`;
+    else if (window.innerWidth >= 640) wrap.style.height = `${heights.tablet}px`;
+    else wrap.style.height = `${heights.mobile}px`;
   };
   applyHeight();
   window.addEventListener("resize", applyHeight);
 
-  wrap.className = "card-img-wrap skel w-full flex items-center justify-center rounded-md overflow-hidden";
+  wrap.className = [
+    "card-img-wrap skel w-full flex items-center justify-center rounded-md overflow-hidden",
+    extraWrapClass
+  ].join(" ").trim();
   const img = document.createElement("img");
   img.loading = "lazy";
   img.decoding = "async";
   img.referrerPolicy = "no-referrer";
   img.src = src || IMG_PLACEHOLDER;
   img.alt = alt || "";
-  img.className = `card-img max-h-full object-contain transition-transform duration-200 ${className}`;
+  img.className = `card-img max-h-full object-contain transition-transform duration-200 ${extraImgClass}`.trim();
   img.onerror = () => { img.src = IMG_PLACEHOLDER; };
   img.onload = () => { wrap.classList.remove("skel"); };
 
@@ -588,11 +598,9 @@ function renderLista(lista) {
     if (!p.simKey) p.simKey = makeSimKey(p.nome||"");
     card.setAttribute("data-simkey", p.simKey);
 
-    const imgWrap = buildImg(p.imagem, p.nome);
+    const imgWrap = buildImg(p.imagem, p.nome, { variant: "compact" });
     imgWrap.style.background = meta.bgCard;
     card.appendChild(imgWrap);
-
-    const ribbon = buildRibbon(p.desconto); if(ribbon) card.appendChild(ribbon);
 
     const seloWrap = document.createElement("div");
     seloWrap.className = "card-selo mt-1";
@@ -602,36 +610,8 @@ function renderLista(lista) {
 
     card.insertAdjacentHTML("beforeend", `
       <div class="card-nome">${p.nome}</div>
-      <div class="card-old">${p.precoAntigo ? fmt(p.precoAntigo) : ""}</div>
-      <div class="card-price" style="color:${meta.corTexto}">${fmt(p.precoAtual)}</div>
-      <div class="card-off" style="color:${meta.off}">${p.desconto || ""}</div>
+      <div class="card-price card-price--solo" style="color:${meta.corTexto}">${fmt(p.precoAtual)}</div>
     `);
-
-    // Ações
-    const actions = document.createElement("div");
-    actions.className = "mt-1.5 flex items-center justify-center gap-1";
-
-    const btnCmp = document.createElement("button");
-    btnCmp.className = "px-2 py-1 rounded-md text-[10px] font-bold border border-gray-300 bg-white hover:bg-gray-50";
-    btnCmp.textContent = "🔎 Comparar";
-    btnCmp.addEventListener("click", (e)=>{ 
-      e.stopPropagation(); 
-      const g = normalizeGTIN(p.gtin);
-      if (g) abrirComparadorPorGTIN(g);
-      else   abrirComparador(p);
-    });
-
-    const btnVer = document.createElement("button");
-    btnVer.className = "px-2 py-1 rounded-md text-[10px] font-bold border border-gray-300 bg-white hover:bg-gray-50";
-    btnVer.textContent = "👁️ Ver";
-    btnVer.addEventListener("click", (e)=>{ e.stopPropagation(); openModal(p); });
-
-    actions.appendChild(btnCmp);
-    actions.appendChild(btnVer);
-    card.appendChild(actions);
-
-    // ⚠️ Removido: abrir modal ao clicar no card
-    // card.addEventListener("click", () => openModal(p));
 
     wrap.appendChild(card);
   });
