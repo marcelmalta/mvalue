@@ -625,6 +625,24 @@ function renderLista(lista) {
   destacarSelecao();
 }
 
+const renderStarsCompact = (rating=0) => {
+  const full = Math.floor(rating);
+  const half = rating - full >= 0.25 && rating - full < 0.75 ? 1 : 0;
+  const empty = 5 - full - half;
+  return "★".repeat(full) + (half?"☆":"") + "·".repeat(Math.max(empty,0));
+};
+const setMetaRow = (id, html) => {
+  const target = el(`#${id}`);
+  if (!target) return;
+  if (!html){
+    target.classList.add("hidden");
+    target.innerHTML = "";
+  } else {
+    target.classList.remove("hidden");
+    target.innerHTML = html;
+  }
+};
+
 /* ===================== MODAL ===================== */
 function openModal(obj) {
   const p = autoFillDiscount({...obj});
@@ -666,7 +684,7 @@ function openModal(obj) {
     link.style.background = `linear-gradient(90deg, ${meta.btn[0]}, ${meta.btn[1]})`;
     link.style.color = (p.tipo === "petlove" || p.tipo === "mercadolivre") ? "#0b1322" : "#fff";
     link.style.border = `1px solid ${meta.corBorda}88`;
-    const lojaLabel = meta?.nome || "loja";
+    const lojaLabel = (meta && meta.nome) ? meta.nome : "loja";
     link.textContent = `Comprar na ${lojaLabel}`;
     link.setAttribute("aria-label", `Ir para ${lojaLabel} e finalizar a compra`);
   }
@@ -683,67 +701,46 @@ function openModal(obj) {
   const ul = el("#modalDetails");
   if (ul){
     ul.innerHTML = "";
-    (p.detalhes || []).forEach(t => {
-      const li = document.createElement("li");
-      li.textContent = t;
-      ul.appendChild(li);
-    });
+    const maxDetails = window.innerWidth <= 640 ? 3 : 6;
+    const detalhes = (p.detalhes || []).slice(0, maxDetails);
+    if (detalhes.length){
+      ul.classList.remove("hidden");
+      detalhes.forEach(t => {
+        const li = document.createElement("li");
+        li.textContent = t;
+        ul.appendChild(li);
+      });
+    } else {
+      ul.classList.add("hidden");
+    }
   }
 
-  // ---- Extras no modal ----
-  (() => {
-    const holderId = "modalExtras";
-    let extras = el("#"+holderId);
-    if (!extras){
-      extras = document.createElement("div");
-      extras.id = holderId;
-      extras.className = "text-center text-sm text-gray-700 space-y-1";
-      el("#modalPrice")?.insertAdjacentElement("afterend", extras);
-    }
-    function renderStars(rating=0){
-      const full = Math.floor(rating);
-      const half = rating - full >= 0.25 && rating - full < 0.75 ? 1 : 0;
-      const empty = 5 - full - half;
-      return "★".repeat(full) + (half?"☆":"") + "✩".repeat(empty);
-    }
-    extras.innerHTML = `
-      ${p.rating ? `<div><b>${p.rating.toFixed(1)}</b> ${renderStars(p.rating)} <span class="text-gray-500">(${p.reviews?.toLocaleString?.("pt-BR")||p.reviews||""})</span></div>` : ``}
-      ${p.categoryRank ? `<div class="rank-chip inline-block !mt-0">${p.categoryRank}</div>` : ``}
-      ${p.cashback ? `<div class="text-emerald-700 font-semibold">💸 ${p.cashback}</div>` : ``}
-      ${p.gtin ? `<div class="text-[11px] text-gray-500">GTIN/EAN: ${normalizeGTIN(p.gtin)}</div>` : ``}
-    `;
+  setMetaRow("modalRatingRow",
+    p.rating
+      ? `<span class="text-gray-900 font-semibold">${p.rating.toFixed(1)}</span> <span class="text-amber-500">${renderStarsCompact(p.rating)}</span> <span class="text-[11px] text-gray-500">${p.reviews ? (p.reviews.toLocaleString ? '(' + p.reviews.toLocaleString('pt-BR') + ')' : '(' + p.reviews + ')') : ''}</span>`
+      : ""
+  );
+  setMetaRow("modalRankRow", p.categoryRank ? `${p.categoryRank}` : "");
+  setMetaRow("modalCashbackRow", p.cashback ? `Cashback: ${p.cashback}` : "");
+  setMetaRow("modalPixRow", p.precoPix ? `Pix: <strong>${fmt(p.precoPix)}</strong>` : "");
+  setMetaRow("modalGtinRow", p.gtin ? `GTIN/EAN: <strong>${normalizeGTIN(p.gtin)}</strong>` : "");
+  setMetaRow("modalCupomRow", p.cupom ? `Cupom ${p.cupom}${p.cupomDescricao ? ' - ' + p.cupomDescricao : ''}` : "");
 
-    if (p.precoPix){
-      const pixLine = document.createElement("div");
-      pixLine.className = "text-sm text-emerald-700 font-semibold text-center -mt-1";
-      pixLine.textContent = `Pix: ${fmt(p.precoPix)}`;
-      el("#modalPrice")?.insertAdjacentElement("afterend", pixLine);
-    }
-    if (p.cupom){
-      const cupLine = document.createElement("div");
-      cupLine.className = "text-xs text-amber-700 font-semibold text-center";
-      cupLine.textContent = `Cupom ${p.cupom} — ${p.cupomDescricao||""}`;
-      (el("#modalPrice")?.parentElement || el("#modalBox")).appendChild(cupLine);
-    }
+  let btnCmp = el("#btnModalComparar");
+  if (!btnCmp){
+    btnCmp = document.createElement("button");
+    btnCmp.id = "btnModalComparar";
+    btnCmp.className = "mt-2 bg-white font-semibold py-2.5 rounded-md shadow border";
+    btnCmp.textContent = "Comparar precos deste item";
+    const linkRef = el("#modalLink");
+    if (linkRef) linkRef.insertAdjacentElement("afterend", btnCmp);
+  }
+  btnCmp.onclick = ()=> {
+    const g = normalizeGTIN(p.gtin);
+    if (g) abrirComparadorPorGTIN(g);
+    else   abrirComparador(p);
+  };
 
-    // Botão comparar dentro do modal
-    let btnCmp = el("#btnModalComparar");
-    if (!btnCmp){
-      btnCmp = document.createElement("button");
-      btnCmp.id = "btnModalComparar";
-      btnCmp.className = "mt-2 bg-white font-semibold py-2.5 rounded-md shadow border";
-      btnCmp.textContent = "🔎 Comparar preços deste item";
-      const linkRef = el("#modalLink");
-      if (linkRef) linkRef.insertAdjacentElement("afterend", btnCmp);
-    }
-    btnCmp.onclick = ()=> {
-      const g = normalizeGTIN(p.gtin);
-      if (g) abrirComparadorPorGTIN(g);
-      else   abrirComparador(p);
-    };
-  })();
-
-  // exibe
   const header = document.querySelector("header.sticky");
   const selo = document.querySelector(".ml-selo");
   if(header) header.classList.add("hidden");
