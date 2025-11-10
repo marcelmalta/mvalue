@@ -565,11 +565,17 @@ function comparablesFor(product, list=produtos){
   return groupByKey(list).get(key) || [];
 }
 
+let listaAtual = produtos.slice();
+window.listaAtual = listaAtual;
+
 /* ===================== LISTA PRINCIPAL ===================== */
 function renderLista(lista) {
   const wrap = el("#listaProdutos"); if (!wrap) return;
+  const data = Array.isArray(lista) ? lista : [];
+  listaAtual = [...data];
+  window.listaAtual = listaAtual;
   wrap.innerHTML = "";
-  lista.forEach(obj => {
+  data.forEach(obj => {
     const p = autoFillDiscount({...obj});
     const meta = STORE_META[p.tipo];
 
@@ -592,10 +598,25 @@ function renderLista(lista) {
     card.appendChild(seloWrap);
     attachLogoFallback(seloWrap.querySelector("img"));
 
+    const compareBtn = document.createElement("button");
+    compareBtn.type = "button";
+    compareBtn.className = "card-compare-btn";
+    compareBtn.title = "Comparar este item";
+    compareBtn.innerHTML = "⇄";
+    compareBtn.addEventListener("click", (evt)=>{
+      evt.stopPropagation();
+      const g = normalizeGTIN(p.gtin);
+      if (g) abrirComparadorPorGTIN(g);
+      else abrirComparador(p);
+    });
+    card.appendChild(compareBtn);
+
     card.insertAdjacentHTML("beforeend", `
       <div class="card-nome">${p.nome}</div>
       <div class="card-price card-price--solo" style="color:${meta.corTexto}">${fmt(p.precoAtual)}</div>
     `);
+
+    card.addEventListener("click", ()=> openModal(p));
 
     wrap.appendChild(card);
   });
@@ -645,6 +666,9 @@ function openModal(obj) {
     link.style.background = `linear-gradient(90deg, ${meta.btn[0]}, ${meta.btn[1]})`;
     link.style.color = (p.tipo === "petlove" || p.tipo === "mercadolivre") ? "#0b1322" : "#fff";
     link.style.border = `1px solid ${meta.corBorda}88`;
+    const lojaLabel = meta?.nome || "loja";
+    link.textContent = `Comprar na ${lojaLabel}`;
+    link.setAttribute("aria-label", `Ir para ${lojaLabel} e finalizar a compra`);
   }
 
   const logo = el("#modalStoreLogo");
@@ -983,7 +1007,7 @@ function ativarFiltro(ativo){
 
   if (ativo){
     body.classList.add("modo-filtro");
-    if (btn){ btn.classList.add("ativo"); btn.innerHTML = '<span>⨯</span> Fechar Filtro'; }
+    if (btn){ btn.classList.add("ativo"); btn.innerHTML = '<span>??</span> Fechar Filtro'; }
     if (header) header.classList.add("hidden");
     if (selo) selo.classList.add("hidden");
     if (barra){
@@ -996,7 +1020,13 @@ function ativarFiltro(ativo){
     window.scrollTo({ top: 0, behavior: "smooth" });
   } else {
     body.classList.remove("modo-filtro");
-    if (btn){ btn.classList.remove("ativo"); btn.innerHTML = '🔎 Buscar / Filtrar'; }
+    document.body.classList.remove("catalogo-focus");
+    window.filtrosAlvo.gtin = null;
+    window.filtrosAlvo.simKey = null;
+    window.filtrosAlvo.rotulo = null;
+    ensureChipSelecionado();
+    destacarSelecao();
+    if (btn){ btn.classList.remove("ativo"); btn.innerHTML = '?? Buscar / Filtrar'; }
     if (header) header.classList.remove("hidden");
     if (selo) selo.classList.remove("hidden");
     if (barra){
@@ -1004,10 +1034,11 @@ function ativarFiltro(ativo){
       barra.style.opacity="0"; barra.style.transform="translateY(-10px)";
       setTimeout(()=> barra.classList.add("hidden"), 280);
     }
-    // restaurar conteúdo padrão
     renderBanner("bannerA", ["shopee","amazon","magalu","americanas","aliexpress"]);
     renderBanner("bannerB", ["petlove","mercadolivre","petz","cobasi","carrefour","casasbahia","ponto"]);
     toggleComparador(false);
+    listaAtual = produtos.slice();
+    window.listaAtual = listaAtual;
     renderLista(produtos);
   }
 }

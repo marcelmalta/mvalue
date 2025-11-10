@@ -239,6 +239,7 @@
     padding:3px 3px 3px;
     border-radius:.4rem;
     min-height:118px;
+    cursor:pointer;
   }
   #listaProdutos .card-img-wrap{
     border-radius:.4rem;
@@ -275,6 +276,32 @@
   }
   #listaProdutos .card-price--solo{
     width:100%;
+  }
+  #listaProdutos .card-compare-btn{
+    position:absolute;
+    top:3px;
+    right:3px;
+    width:22px;
+    height:22px;
+    border-radius:999px;
+    border:1px solid rgba(0,0,0,.1);
+    background:rgba(255,255,255,.92);
+    color:#78350f;
+    font-size:12px;
+    font-weight:900;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 1px 3px rgba(0,0,0,.15);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  #listaProdutos .card-compare-btn:hover{
+    transform:scale(1.05);
+    box-shadow:0 2px 6px rgba(0,0,0,.2);
+  }
+  #listaProdutos .card-compare-btn:focus-visible{
+    outline:2px solid #f97316;
+    outline-offset:1px;
   }
   #listaProdutos .card-old,
   #listaProdutos .card-off{
@@ -393,7 +420,44 @@
 
   /* Modal */
   .modal-bg{ background:rgba(0,0,0,.7); }
-  .modal-box{ background:linear-gradient(135deg,#ffffff 0%, #FFF8ED 100%); border:1px solid rgba(214,167,92,.45); }
+  .modal-box{
+    background:linear-gradient(135deg,#ffffff 0%, #FFF8ED 100%);
+    border:1px solid rgba(214,167,92,.45);
+    width:min(92vw,860px);
+    max-height:90vh;
+  }
+  .modal-content{ gap:1.5rem; }
+  .modal-media{
+    min-height:240px;
+  }
+  .modal-media img{
+    max-height:260px;
+    object-fit:contain;
+  }
+  @media (max-width:640px){
+    #modalBox{
+      width:calc(100vw - 18px);
+      padding:16px 14px;
+      max-height:88vh;
+    }
+    .modal-content{
+      gap:1rem;
+    }
+    .modal-media{
+      padding:0.75rem !important;
+      min-height:auto;
+    }
+    .modal-media img{
+      max-height:190px;
+    }
+    #modalPrice{
+      font-size:1.75rem;
+    }
+    #modalDetails{
+      max-height:140px;
+      overflow:auto;
+    }
+  }
   #modalStoreLogo{ height:40px; margin-left:auto; margin-right:auto; display:block; }
   .sr-only{ position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 
@@ -691,10 +755,10 @@
               class="absolute top-2 right-3 text-gray-700 hover:text-black
                      text-2xl font-bold bg-white/80 rounded-full p-2 sm:p-2.5 shadow-md">✖</button>
 
-      <div class="flex flex-col sm:flex-row gap-5">
-        <div class="flex-1 flex items-center justify-center bg-white rounded-xl p-3 border border-yellow-200 shadow-inner">
+      <div class="modal-content flex flex-col sm:flex-row gap-5">
+        <div class="modal-media flex-1 flex items-center justify-center bg-white rounded-xl p-3 border border-yellow-200 shadow-inner">
           <img id="modalImage" src="" alt="Produto"
-               class="w-full rounded-lg shadow-md max-h-[300px] object-contain" />
+               class="w-full rounded-lg shadow-md object-contain" />
         </div>
 
         <div class="flex-1 flex flex-col gap-3">
