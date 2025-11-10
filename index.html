@@ -252,6 +252,14 @@
     border-width:1px;
   }
   #listaProdutos .card-logo{ height:15px; }
+  @media (max-width:640px){
+    #listaProdutos .card-selo{
+      min-height:16px;
+      padding:1px 2px;
+      gap:2px;
+    }
+    #listaProdutos .card-logo{ height:12px; }
+  }
   #listaProdutos .card-nome{
     font-size:9.5px;
     line-height:1.15;
@@ -376,6 +384,15 @@
     #filtroOrigem{ grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
     #filtroOrigem label .texto{ display:inline; }
     #filtroOrigem label img.filtro-logo{ height:24px; }
+  }
+  @media (max-width:640px){
+    #filtroOrigem label{
+      padding:6px 10px;
+      height:38px;
+    }
+    #filtroOrigem label img.filtro-logo{
+      height:18px;
+    }
   }
   #filtroOrigem label.ativo[data-src="shopee"]{ background:linear-gradient(145deg,#ee4d2d,#ff8a70); color:#fff; border-color:#ee4d2d; }
   #filtroOrigem label.ativo[data-src="petlove"]{ background:linear-gradient(145deg,#00AEEF,#b3ecff); color:#00324a; border-color:#00AEEF; }
