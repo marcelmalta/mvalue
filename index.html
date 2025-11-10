@@ -423,39 +423,85 @@
   .modal-box{
     background:linear-gradient(135deg,#ffffff 0%, #FFF8ED 100%);
     border:1px solid rgba(214,167,92,.45);
-    width:min(92vw,860px);
-    max-height:90vh;
+    width:min(92vw,900px);
+    max-height:92vh;
   }
-  .modal-content{ gap:1.5rem; }
+  .modal-content{
+    gap:1rem;
+  }
   .modal-media{
-    min-height:240px;
+    flex:0 0 320px;
+    max-width:340px;
+    width:100%;
   }
   .modal-media img{
-    max-height:260px;
+    max-height:240px;
+    width:100%;
     object-fit:contain;
+  }
+  .modal-info{
+    gap:0.65rem;
+  }
+  .modal-meta{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:0.35rem;
+  }
+  .modal-meta .meta-item{
+    background:#fff;
+    border:1px solid rgba(247,186,60,.5);
+    border-radius:999px;
+    padding:.3rem .7rem;
+    font-size:.85rem;
+    font-weight:700;
+    text-align:center;
+    color:#7a4600;
+  }
+  .modal-meta .meta-item.meta-item--wide{
+    grid-column:1 / -1;
+  }
+  #modalDetails{
+    columns:2;
+    column-gap:1rem;
+  }
+  #modalDetails li{
+    font-size:.9rem;
+    break-inside:avoid;
+    margin-bottom:.25rem;
   }
   @media (max-width:640px){
     #modalBox{
       width:calc(100vw - 18px);
-      padding:16px 14px;
+      padding:12px 10px 16px;
       max-height:88vh;
     }
     .modal-content{
-      gap:1rem;
+      gap:.75rem;
+      flex-direction:column;
     }
     .modal-media{
-      padding:0.75rem !important;
-      min-height:auto;
+      padding:0.5rem;
+      max-width:100%;
+      flex:0 0 auto;
     }
     .modal-media img{
-      max-height:190px;
+      max-height:150px;
     }
     #modalPrice{
       font-size:1.75rem;
     }
+    .modal-meta{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+    .modal-meta .meta-item{
+      font-size:.78rem;
+      padding:.25rem .55rem;
+    }
     #modalDetails{
+      columns:1;
       max-height:140px;
       overflow:auto;
+      padding-right:4px;
     }
   }
   #modalStoreLogo{ height:40px; margin-left:auto; margin-right:auto; display:block; }
@@ -755,13 +801,13 @@
               class="absolute top-2 right-3 text-gray-700 hover:text-black
                      text-2xl font-bold bg-white/80 rounded-full p-2 sm:p-2.5 shadow-md">✖</button>
 
-      <div class="modal-content flex flex-col sm:flex-row gap-5">
-        <div class="modal-media flex-1 flex items-center justify-center bg-white rounded-xl p-3 border border-yellow-200 shadow-inner">
+      <div class="modal-content flex flex-col lg:flex-row">
+        <div class="modal-media flex items-center justify-center bg-white rounded-2xl p-3 border border-yellow-200 shadow-inner">
           <img id="modalImage" src="" alt="Produto"
                class="w-full rounded-lg shadow-md object-contain" />
         </div>
 
-        <div class="flex-1 flex flex-col gap-3">
+        <div class="modal-info flex-1 flex flex-col gap-3">
           <div class="flex items-center justify-center mb-1">
             <img id="modalStoreLogo" class="" alt="Loja" />
           </div>
