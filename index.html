@@ -352,9 +352,9 @@
   }
 
   /* Modo filtro (esconde banners) */
-  #bannerA, #bannerB{ transition: all .35s ease; }
-  .modo-filtro #bannerA, .modo-filtro #bannerB,
-  .catalogo-focus #bannerA, .catalogo-focus #bannerB{
+  #bannerA{ transition: all .35s ease; }
+  .modo-filtro #bannerA,
+  .catalogo-focus #bannerA{
     opacity:0; transform: translateY(-16px) scale(.96);
     height:0; margin:0; padding:0; overflow:hidden; pointer-events:none;
   }
@@ -364,8 +364,7 @@
     max-height:0; margin:0; padding-top:0; padding-bottom:0;
     overflow:hidden; pointer-events:none;
   }
-  body.comparador-focus #bannerA,
-  body.comparador-focus #bannerB{
+  body.comparador-focus #bannerA{
     opacity:0;
   }
 
@@ -557,8 +556,7 @@
   @keyframes slide { from { transform:translateX(0); } to { transform:translateX(-50%); } }
 
   /* Overrides — banners somem no modo filtro */
-  body.modo-filtro section:has(#bannerA),
-  body.modo-filtro section:has(#bannerB){
+  body.modo-filtro section:has(#bannerA){
     padding: 0 !important; margin: 0 !important; height: 0 !important; border: 0 !important; overflow: hidden !important;
   }
   body.modo-filtro main .text-center > .bg-gradient-to-r{ margin-top: 6px !important; }
@@ -990,10 +988,6 @@
        ========================================================= -->
   <section class="banner-shelf bg-white py-2 px-2 overflow-x-auto flex gap-3 scrollbar-thin scrollbar-thumb-gray-300">
     <div id="bannerA" class="flex gap-2 w-full"></div>
-  </section>
-
-  <section class="banner-shelf bg-white py-2 px-2 overflow-x-auto flex gap-3 border-t border-blue-100">
-    <div id="bannerB" class="flex gap-2 w-full"></div>
   </section>
 
   <!-- =========================================================

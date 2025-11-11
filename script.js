@@ -1169,8 +1169,7 @@ function ativarFiltro(ativo){
       barra.style.opacity="0"; barra.style.transform="translateY(-10px)";
       setTimeout(()=> barra.classList.add("hidden"), 280);
     }
-    renderBanner("bannerA", ["shopee","amazon","magalu","americanas","aliexpress"]);
-    renderBanner("bannerB", ["petlove","mercadolivre","petz","cobasi","carrefour","casasbahia","ponto"]);
+    renderBanner("bannerA", ["shopee","amazon","magalu","americanas","aliexpress","petlove","mercadolivre","petz","cobasi","carrefour","casasbahia","ponto"]);
     toggleComparador(false);
     listaAtual = produtos.slice();
     window.listaAtual = listaAtual;
@@ -1594,19 +1593,16 @@ function renderComparador(grupo, baseProduct){
       });
     }
     // banners
-    ['bannerA','bannerB'].forEach(id=>{
-      const faixa = document.getElementById(id);
-      if (!faixa) return;
-      const tipos = (id==='bannerA')
-        ? ['shopee','amazon','magalu','americanas','aliexpress']
-        : ['petlove','mercadolivre','petz','cobasi','carrefour','casasbahia','ponto'];
+    const faixa = document.getElementById('bannerA');
+    if (faixa){
+      const tipos = ['shopee','amazon','magalu','americanas','aliexpress','petlove','mercadolivre','petz','cobasi','carrefour','casasbahia','ponto'];
       const rendered = (window.produtos || []).filter(p => tipos.includes(p.tipo));
       const cards = faixa.querySelectorAll('.banner-card');
       cards.forEach((card, idx)=>{
         const prod = rendered[idx];
         if (prod) bindHoverForCard(card, prod);
       });
-    });
+    }
   });
 
   // Expor helpers se precisar
@@ -1616,13 +1612,11 @@ function renderComparador(grupo, baseProduct){
 /* ===================== INIT ===================== */
 window.addEventListener("DOMContentLoaded", ()=>{
   // conteúdo padrão
-  renderBanner("bannerA", ["shopee","amazon","magalu","americanas","aliexpress"]);
-  renderBanner("bannerB", ["petlove","mercadolivre","petz","cobasi","carrefour","casasbahia","ponto"]);
+  renderBanner("bannerA", ["shopee","amazon","magalu","americanas","aliexpress","petlove","mercadolivre","petz","cobasi","carrefour","casasbahia","ponto"]);
   renderLista(produtos);
   criarBarraFiltros();
   setupAutocomplete();
   autoScroll("bannerA");
-  autoScroll("bannerB");
   document.body.classList.remove("modo-filtro");
 
   // Índice de GTIN para comparador por código
