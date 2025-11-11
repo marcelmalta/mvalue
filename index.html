@@ -163,29 +163,45 @@
   }
   #listaProdutos .card-geral{
     position:relative;
-    display:flex; flex-direction:column; align-items:center;
+    display:flex; flex-direction:column;
     width:calc(20% - 4px);
     flex:0 0 calc(20% - 4px);
-    min-height:138px;
-    padding:8px 6px 6px;
-    border-radius:.65rem;
-    border:2px solid rgba(214,167,92,.25);
-    background:linear-gradient(180deg,#fffdf6,#f7efe0);
-    box-shadow:0 4px 8px rgba(15,23,42,.08);
+    min-height:150px;
+    padding:8px 6px 9px;
+    border-radius:.7rem;
+    border:2px solid rgba(214,167,92,.3);
+    background:#fffdf6;
+    box-shadow:0 4px 10px rgba(15,23,42,.08);
     color:#0f172a;
     transition:transform .15s ease, box-shadow .15s ease;
   }
-  #listaProdutos .card-geral:hover{ transform:translateY(-2px); box-shadow:0 12px 20px rgba(15,23,42,.12); }
-  #listaProdutos .card-img-wrap{ display:none !important; }
+  #listaProdutos .card-geral:hover{ transform:translateY(-2px); box-shadow:0 12px 20px rgba(15,23,42,.15); }
+  #listaProdutos .card-thumb{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    border:1px solid rgba(0,0,0,.05);
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 4px;
+    overflow:hidden;
+  }
+  #listaProdutos .card-thumb img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
   #listaProdutos .card-selo{
     width:100%;
     display:flex; align-items:center; justify-content:center;
-    gap:6px; padding:2px 6px;
-    border-radius:.45rem;
+    gap:3px; padding:1px 4px;
+    border-radius:.4rem;
     border:1px solid rgba(0,0,0,.08);
     background:#fff;
   }
-  #listaProdutos .card-logo{ height:18px; max-width:100%; object-fit:contain; }
+  #listaProdutos .card-logo{ height:14px; max-width:52px; object-fit:contain; }
 
   /* Tipografia COMPACTA */
   #listaProdutos .card-nome{
@@ -254,24 +270,7 @@
     box-shadow:none;
     overflow:hidden;
   }
-  #listaProdutos .card-compare-cta{
-    margin-top:4px;
-    width:100%;
-    border-radius:12px;
-    border:1px solid rgba(255,255,255,.2);
-    background:linear-gradient(135deg,#0a0c0f,#1a1e26 45%,#050607 100%);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 6px 14px rgba(0,0,0,.4);
-    font-size:9px;
-    font-weight:900;
-    letter-spacing:.25px;
-    text-transform:uppercase;
-    color:#f7f0d4;
-    padding:3px 2px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
-  }
+  #listaProdutos .card-compare-cta{ display:none !important; }
   .pitch-line-mobile{
     display:none;
     justify-content:center;
@@ -296,15 +295,6 @@
   }
   @media (min-width:768px){
     .pitch-line-mobile{ display:none !important; }
-  }
-  #listaProdutos .card-compare-cta:hover{
-    transform:translateY(-1px);
-    box-shadow:0 8px 18px rgba(0,0,0,.45);
-    border-color:rgba(255,255,255,.4);
-  }
-  #listaProdutos .card-compare-cta:focus-visible{
-    outline:2px solid #f97316;
-    outline-offset:2px;
   }
   @media (max-width:640px){
     #listaProdutos{
@@ -580,6 +570,9 @@
   #hoverTip .tip-old{ font-size:11px; color:#6b7280; text-decoration:line-through; }
   #hoverTip .tip-off{ font-size:11px; font-weight:900; color:#047857; }
   #hoverTip .tip-desc{ margin-top:8px; font-size:12px; color:#374151; }
+  @media (max-width:640px){
+    #hoverTip{ display:none !important; }
+  }
 
   /* ===== Carrossel: imagem menor (mantido 58/66px) ===== */
   .banner-card .card-img-wrap{ height:58px !important; }
@@ -1080,6 +1073,7 @@
   <script src="script.js" defer></script>
 </body>
 </html>
+
 
 
 

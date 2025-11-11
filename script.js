@@ -755,13 +755,6 @@ function renderLista(lista) {
       <div class="card-price card-price--solo" style="color:${meta.corTexto}">${fmt(p.precoAtual)}</div>
     `);
 
-    const compareCta = document.createElement("button");
-    compareCta.type = "button";
-    compareCta.className = "card-compare-cta";
-    compareCta.textContent = "Comparar em outras lojas";
-    compareCta.addEventListener("click", launchCompare);
-    card.appendChild(compareCta);
-
     card.addEventListener("click", ()=> openModal(p));
 
     wrap.appendChild(card);
