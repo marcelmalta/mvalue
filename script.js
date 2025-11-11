@@ -732,13 +732,15 @@ function renderLista(lista) {
     if (!p.simKey) p.simKey = makeSimKey(p.nome||"");
     card.setAttribute("data-simkey", p.simKey);
 
-    card.style.setProperty("--card-bg", meta?.bgCard || "#fff");
-    card.style.background = meta?.bgCard || "#fff";
-    card.setAttribute("data-tipo", p.tipo || "default");
+    if (meta?.bgCard){
+      card.style.setProperty("--card-bg", meta.bgCard);
+      card.style.background = meta.bgCard;
+    }
+    card.style.borderColor = `${meta?.corBorda || "#e5e7eb"}80`;
 
     const seloWrap = document.createElement("div");
     seloWrap.className = "card-selo mt-1";
-    seloWrap.innerHTML = `<img src="${meta.logo}" class="card-logo" alt="${meta.nome}"><span>${meta.nome}</span>`;
+    seloWrap.innerHTML = `<img src="${meta.logo}" class="card-logo" alt="${meta.nome}">`;
     card.appendChild(seloWrap);
     attachLogoFallback(seloWrap.querySelector("img"));
 
@@ -1512,9 +1514,16 @@ function renderComparador(grupo, baseProduct){
       if (prod.link){
         tipBuyBtn.href = prod.link;
         tipBuyBtn.classList.remove('disabled');
+        tipBuyBtn.setAttribute('aria-disabled','false');
+        tipBuyBtn.onclick = null;
       } else {
         tipBuyBtn.href = '#';
         tipBuyBtn.classList.add('disabled');
+        tipBuyBtn.setAttribute('aria-disabled','true');
+        tipBuyBtn.onclick = (evt)=>{
+          evt.preventDefault();
+          evt.stopPropagation();
+        };
       }
     }
 
@@ -1577,7 +1586,8 @@ function renderComparador(grupo, baseProduct){
   tip.addEventListener('mouseleave', hideHoverTip);
   window.addEventListener('scroll', hideHoverTip, { passive:true });
   document.addEventListener('touchstart', (e)=>{
-    if (!tip.contains(e.target)) hideHoverTip();
+    if (tip.contains(e.target) || e.target.closest('.card-geral')) return;
+    hideHoverTip();
   }, { passive:true });
 
   // Decorar renderLista e renderBanner para anexar tooltips
