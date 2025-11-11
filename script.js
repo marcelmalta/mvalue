@@ -737,6 +737,16 @@ function renderLista(lista) {
     }
     card.style.borderColor = `${meta?.corBorda || "#e5e7eb"}80`;
 
+    const thumb = document.createElement("div");
+    thumb.className = "card-thumb";
+    const thumbImg = document.createElement("img");
+    thumbImg.src = p.imagem || IMG_PLACEHOLDER;
+    thumbImg.alt = p.nome || "";
+    thumbImg.loading = "lazy";
+    thumbImg.onerror = ()=>{ thumbImg.src = IMG_PLACEHOLDER; };
+    thumb.appendChild(thumbImg);
+    card.appendChild(thumb);
+
     const seloWrap = document.createElement("div");
     seloWrap.className = "card-selo mt-1";
     seloWrap.innerHTML = `<img src="${meta.logo}" class="card-logo" alt="${meta.nome}">`;
@@ -754,6 +764,12 @@ function renderLista(lista) {
       <div class="card-nome">${p.nome}</div>
       <div class="card-price card-price--solo" style="color:${meta.corTexto}">${fmt(p.precoAtual)}</div>
     `);
+
+    const desc = document.createElement("p");
+    desc.className = "card-desc";
+    const hints = Array.isArray(p.detalhes) ? p.detalhes : [];
+    desc.textContent = hints[0] || p.brand || "";
+    card.appendChild(desc);
 
     card.addEventListener("click", ()=> openModal(p));
 
