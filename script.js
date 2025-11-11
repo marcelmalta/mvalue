@@ -724,20 +724,21 @@ function renderLista(lista) {
     const meta = STORE_META[p.tipo];
 
     const card = document.createElement("div");
-    card.className = "relative card-geral p-1";
+    card.className = "relative card-geral";
     card.style.border = `2px solid ${meta.corBorda}80`;
 
     // === atributos p/ highlight ===
     if (p.gtin)   card.setAttribute("data-gtin", String(p.gtin));
     if (!p.simKey) p.simKey = makeSimKey(p.nome||"");
     card.setAttribute("data-simkey", p.simKey);
+    card.dataset.tipo = p.tipo || "default";
 
     if (meta?.bgCard){
       card.style.background = meta.bgCard;
     }
     card.style.borderColor = `${meta?.corBorda || "#e5e7eb"}80`;
 
-    const imgWrap = buildImg(p.imagem, p.nome, { variant: "compact" });
+    const imgWrap = buildImg(p.imagem, p.nome);
     imgWrap.style.background = meta.bgCard;
     card.appendChild(imgWrap);
 
@@ -748,10 +749,10 @@ function renderLista(lista) {
     attachLogoFallback(seloWrap.querySelector("img"));
 
     card.insertAdjacentHTML("beforeend", `
-      <div class="card-nome">${p.nome}</div>
+      <h2 class="font-semibold text-center banner-title text-gray-800">${p.nome}</h2>
       <p class="card-old">${p.precoAntigo ? fmt(p.precoAntigo) : ""}</p>
-      <div class="card-price card-price--solo" style="color:${meta.corTexto}">${fmt(p.precoAtual)}</div>
-      ${p.desconto ? `<span class="card-off">${p.desconto}</span>` : ""}
+      <p class="card-price" style="color:${meta.corTexto}">${fmt(p.precoAtual)}</p>
+      <span class="card-off" style="color:${meta.off}">${p.desconto || ""}</span>
     `);
 
     card.addEventListener("click", ()=> openModal(p));
@@ -1479,6 +1480,7 @@ function renderComparador(grupo, baseProduct){
 
   function showHoverTip(prod, px, py){
     if(!prod) return;
+    if (window.innerWidth <= 640) return;
     const meta = storeMeta(prod.tipo);
 
     tipImg.src = prod.imagem || '';
