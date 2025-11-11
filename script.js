@@ -158,18 +158,162 @@
 
 /* ================== IDENTIDADE POR LOJA ================== */
 const STORE_META = {
-  shopee: { nome:"Shopee", corBorda:"#EE4D2D", corTexto:"#8B1F0D", bgCard:"linear-gradient(to bottom,#FF8A70,#FFD3C9)", logo:"logos/shopee.svg", btn:["#EE4D2D","#FF7B5F"], off:"#7A1A0F" },
-  petlove:{ nome:"Petlove", corBorda:"#00AEEF", corTexto:"#0070A8", bgCard:"linear-gradient(to bottom,#00AEEF,#B3ECFF)", logo:"logos/petlove.svg", btn:["#00AEEF","#4FC3F7"], off:"#0070A8" },
-  amazon: { nome:"Amazon", corBorda:"#232F3E", corTexto:"#FF9900", bgCard:"linear-gradient(to bottom,#232F3E,#3A4553)", logo:"logos/amazon.svg", btn:["#232F3E","#3A4553"], off:"#FF9900" },
-  mercadolivre:{ nome:"Mercado Livre", corBorda:"#FFE600", corTexto:"#0B4EA2", bgCard:"linear-gradient(to bottom,#FFF6A6,#FFE600)", logo:"logos/mercadolivre.svg", btn:["#FFE600","#FFE24A"], off:"#0B4EA2" },
-  magalu: { nome:"Magalu", corBorda:"#1976D2", corTexto:"#0D47A1", bgCard:"linear-gradient(to bottom,#2196F3,#6EC6FF)", logo:"logos/magalu.svg", btn:["#1976D2","#64B5F6"], off:"#0D47A1" },
-  petz:  { nome:"Petz", corBorda:"#00B2FF", corTexto:"#004E92", bgCard:"linear-gradient(to bottom,#B3E5FF,#E6F5FF)", logo:"logos/petz.svg", btn:["#00B2FF","#66CCFF"], off:"#004E92" },
-  cobasi:{ nome:"Cobasi", corBorda:"#0077BE", corTexto:"#005A8C", bgCard:"linear-gradient(to bottom,#B3DBFF,#E8F3FF)", logo:"logos/cobasi.svg", btn:["#0077BE","#66AEE6"], off:"#005A8C" },
-  americanas:{ nome:"Americanas", corBorda:"#D50000", corTexto:"#B71C1C", bgCard:"linear-gradient(to bottom,#FFCCCC,#FFE6E6)", logo:"logos/americanas.svg", btn:["#D50000","#FF5252"], off:"#B71C1C" },
-  aliexpress:{ nome:"AliExpress", corBorda:"#FF5A00", corTexto:"#D84315", bgCard:"linear-gradient(to bottom,#FFD5BF,#FFF0E6)", logo:"logos/aliexpress.svg", btn:["#FF5A00","#FF8A50"], off:"#D84315" },
-  carrefour:{ nome:"Carrefour", corBorda:"#005EB8", corTexto:"#003B73", bgCard:"linear-gradient(to bottom,#CFE8FF,#EAF3FF)", logo:"logos/carrefour.svg", btn:["#005EB8","#4EA3FF"], off:"#003B73" },
-  casasbahia:{ nome:"Casas Bahia", corBorda:"#0033A0", corTexto:"#001A66", bgCard:"linear-gradient(to bottom,#D0DBFF,#EEF3FF)", logo:"logos/casasbahia.svg", btn:["#0033A0","#4D6DFF"], off:"#001A66" },
-  ponto: { nome:"Ponto", corBorda:"#111111", corTexto:"#FF5500", bgCard:"linear-gradient(to bottom,#F0F0F0,#FFFFFF)", logo:"logos/ponto.svg", btn:["#111111","#444444"], off:"#FF5500" },
+  shopee: {
+    nome:"Shopee",
+    corBorda:"#EE4D2D",
+    corTexto:"#8B1F0D",
+    bgCard:"linear-gradient(to bottom,#FF8A70,#FFD3C9)",
+    logo:"logos/shopee.svg",
+    btn:["#EE4D2D","#FF7B5F"],
+    off:"#7A1A0F",
+    shipping:[
+      { nome:"Shopee Xpress", prazo:"2-4 dias úteis", detalhe:"capitais com estoque nacional", tipo:"regular", freteGratis:true },
+      { nome:"Entrega econômica", prazo:"5-12 dias úteis", detalhe:"parceiros e interior", tipo:"economy" }
+    ]
+  },
+  petlove:{
+    nome:"Petlove",
+    corBorda:"#00AEEF",
+    corTexto:"#0070A8",
+    bgCard:"linear-gradient(to bottom,#00AEEF,#B3ECFF)",
+    logo:"logos/petlove.svg",
+    btn:["#00AEEF","#4FC3F7"],
+    off:"#0070A8",
+    shipping:[
+      { nome:"Expressa Petlove", prazo:"1-2 dias úteis", detalhe:"capitais e regiões metropolitanas", tipo:"express", freteGratis:true },
+      { nome:"Entrega programada", prazo:"3-5 dias úteis", detalhe:"todo Brasil com agendamento", tipo:"regular" }
+    ]
+  },
+  amazon: {
+    nome:"Amazon",
+    corBorda:"#232F3E",
+    corTexto:"#FF9900",
+    bgCard:"linear-gradient(to bottom,#232F3E,#3A4553)",
+    logo:"logos/amazon.svg",
+    btn:["#232F3E","#3A4553"],
+    off:"#FF9900",
+    shipping:[
+      { nome:"Prime 1 dia", prazo:"até 24h", detalhe:"capitais com estoque Prime", tipo:"express", freteGratis:true },
+      { nome:"Prime padrão", prazo:"2-3 dias úteis", detalhe:"demais regiões", tipo:"regular", freteGratis:true }
+    ]
+  },
+  mercadolivre:{
+    nome:"Mercado Livre",
+    corBorda:"#FFE600",
+    corTexto:"#0B4EA2",
+    bgCard:"linear-gradient(to bottom,#FFF6A6,#FFE600)",
+    logo:"logos/mercadolivre.svg",
+    btn:["#FFE600","#FFE24A"],
+    off:"#0B4EA2",
+    shipping:[
+      { nome:"Full 24h", prazo:"até 24h", detalhe:"estoque na sua cidade", tipo:"express", freteGratis:true },
+      { nome:"Envio Full", prazo:"1-2 dias úteis", detalhe:"Brasil via hubs Full", tipo:"regular", freteGratis:true }
+    ]
+  },
+  magalu: {
+    nome:"Magalu",
+    corBorda:"#1976D2",
+    corTexto:"#0D47A1",
+    bgCard:"linear-gradient(to bottom,#2196F3,#6EC6FF)",
+    logo:"logos/magalu.svg",
+    btn:["#1976D2","#64B5F6"],
+    off:"#0D47A1",
+    shipping:[
+      { nome:"Chegou Hoje", prazo:"até 24h", detalhe:"quando há estoque local", tipo:"express" },
+      { nome:"Magalu Entregas", prazo:"2-4 dias úteis", detalhe:"transportadora própria", tipo:"regular" }
+    ]
+  },
+  petz:  {
+    nome:"Petz",
+    corBorda:"#00B2FF",
+    corTexto:"#004E92",
+    bgCard:"linear-gradient(to bottom,#B3E5FF,#E6F5FF)",
+    logo:"logos/petz.svg",
+    btn:["#00B2FF","#66CCFF"],
+    off:"#004E92",
+    shipping:[
+      { nome:"Petz Delivery", prazo:"até 2h", detalhe:"lojas com estoque", tipo:"express" },
+      { nome:"Entrega padrão", prazo:"2-5 dias úteis", detalhe:"Correios/transportadora", tipo:"regular" }
+    ]
+  },
+  cobasi:{
+    nome:"Cobasi",
+    corBorda:"#0077BE",
+    corTexto:"#005A8C",
+    bgCard:"linear-gradient(to bottom,#B3DBFF,#E8F3FF)",
+    logo:"logos/cobasi.svg",
+    btn:["#0077BE","#66AEE6"],
+    off:"#005A8C",
+    shipping:[
+      { nome:"Cobasi Já", prazo:"1-3h", detalhe:"retirada e parceiros delivery", tipo:"express" },
+      { nome:"Entrega econômica", prazo:"1-3 dias úteis", detalhe:"sudeste/sul", tipo:"regular" }
+    ]
+  },
+  americanas:{
+    nome:"Americanas",
+    corBorda:"#D50000",
+    corTexto:"#B71C1C",
+    bgCard:"linear-gradient(to bottom,#FFCCCC,#FFE6E6)",
+    logo:"logos/americanas.svg",
+    btn:["#D50000","#FF5252"],
+    off:"#B71C1C",
+    shipping:[
+      { nome:"Entrega rápida", prazo:"1-3 dias úteis", detalhe:"capitais com estoque", tipo:"express" },
+      { nome:"Marketplace padrão", prazo:"3-7 dias úteis", detalhe:"lojistas parceiros", tipo:"regular" }
+    ]
+  },
+  aliexpress:{
+    nome:"AliExpress",
+    corBorda:"#FF5A00",
+    corTexto:"#D84315",
+    bgCard:"linear-gradient(to bottom,#FFD5BF,#FFF0E6)",
+    logo:"logos/aliexpress.svg",
+    btn:["#FF5A00","#FF8A50"],
+    off:"#D84315",
+    shipping:[
+      { nome:"Entrega Brasil", prazo:"7-12 dias úteis", detalhe:"depósitos nacionais", tipo:"regular" },
+      { nome:"Envio internacional", prazo:"12-20 dias úteis", detalhe:"frete combinado", tipo:"economy" }
+    ]
+  },
+  carrefour:{
+    nome:"Carrefour",
+    corBorda:"#005EB8",
+    corTexto:"#003B73",
+    bgCard:"linear-gradient(to bottom,#CFE8FF,#EAF3FF)",
+    logo:"logos/carrefour.svg",
+    btn:["#005EB8","#4EA3FF"],
+    off:"#003B73",
+    shipping:[
+      { nome:"Express Carrefour", prazo:"1-2 dias úteis", detalhe:"capitais e RMSP/RJ", tipo:"express" },
+      { nome:"Entrega padrão", prazo:"3-5 dias úteis", detalhe:"transportadora parceira", tipo:"regular" }
+    ]
+  },
+  casasbahia:{
+    nome:"Casas Bahia",
+    corBorda:"#0033A0",
+    corTexto:"#001A66",
+    bgCard:"linear-gradient(to bottom,#D0DBFF,#EEF3FF)",
+    logo:"logos/casasbahia.svg",
+    btn:["#0033A0","#4D6DFF"],
+    off:"#001A66",
+    shipping:[
+      { nome:"Retira rápido", prazo:"2-4h", detalhe:"retirada em loja", tipo:"express" },
+      { nome:"Entrega Casas Bahia", prazo:"2-5 dias úteis", detalhe:"transportadora própria", tipo:"regular" }
+    ]
+  },
+  ponto: {
+    nome:"Ponto",
+    corBorda:"#111111",
+    corTexto:"#FF5500",
+    bgCard:"linear-gradient(to bottom,#F0F0F0,#FFFFFF)",
+    logo:"logos/ponto.svg",
+    btn:["#111111","#444444"],
+    off:"#FF5500",
+    shipping:[
+      { nome:"Retira Ponto", prazo:"até 2h", detalhe:"lojas e lockers", tipo:"express" },
+      { nome:"Entrega padrão", prazo:"2-5 dias úteis", detalhe:"transportadora parceira", tipo:"regular" }
+    ]
+  },
 };
 
 /* ===================== PRODUTOS (exemplos; inclui GTIN) ===================== */
@@ -1137,6 +1281,55 @@ function abrirComparador(baseProduct){
   toggleComparador(true);
 }
 
+function normalizeShippingOption(opt){
+  if (!opt) return null;
+  const nomeRaw = (opt.nome || opt.label || "Entrega").toString().trim();
+  const prazoRaw = (opt.prazo || opt.eta || opt.tempo || "").toString().trim();
+  const detalheRaw = (opt.detalhe || opt.obs || opt.descricao || opt.comment || "").toString().trim();
+  const isFree = opt.freteGratis || opt.preco === 0 || opt.valor === 0;
+  let tipo = opt.tipo;
+  if (!tipo){
+    if (/hora|24h|1 dia/i.test(prazoRaw)) tipo = "express";
+    else if (/10|12|15|20|semana/i.test(prazoRaw)) tipo = "economy";
+    else tipo = "regular";
+  }
+  return {
+    nome: nomeRaw || "Entrega",
+    prazo: prazoRaw || "Consultar prazo",
+    detalhe: detalheRaw,
+    freteGratis: Boolean(isFree),
+    tipo
+  };
+}
+
+function resolveShippingOptions(prod, meta){
+  if (Array.isArray(prod?.shippingOptions) && prod.shippingOptions.length){
+    return prod.shippingOptions.map(normalizeShippingOption).filter(Boolean);
+  }
+  if (Array.isArray(meta?.shipping) && meta.shipping.length){
+    return meta.shipping.map(normalizeShippingOption).filter(Boolean);
+  }
+  return [];
+}
+
+function buildShippingHtml(options){
+  if (!options.length) return "";
+  const trimmed = options.slice(0,3);
+  return `
+    <div class="cmp-ship-grid">
+      ${trimmed.map(opt => `
+        <div class="cmp-ship-chip ${opt.freteGratis ? "is-free" : ""}" data-speed="${opt.tipo || "regular"}">
+          <div>
+            <span>${opt.nome}</span>
+            ${opt.detalhe ? `<small>${opt.detalhe}</small>` : ""}
+          </div>
+          <strong>${opt.prazo}</strong>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
 function renderComparador(grupo, baseProduct){
   const cont = el("#listaComparativos");
   if (!cont) return;
@@ -1161,6 +1354,7 @@ function renderComparador(grupo, baseProduct){
 
   const head = document.createElement("div");
   head.className = "col-span-full bg-white border border-gray-200 rounded-lg p-3 shadow-sm";
+  head.classList.add("cmp-summary");
   head.innerHTML = `
     <div class="flex flex-col gap-2">
       <div class="flex flex-wrap items-center justify-between gap-2">
@@ -1174,7 +1368,7 @@ function renderComparador(grupo, baseProduct){
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs sm:text-sm">
         <div class="bg-green-50 border border-green-200 rounded-md p-2">
           <div class="font-bold text-green-700">Menor preço</div>
-          <div class="text-green-800">${STORE_META[menor.tipo].nome} — <b>${fmt(menor.precoAtual)}</b></div>
+          <div class="text-green-800">${(STORE_META[menor.tipo]?.nome) || menor.tipo} — <b>${fmt(menor.precoAtual)}</b></div>
         </div>
         <div class="bg-amber-50 border border-amber-200 rounded-md p-2">
           <div class="font-bold text-amber-700">Preço médio</div>
@@ -1182,59 +1376,76 @@ function renderComparador(grupo, baseProduct){
         </div>
         <div class="bg-red-50 border border-red-200 rounded-md p-2">
           <div class="font-bold text-red-700">Maior preço</div>
-          <div class="text-red-800">${STORE_META[maior.tipo].nome} — <b>${fmt(maior.precoAtual)}</b></div>
+          <div class="text-red-800">${(STORE_META[maior.tipo]?.nome) || maior.tipo} — <b>${fmt(maior.precoAtual)}</b></div>
         </div>
       </div>
+      <p class="text-[11px] sm:text-xs text-gray-500 leading-snug">Estimativas de frete abaixo consideram as modalidades mais rápidas de cada loja e podem variar por CEP.</p>
     </div>
   `;
   cont.appendChild(head);
   el("#btnVoltarLista")?.addEventListener("click", ()=> toggleComparador(false));
 
   ordenados.forEach(p=>{
-    const meta = STORE_META[p.tipo];
+    const meta = STORE_META[p.tipo] || {};
     const card = document.createElement("div");
-    card.className = "bg-white border border-gray-200 rounded-lg p-3 shadow-sm flex flex-col gap-2";
+    card.className = "cmp-card bg-white border border-gray-200 rounded-2xl shadow-sm";
     const isBest = (p === menor);
+    const diffValue = p.precoAtual - menor.precoAtual;
+    const diffChip = !isBest ? `<span class="cmp-chip cmp-chip--neutral">+ ${fmt(diffValue)} vs melhor</span>` : "";
+    const parcelasInfo = p.parcelas ? `<span class="cmp-price-note">${p.parcelas}</span>` : "";
+    const tagChips = [
+      p.precoAntigo ? `<span class="cmp-chip cmp-chip--old">${fmt(p.precoAntigo)}</span>` : "",
+      p.desconto ? `<span class="cmp-chip cmp-chip--discount">${p.desconto}</span>` : "",
+      p.freteAPartir ? `<span class="cmp-chip cmp-chip--neutral">Frete: ${fmt(p.freteAPartir)}</span>` : ""
+    ].filter(Boolean).join("");
+    const tagsBlock = tagChips ? `<div class="cmp-card-tags">${tagChips}</div>` : "";
+    const shippingHtml = buildShippingHtml(resolveShippingOptions(p, meta));
+    const storeName = meta?.nome || (p.tipo || "Loja");
+    const logoSrc = meta?.logo || "";
+    const priceColor = meta?.corTexto || "#0f172a";
+    const btnStart = meta?.btn?.[0] || "#111827";
+    const btnEnd = meta?.btn?.[1] || btnStart;
+    const borderColor = meta?.corBorda || "#111827";
 
     card.innerHTML = `
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <img src="${meta.logo}" alt="${meta.nome}" class="h-6 w-auto" />
-          <span class="text-xs font-bold text-gray-700">${meta.nome}</span>
+      <div class="cmp-card-head">
+        <div class="cmp-card-store">
+          <img src="${logoSrc}" alt="${storeName}" class="h-6 w-auto" />
+          <span class="cmp-store-name">${storeName}</span>
         </div>
-        ${isBest ? `<span class="text-[10px] font-black bg-green-600 text-white px-2 py-0.5 rounded">MENOR PREÇO</span>` : ""}
+        ${isBest ? `<span class="cmp-chip cmp-chip--best">MENOR PREÇO</span>` : ""}
       </div>
 
-      <div class="flex items-center justify-between">
-        <div class="text-2xl sm:text-3xl font-extrabold" style="color:${meta.corTexto}">${fmt(p.precoAtual)}</div>
-        <div class="text-xs text-gray-500">${p.parcelas || ""}</div>
+      <div class="cmp-card-priceRow">
+        <div class="cmp-price" style="color:${priceColor}">${fmt(p.precoAtual)}</div>
+        <div class="cmp-price-meta">
+          ${parcelasInfo}
+          ${diffChip}
+        </div>
       </div>
 
-      <div class="flex flex-wrap gap-2 text-[11px]">
-        ${p.precoAntigo ? `<span class="line-through text-gray-400">${fmt(p.precoAntigo)}</span>` : ""}
-        ${p.desconto ? `<span class="font-bold text-green-700">${p.desconto}</span>` : ""}
-        ${!isBest ? `<span class="ml-auto text-[11px] bg-gray-100 border border-gray-200 rounded px-1.5">+ ${fmt(p.precoAtual - menor.precoAtual)} vs melhor</span>` : ""}
-      </div>
+      ${tagsBlock}
+      ${shippingHtml}
 
-      <div class="mt-1 grid grid-cols-2 gap-2">
+      <div class="cmp-card-actions">
         <a href="${p.link || "#"}" target="_blank"
-           class="text-center py-2 rounded-md font-extrabold text-white"
-           style="background:linear-gradient(90deg, ${meta.btn[0]}, ${meta.btn[1]}); border:1px solid ${meta.corBorda}88">
+           class="cmp-btn-primary"
+           style="background:linear-gradient(90deg, ${btnStart}, ${btnEnd}); border:1px solid ${borderColor}33">
           Abrir na loja
         </a>
-        <button class="py-2 rounded-md font-bold border border-gray-300 hover:bg-gray-50 ver-btn">Detalhes</button>
+        <button class="cmp-btn-secondary ver-btn">Detalhes</button>
       </div>
     `;
 
     const top = document.createElement("div");
-    top.className = "flex items-center gap-2";
+    top.className = "cmp-card-product";
     const imgW = buildImg(p.imagem, p.nome, "h-14");
     imgW.classList.remove("h-24","sm:h-28");
     imgW.classList.add("h-16","sm:h-20");
     top.appendChild(imgW);
 
     const nm = document.createElement("div");
-    nm.className = "text-[11px] leading-snug font-semibold text-gray-800 line-clamp-2";
+    nm.className = "cmp-product-name";
     nm.textContent = p.nome;
     top.appendChild(nm);
 
