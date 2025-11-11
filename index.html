@@ -329,21 +329,30 @@
     justify-content:center;
     transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
   }
-  .claim--sm{
+  .pitch-line-mobile{
     display:none;
-    font-weight:700;
-    color:#111;
+    justify-content:center;
+    font-weight:900;
+    font-size:13px;
+    letter-spacing:.2px;
   }
   @media (max-width:767px){
-    .claim--lg{ display:none !important; }
-    .claim--sm{
-      display:inline-flex !important;
-      align-items:center;
-      gap:.15rem;
+    .pitch-line-desktop{ display:none !important; }
+    .pitch-line-mobile{
+      display:flex !important;
+      width:100%;
+    }
+    .hdr-inner{
+      grid-template-columns: minmax(0,1fr) max-content !important;
+      gap:.25rem !important;
+    }
+    .hdr-pitch.smartPitch{
+      justify-content:center;
+      text-align:center;
     }
   }
   @media (min-width:768px){
-    .claim--sm{ display:none !important; }
+    .pitch-line-mobile{ display:none !important; }
   }
   #listaProdutos .card-compare-cta:hover{
     transform:translateY(-1px);
@@ -951,20 +960,22 @@
        HEADER (compacto, 1 linha, sem pílulas; texto 2-linhas no desktop)
        ========================================================= -->
   <header id="hdr" class="sticky top-0 z-50 bg-white border-b border-black/10">
-    <div class="hdr-inner max-w-6xl mx-auto pl-1 pr-2 lg:pl-1 h-12 sm:h-14 grid items-center"
+    <div class="hdr-inner max-w-6xl mx-auto pl-4 pr-3 lg:pl-1 h-12 sm:h-14 grid items-center"
          style="grid-template-columns: minmax(0,1fr) max-content; gap:.5rem">
       <!-- Pitch -->
-      <p class="hdr-pitch smartPitch smartPitch--2lines" aria-label="Comparador multilojas com filtros.">
-        <span class="brandMark">ShihTzu&nbsp;Shop</span>
-        <span class="dash">—</span>
-        <!-- Desktop/Tablet -->
-        <span class="claim claim--lg">Compare preços <span class="muted">do mesmo produto</span>
-          <span class="highlight">em várias lojas</span>, <span class="muted">filtre por</span> categoria/preço
-          <span class="muted">e</span> encontre a <span class="highlight">melhor oferta</span>.
-        </span>
-        <!-- Mobile: mais curto e sem corte -->
-        <span class="claim claim--sm">ShihTzu&nbsp;Shop — Compare<span class="arrow-mobile" aria-hidden="true">→</span></span>
-      </p>
+      <div class="hdr-pitch smartPitch smartPitch--2lines" aria-label="Comparador multilojas com filtros.">
+        <div class="pitch-line-desktop">
+          <span class="brandMark">ShihTzu&nbsp;Shop</span>
+          <span class="dash">—</span>
+          <span class="claim claim--lg">Compare preços <span class="muted">do mesmo produto</span>
+            <span class="highlight">em várias lojas</span>, <span class="muted">filtre por</span> categoria/preço
+            <span class="muted">e</span> encontre a <span class="highlight">melhor oferta</span>.
+          </span>
+        </div>
+        <div class="pitch-line-mobile" aria-hidden="true">
+          <span class="brandMark">ShihTzu&nbsp;Shop</span>
+        </div>
+      </div>
 
       <!-- Botão responsivo: ícone + rótulo dinâmico (sem JS) -->
       <button id="btnBuscaFlutuante" class="btn-filter" aria-label="Abrir filtros e comparador">
