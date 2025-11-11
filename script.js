@@ -737,15 +737,9 @@ function renderLista(lista) {
     }
     card.style.borderColor = `${meta?.corBorda || "#e5e7eb"}80`;
 
-    const thumb = document.createElement("div");
-    thumb.className = "card-thumb";
-    const thumbImg = document.createElement("img");
-    thumbImg.src = p.imagem || IMG_PLACEHOLDER;
-    thumbImg.alt = p.nome || "";
-    thumbImg.loading = "lazy";
-    thumbImg.onerror = ()=>{ thumbImg.src = IMG_PLACEHOLDER; };
-    thumb.appendChild(thumbImg);
-    card.appendChild(thumb);
+    const imgWrap = buildImg(p.imagem, p.nome, { variant: "compact" });
+    imgWrap.style.background = meta.bgCard;
+    card.appendChild(imgWrap);
 
     const seloWrap = document.createElement("div");
     seloWrap.className = "card-selo mt-1";
@@ -753,23 +747,12 @@ function renderLista(lista) {
     card.appendChild(seloWrap);
     attachLogoFallback(seloWrap.querySelector("img"));
 
-    const launchCompare = (evt)=>{
-      evt?.stopPropagation?.();
-      const g = normalizeGTIN(p.gtin);
-      if (g) abrirComparadorPorGTIN(g);
-      else abrirComparador(p);
-    };
-
     card.insertAdjacentHTML("beforeend", `
       <div class="card-nome">${p.nome}</div>
+      <p class="card-old">${p.precoAntigo ? fmt(p.precoAntigo) : ""}</p>
       <div class="card-price card-price--solo" style="color:${meta.corTexto}">${fmt(p.precoAtual)}</div>
+      ${p.desconto ? `<span class="card-off">${p.desconto}</span>` : ""}
     `);
-
-    const desc = document.createElement("p");
-    desc.className = "card-desc";
-    const hints = Array.isArray(p.detalhes) ? p.detalhes : [];
-    desc.textContent = hints[0] || p.brand || "";
-    card.appendChild(desc);
 
     card.addEventListener("click", ()=> openModal(p));
 
