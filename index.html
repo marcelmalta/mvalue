@@ -161,73 +161,93 @@
     display:flex; flex-wrap:wrap; justify-content:flex-start;
     gap:4px; padding-bottom:4px; transition: all .35s ease;
   }
-  .card-geral{
-    position:relative; background:#fff; border-radius:.6rem;
-    display:flex; flex-direction:column; align-items:center;
+  #listaProdutos .card-geral{
+    position:relative;
+    display:flex; flex-direction:column;
+    width:calc(20% - 4px);
+    flex:0 0 calc(20% - 4px);
+    min-height:150px;
+    padding:12px 10px 10px;
+    border-radius:.9rem;
+    border:1.5px solid rgba(255,255,255,.25);
+    background:var(--card-bg,#fff);
+    overflow:hidden;
+    color:#f8fafc;
     transition:transform .2s ease, box-shadow .2s ease;
-    width:23%;
-    padding:6px 6px 5px 6px;
-    border:2px solid #e5e7eb;
   }
-  .card-geral:hover{ transform:scale(1.03); box-shadow:0 6px 16px rgba(0,0,0,.10); }
+  #listaProdutos .card-geral::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:.8rem;
+    background:linear-gradient(190deg,rgba(2,6,23,.25),rgba(2,6,23,.82));
+    z-index:0;
+  }
+  #listaProdutos .card-geral::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:.9rem;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+    z-index:0;
+  }
+  #listaProdutos .card-geral > *{ position:relative; z-index:1; }
+  #listaProdutos .card-geral:hover{ transform:translateY(-2px); box-shadow:0 12px 24px rgba(15,23,42,.25); }
 
   /* Imagem AINDA MENOR (altura ~40px mobile) */
-  .card-img-wrap{
-    width:100%; height:40px; display:flex; align-items:center; justify-content:center;
-    overflow:hidden; border-radius:.5rem;
-  }
-  @media (min-width:640px){ .card-img-wrap{ height:48px; } }
-  @media (min-width:1024px){ .card-img-wrap{ height:56px; } }
-  .card-img{
-    width:100%; height:100%;
-    object-fit:cover !important; object-position:center;
-    transition:transform .25s ease;
-  }
-  .card-geral:hover .card-img{ transform:scale(1.04); }
+  #listaProdutos .card-img-wrap{ display:none !important; }
 
   /* Selo com logo, AINDA menor (ganho de altura) */
-  .card-selo{
-    width:100%; display:flex; align-items:center; justify-content:center; gap:6px;
-    background:#fff; border:1px solid #e5e7eb; border-radius:.45rem;
-    margin-top:3px; min-height:24px; padding:2px 6px;
+  #listaProdutos .card-selo{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:2px 8px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.35);
+    background:rgba(15,23,42,.35);
+    backdrop-filter:blur(4px);
+    min-height:auto;
   }
-  .card-logo{ height:18px; max-width: 100%; object-fit: contain; }
-  @media (min-width:640px){ .card-logo{ height:20px; } }
-  @media (min-width:1024px){ .card-logo{ height:22px; } }
+  #listaProdutos .card-selo span{ font-size:10px; text-transform:uppercase; letter-spacing:.28px; color:#f8fafc; font-weight:800; }
+  #listaProdutos .card-logo{ height:14px; max-width:40px; object-fit:contain; filter:drop-shadow(0 1px 1px rgba(0,0,0,.25)); }
 
   /* Tipografia COMPACTA */
-  .card-nome{
+  #listaProdutos .card-nome{
     display:-webkit-box;
-    -webkit-line-clamp:2;
+    -webkit-line-clamp:3;
     -webkit-box-orient:vertical;
     font-size:11px;
-    line-height:1.2;
-    min-height:2.4em;
+    line-height:1.25;
+    min-height:2.7em;
     text-align:left;
-    margin-top:4px;
-    font-weight:900;
-    color:#0f172a;
+    margin-top:8px;
+    font-weight:800;
+    color:#f8fafc;
     letter-spacing:.01em;
     overflow:hidden;
   }
-  .card-old{
+  #listaProdutos .card-old{
     font-size:10px;
-    color:rgba(248,250,252,.85);
+    color:rgba(248,250,252,.75);
     text-decoration:line-through;
     line-height:1.1;
     margin-top:2px;
     width:100%;
     text-align:left;
   }
-  .card-price{
-    font-size:15px;
+  #listaProdutos .card-price{
+    font-size:14px;
     font-weight:900;
     line-height:1.15;
-    margin-top:2px;
+    margin-top:4px;
     width:100%;
     text-align:left;
+    padding:3px 6px;
+    border-radius:.65rem;
+    background:rgba(0,0,0,.35);
+    border:1px solid rgba(255,255,255,.2);
+    color:#fef9c3;
   }
-  .card-off{
+  #listaProdutos .card-off{
     font-size:11px;
     font-weight:900;
     margin-top:3px;
@@ -268,7 +288,7 @@
     border-radius:.75rem;
     background:linear-gradient(185deg,rgba(15,23,42,.25),rgba(2,6,23,.8));
     z-index:1;
-    pointer-events:none;
+    pointer-events:auto;
   }
   #listaProdutos .card-geral::after{
     content:"";
@@ -277,7 +297,7 @@
     border-radius:.75rem;
     box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);
     z-index:1;
-    pointer-events:none;
+    pointer-events:auto;
   }
   #listaProdutos .card-geral > *:not(.card-img-wrap){
     position:relative;
@@ -441,13 +461,13 @@
   .modo-filtro #bannerA,
   .catalogo-focus #bannerA{
     opacity:0; transform: translateY(-16px) scale(.96);
-    height:0; margin:0; padding:0; overflow:hidden; pointer-events:none;
+    height:0; margin:0; padding:0; overflow:hidden; pointer-events:auto;
   }
   .banner-shelf{ transition: all .35s ease; }
   body.comparador-focus .banner-shelf{
     opacity:0; transform: translateY(-16px) scale(.94);
     max-height:0; margin:0; padding-top:0; padding-bottom:0;
-    overflow:hidden; pointer-events:none;
+    overflow:hidden; pointer-events:auto;
   }
   body.comparador-focus #bannerA{
     opacity:0;
@@ -481,7 +501,7 @@
   }
   #filtroOrigem label:hover{ box-shadow:0 4px 10px rgba(0,0,0,.06); transform: translateY(-1px); }
   #filtroOrigem input{ position:absolute; opacity:0; width:0; height:0; }
-  #filtroOrigem label img.filtro-logo{ display:block; object-fit:contain; width:auto; height:22px; pointer-events:none; }
+  #filtroOrigem label img.filtro-logo{ display:block; object-fit:contain; width:auto; height:22px; pointer-events:auto; }
   #filtroOrigem label .texto{ display:none; }
   @media (min-width: 768px){ #filtroOrigem label img.filtro-logo{ height:24px; } }
   @media (min-width: 1024px){ #filtroOrigem label img.filtro-logo{ height:26px; } }
@@ -667,23 +687,36 @@
 
   /* ===================== HOVERCARD / TOOLTIP GRANDE ===================== */
   #hoverTip{
-    position: fixed; z-index: 70; pointer-events: none;
-    background: #fff; border:1px solid rgba(0,0,0,.08); border-radius: 12px;
-    box-shadow: 0 12px 28px rgba(0,0,0,.16), 0 4px 10px rgba(0,0,0,.08);
-    width: min(320px, 92vw); opacity: 0; transform: translateY(6px) scale(.98);
-    transition: opacity .15s ease, transform .15s ease;
-    padding: 10px; display:none;
+    position:fixed; z-index:50;
+    background:#fff; border-radius:16px; border:1px solid rgba(0,0,0,.08);
+    padding:12px; width:310px; max-width:calc(100vw - 20px);
+    box-shadow:0 18px 40px rgba(15,23,42,.18);
+    pointer-events:auto; opacity:0; transform: translateY(6px) scale(.97);
+    transition:opacity .15s ease, transform .15s ease;
   }
   #hoverTip.show{ display:block; opacity:1; transform: translateY(0) scale(1); }
-  #hoverTip .tip-top{ display:flex; gap:10px; align-items:center; }
-  #hoverTip .tip-img{ width:96px; height:96px; display:flex; align-items:center; justify-content:center; border-radius:10px; overflow:hidden; background:#f3f4f6; }
-  #hoverTip .tip-img img{ width:100%; height:100%; object-fit:contain; }
-  #hoverTip .tip-title{ font-size:13px; font-weight:900; line-height:1.2; color:#111827; }
-  #hoverTip .tip-price{ font-size:20px; font-weight:1000; line-height:1; margin-top:4px; }
+  #hoverTip .tip-top{ display:flex; gap:12px; align-items:flex-start; }
+  #hoverTip .tip-img{ width:110px; height:110px; display:flex; align-items:center; justify-content:center; border-radius:12px; overflow:hidden; background:#f3f4f6; }
+  #hoverTip .tip-img img{ width:100%; height:100%; object-fit:cover; }
+  #hoverTip .tip-info{ flex:1; display:flex !important; flex-direction:column; gap:4px; min-width:0; }
+  #hoverTip .tip-store{ margin-left:0; height:22px; max-width:80px; object-fit:contain; }
+  #hoverTip .tip-title{ font-size:13px; font-weight:900; line-height:1.25; color:#111827; }
+  #hoverTip .tip-price{ font-size:20px; font-weight:1000; line-height:1; margin-top:4px; color:#111; }
   #hoverTip .tip-old{ font-size:11px; color:#6b7280; text-decoration:line-through; }
-  #hoverTip .tip-off{ font-size:11px; font-weight:900; }
-  #hoverTip .tip-desc{ margin-top:6px; font-size:12px; color:#374151; }
-  #hoverTip .tip-store{ margin-left:auto; height:20px; }
+  #hoverTip .tip-off{ font-size:11px; font-weight:900; color:#047857; }
+  #hoverTip .tip-desc{ margin-top:8px; font-size:12px; color:#374151; }
+  #hoverTip .tip-actions{ margin-top:10px; display:grid; gap:6px; }
+  #hoverTip .tip-btn{
+    display:flex; align-items:center; justify-content:center;
+    border-radius:10px; padding:8px; font-size:12px; font-weight:800;
+    border:1px solid #e2e8f0; cursor:pointer; pointer-events:auto;
+  }
+  #hoverTip .tip-btn.disabled{
+    opacity:.5;
+    cursor:not-allowed;
+  }
+  #hoverTip .tip-btn-buy{ background:linear-gradient(90deg,#0f172a,#1e293b); color:#fff; border:none; }
+  #hoverTip .tip-btn-compare{ background:#fff; color:#0f172a; }
 
   /* ===== Carrossel: imagem menor (mantido 58/66px) ===== */
   .banner-card .card-img-wrap{ height:58px !important; }
@@ -959,7 +992,7 @@
     #barraFiltros .f-controls{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap: 8px 10px; }
 
     .search-wrap{ position:relative; min-width: 240px; max-width: 680px; width:100%; }
-    .search-wrap .icon{ position:absolute; left:12px; top:50%; transform:translateY(-50%); width:18px; height:18px; opacity:.65; pointer-events:none; }
+    .search-wrap .icon{ position:absolute; left:12px; top:50%; transform:translateY(-50%); width:18px; height:18px; opacity:.65; pointer-events:auto; }
     .search-wrap input{
       width:100%; height:40px; padding:0 40px 0 36px;
       border-radius:9999px; border:1.5px solid rgba(214,167,92,.45);
@@ -1176,6 +1209,10 @@
       </div>
     </div>
     <div class="tip-desc"></div>
+    <div class="tip-actions">
+      <a class="tip-btn tip-btn-buy" href="#" target="_blank" rel="noopener">Abrir na loja</a>
+      <button class="tip-btn tip-btn-compare" type="button">Comparar preço</button>
+    </div>
   </div>
 
   <!-- =========================================================
@@ -1184,4 +1221,5 @@
   <script src="script.js" defer></script>
 </body>
 </html>
+
 

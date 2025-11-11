@@ -732,13 +732,13 @@ function renderLista(lista) {
     if (!p.simKey) p.simKey = makeSimKey(p.nome||"");
     card.setAttribute("data-simkey", p.simKey);
 
-    const imgWrap = buildImg(p.imagem, p.nome, { variant: "compact" });
-    imgWrap.style.background = meta.bgCard;
-    card.appendChild(imgWrap);
+    card.style.setProperty("--card-bg", meta?.bgCard || "#fff");
+    card.style.background = meta?.bgCard || "#fff";
+    card.setAttribute("data-tipo", p.tipo || "default");
 
     const seloWrap = document.createElement("div");
     seloWrap.className = "card-selo mt-1";
-    seloWrap.innerHTML = `<img src="${meta.logo}" class="card-logo" alt="${meta.nome}">`;
+    seloWrap.innerHTML = `<img src="${meta.logo}" class="card-logo" alt="${meta.nome}"><span>${meta.nome}</span>`;
     card.appendChild(seloWrap);
     attachLogoFallback(seloWrap.querySelector("img"));
 
@@ -1463,6 +1463,8 @@ function renderComparador(grupo, baseProduct){
   const tipOff   = tip.querySelector('.tip-off');
   const tipPrice = tip.querySelector('.tip-price');
   const tipDesc  = tip.querySelector('.tip-desc');
+  const tipBuyBtn = tip.querySelector('.tip-btn-buy');
+  const tipCompareBtn = tip.querySelector('.tip-btn-compare');
 
   let rafMove = null;
   function moveHoverTip(px, py){
@@ -1504,6 +1506,28 @@ function renderComparador(grupo, baseProduct){
     tipOff.textContent   = (prod.desconto || '');
     tipPrice.textContent = fmt(prod.precoAtual||0);
 
+    if (tipBuyBtn){
+      const loja = meta?.nome || 'loja';
+      tipBuyBtn.textContent = `Abrir ${loja}`;
+      if (prod.link){
+        tipBuyBtn.href = prod.link;
+        tipBuyBtn.classList.remove('disabled');
+      } else {
+        tipBuyBtn.href = '#';
+        tipBuyBtn.classList.add('disabled');
+      }
+    }
+
+    if (tipCompareBtn){
+      tipCompareBtn.onclick = (evt)=>{
+        evt.preventDefault();
+        evt.stopPropagation();
+        const g = normalizeGTIN(prod.gtin);
+        if (g) abrirComparadorPorGTIN(g);
+        else abrirComparador(prod);
+      };
+    }
+
     if (Array.isArray(prod.detalhes) && prod.detalhes.length){
       tipDesc.textContent = '• ' + prod.detalhes.slice(0,2).join('  • ');
     } else {
@@ -1530,7 +1554,10 @@ function renderComparador(grupo, baseProduct){
     cardEl.addEventListener('mousemove', e=>{
       moveHoverTip(e.clientX, e.clientY);
     });
-    cardEl.addEventListener('mouseleave', hideHoverTip);
+    cardEl.addEventListener('mouseleave', e=>{
+      if (e.relatedTarget && tip.contains(e.relatedTarget)) return;
+      hideHoverTip();
+    });
 
     // touch
     let touchTimer = null;
@@ -1547,6 +1574,7 @@ function renderComparador(grupo, baseProduct){
     });
   }
 
+  tip.addEventListener('mouseleave', hideHoverTip);
   window.addEventListener('scroll', hideHoverTip, { passive:true });
   document.addEventListener('touchstart', (e)=>{
     if (!tip.contains(e.target)) hideHoverTip();
