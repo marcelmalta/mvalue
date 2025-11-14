@@ -109,6 +109,25 @@
     .btn-filter .lbl-sm{ display:none; }
   }
   @media (max-width:340px){ .btn-filter{ padding:.44rem .6rem; } .btn-filter .lbl{ display:none; } }
+  .btn-filter.btn-filter-float{
+    position:fixed;
+    bottom:18px; right:16px;
+    z-index:60;
+    box-shadow:0 15px 30px rgba(0,0,0,.25);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-filter.btn-filter-float:hover{
+    transform:translateY(-2px);
+    box-shadow:0 20px 32px rgba(0,0,0,.3);
+  }
+  .btn-filter.btn-filter-float.ativo{
+    background:linear-gradient(120deg,#111827,#1f2937);
+  }
+  @media (min-width:640px){
+    .btn-filter.btn-filter-float{
+      bottom:24px; right:28px;
+    }
+  }
 
   .smartPitch .arrow-mobile{ display:none; }
   @media (max-width:640px){
@@ -860,12 +879,6 @@
         </div>
       </div>
 
-      <!-- Botão responsivo: ícone + rótulo dinâmico (sem JS) -->
-      <button id="btnBuscaFlutuante" class="btn-filter" aria-label="Abrir filtros e comparador">
-        <span class="ico" aria-hidden="true">🔎</span>
-        <span class="lbl lbl-sm">Compare</span>
-        <span class="lbl lbl-lg">Comparar Preços</span>
-      </button>
     </div>
   </header>
 
@@ -1025,6 +1038,13 @@
     </div>
     <div class="tip-desc"></div>
   </div>
+
+  <!-- Botão flutuante de filtros -->
+  <button id="btnBuscaFlutuante" class="btn-filter btn-filter-float" aria-label="Abrir filtros e comparador">
+    <span class="ico" aria-hidden="true">🔎</span>
+    <span class="lbl lbl-sm">Compare</span>
+    <span class="lbl lbl-lg">Comparar Preços</span>
+  </button>
 
   <!-- =========================================================
        SCRIPTS

@@ -988,21 +988,21 @@ function criarBarraFiltros(){
         <svg class="icon absolute left-3 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" width="18" height="18" fill="none">
           <path d="M21 21l-4.3-4.3M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        <input id="buscaInput" type="text" placeholder="Buscar (ex: la��o, cama, shampoo)..." class="w-full h-10 rounded-full border px-9 pr-9" />
+        <input id="buscaInput" type="text" placeholder="Buscar (ex: la\u00E7\u00E3o, cama, shampoo)..." class="w-full h-10 rounded-full border px-9 pr-9" />
         <button id="clearBusca" type="button"
                 class="clear hidden absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full border grid place-items-center leading-none">�-</button>
       </div>
 
       <select id="filtroPreco" class="select-pill px-3 py-1.5 rounded-full border h-10">
-        <option value="">Pre��o</option>
-        <option value="0">AtǸ R$ 50</option>
-        <option value="1">R$ 50�?"R$ 150</option>
+        <option value="">Pre\u00E7o</option>
+        <option value="0">At\u00E9 R$ 50</option>
+        <option value="1">R$ 50\u2013R$ 150</option>
         <option value="2">+ R$ 150</option>
       </select>
 
       <select id="filtroCategoria" class="px-3 py-1.5 rounded-full border min-w-[180px] md:min-w-[160px] sm:min-w-[140px] h-10 font-semibold">
         <option value="">Categoria</option>
-        <option>Roupas</option><option>Acess��rios</option><option>Higiene</option><option>Camas</option><option>Ra����es</option>
+        <option>Roupas</option><option>Acess\u00F3rios</option><option>Higiene</option><option>Camas</option><option>Ra\u00E7\u00F5es</option>
       </select>
     </div>
   `;
@@ -1096,7 +1096,10 @@ function ativarFiltro(ativo){
 
   if (ativo){
     body.classList.add("modo-filtro");
-    if (btn){ btn.classList.add("ativo"); btn.innerHTML = '<span>??</span> Fechar Filtro'; }
+    if (btn){
+      btn.classList.add("ativo");
+      btn.innerHTML = '<span class="ico" aria-hidden="true">✖</span><span class="lbl lbl-sm">Fechar</span><span class="lbl lbl-lg">Fechar filtros</span>';
+    }
     if (header) header.classList.add("hidden");
     if (selo) selo.classList.add("hidden");
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1108,7 +1111,10 @@ function ativarFiltro(ativo){
     window.filtrosAlvo.rotulo = null;
     ensureChipSelecionado();
     destacarSelecao();
-    if (btn){ btn.classList.remove("ativo"); btn.innerHTML = '?? Buscar / Filtrar'; }
+    if (btn){
+      btn.classList.remove("ativo");
+      btn.innerHTML = '<span class="ico" aria-hidden="true">🔎</span><span class="lbl lbl-sm">Compare</span><span class="lbl lbl-lg">Comparar Preços</span>';
+    }
     if (header) header.classList.remove("hidden");
     if (selo) selo.classList.remove("hidden");
     renderBanner("bannerA", ["shopee","amazon","magalu","americanas","aliexpress","petlove","mercadolivre","petz","cobasi","carrefour","casasbahia","ponto"]);
