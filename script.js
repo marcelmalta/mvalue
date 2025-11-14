@@ -99,30 +99,6 @@
       opacity:.95;
     }
 
-    /* Botão flutuante para fechar filtro — lateral, sem cobrir cards */
-    #btnFecharFiltroFloat{
-      position: fixed;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 60;
-      display: none;
-      align-items: center; justify-content: center; gap: 8px;
-      padding: 10px 14px; font-size: 13px; font-weight: 900;
-      color: #7f1d1d; background:#fff; border-radius: 9999px;
-      border: 1.5px solid #fca5a5; box-shadow: 0 6px 16px rgba(0,0,0,.10);
-      white-space: nowrap;
-    }
-    #btnFecharFiltroFloat:hover{ background:#fff7f7; color:#991b1b; }
-    body.modo-filtro #btnFecharFiltroFloat{ display: inline-flex; }
-
-    @media (max-width: 640px){
-      #btnFecharFiltroFloat{
-        right: 6px;
-        padding: 10px 12px;
-        font-size: 12px;
-      }
-    }
   `;
   const style = document.createElement('style');
   style.setAttribute(`data-${id}`, 'true');
@@ -477,26 +453,57 @@ function destacarSelecao(){
 /* chip de estado dentro da barra de filtros */
 function ensureChipSelecionado(){
   const barra = document.getElementById("filtroLinhaProdutos");
+  const actions = document.getElementById("produtosActions");
   if (!barra) return;
-  let chip = barra.querySelector(".chip-similares");
+  const container = barra.querySelector(".f-controls") || barra;
+  let chip = container.querySelector(".chip-similares");
+  let compareBtn = actions?.querySelector(".chip-compare-btn");
   const ativo = !!(filtrosAlvo.gtin || filtrosAlvo.simKey);
 
-  if (!ativo){ chip?.remove(); return; }
+  if (!ativo){
+    chip?.remove();
+    compareBtn?.remove();
+    actions?.classList.add("hidden");
+    return;
+  }
 
   if (!chip){
     chip = document.createElement("button");
     chip.type = "button";
     chip.className = "chip-similares flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-extrabold border border-amber-300 bg-amber-50 hover:bg-amber-100";
     chip.innerHTML = `<span class="chip-label">Selecionado: ${filtrosAlvo.rotulo||"Produto"} <em class="opacity-70">(similares)</em></span>
-                      <span class="ml-1 inline-flex items-center justify-center w-5 h-5 rounded-full border border-amber-300 bg-white">✕</span>`;
+                      <span class="ml-1 inline-flex items-center justify-center w-5 h-5 rounded-full border border-amber-300 bg-white">&times;</span>`;
     chip.addEventListener("click", ()=>{
       filtrosAlvo.gtin = null; filtrosAlvo.simKey = null; filtrosAlvo.rotulo = null;
       aplicarFiltros(); // re-render com todos
     });
-    (barra.querySelector(".f-controls")||barra).appendChild(chip);
+    container.appendChild(chip);
   } else {
     const lbl = chip.querySelector(".chip-label");
     if (lbl) lbl.innerHTML = `Selecionado: ${filtrosAlvo.rotulo||"Produto"} <em class="opacity-70">(similares)</em>`;
+  }
+
+  if (actions){
+    actions.classList.remove("hidden");
+  }
+
+  if (actions && !compareBtn){
+    compareBtn = document.createElement("button");
+    compareBtn.type = "button";
+    compareBtn.className = "chip-compare-btn cmp-modal-btn cmp-modal-btn--inline";
+    compareBtn.textContent = "Comparar pre\u00E7os em outras lojas";
+    compareBtn.addEventListener("click", ()=>{
+      const { gtin, simKey } = window.filtrosAlvo;
+      if (gtin){
+        abrirComparadorPorGTIN(gtin);
+        return;
+      }
+      if (simKey){
+        const base = (window.produtos || []).find(p => String(p.simKey||"") === String(simKey));
+        if (base) abrirComparador(base);
+      }
+    });
+    actions.appendChild(compareBtn);
   }
 }
 
@@ -512,7 +519,6 @@ function selecionarProdutoNosFiltros(produto){
 
   aplicarFiltros({ modoCatalogo: true });
 }
-
 
 /* cria <img> com lazy, onload/onerror e esqueleto */
 function buildImg(src, alt, opts = "") {
@@ -837,13 +843,13 @@ function openModal(obj) {
     btnCmp.id = "btnModalComparar";
     btnCmp.type = "button";
     btnCmp.className = "cmp-modal-btn";
-    btnCmp.textContent = "Comparar preços em outras lojas";
+    btnCmp.textContent = "Comparar pre\u00E7os em outras lojas";
     const linkRef = el("#modalLink");
     if (linkRef) linkRef.insertAdjacentElement("afterend", btnCmp);
   } else {
     btnCmp.type = "button";
     btnCmp.classList.add("cmp-modal-btn");
-    btnCmp.textContent = "Comparar preços em outras lojas";
+    btnCmp.textContent = "Comparar pre\u00E7os em outras lojas";
   }
   btnCmp.onclick = (evt)=> {
     evt?.preventDefault?.();
@@ -990,7 +996,7 @@ function criarBarraFiltros(){
         </svg>
         <input id="buscaInput" type="text" placeholder="Buscar (ex: la\u00E7\u00E3o, cama, shampoo)..." class="w-full h-10 rounded-full border px-9 pr-9" />
         <button id="clearBusca" type="button"
-                class="clear hidden absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full border grid place-items-center leading-none">�-</button>
+                class="clear hidden absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full border grid place-items-center leading-none">&times;</button>
       </div>
 
       <select id="filtroPreco" class="select-pill px-3 py-1.5 rounded-full border h-10">
@@ -1098,7 +1104,7 @@ function ativarFiltro(ativo){
     body.classList.add("modo-filtro");
     if (btn){
       btn.classList.add("ativo");
-      btn.innerHTML = '<span class="ico" aria-hidden="true">✖</span><span class="lbl lbl-sm">Fechar</span><span class="lbl lbl-lg">Fechar filtros</span>';
+      btn.innerHTML = '<span class="ico" aria-hidden="true">&times;</span><span class="lbl lbl-sm">Fechar</span><span class="lbl lbl-lg">Fechar filtros</span>';
     }
     if (header) header.classList.add("hidden");
     if (selo) selo.classList.add("hidden");
@@ -1113,7 +1119,7 @@ function ativarFiltro(ativo){
     destacarSelecao();
     if (btn){
       btn.classList.remove("ativo");
-      btn.innerHTML = '<span class="ico" aria-hidden="true">🔎</span><span class="lbl lbl-sm">Compare</span><span class="lbl lbl-lg">Comparar Preços</span>';
+      btn.innerHTML = '<span class="ico" aria-hidden="true">&#128269;</span><span class="lbl lbl-sm">Compare</span><span class="lbl lbl-lg">Comparar Pre\u00E7os</span>';
     }
     if (header) header.classList.remove("hidden");
     if (selo) selo.classList.remove("hidden");
@@ -1124,27 +1130,6 @@ function ativarFiltro(ativo){
     renderLista(produtos);
   }
 }
-
-/* =============== BOTÕES: abrir/fechar filtro =============== */
-(function mountCloseFloat(){
-  // cria botão flutuante lateral para fechar filtros (só exibe no modo-filtro)
-  if (!document.getElementById('btnFecharFiltroFloat')){
-    const btn = document.createElement('button');
-    btn.id = 'btnFecharFiltroFloat';
-    btn.type = 'button';
-    btn.title = 'Fechar filtros';
-    btn.setAttribute('aria-label','Fechar filtros');
-    btn.innerHTML = '✖ Fechar filtros';
-    document.body.appendChild(btn);
-
-    btn.addEventListener('click', (e)=>{
-      e.preventDefault();
-      if (document.body.classList.contains('modo-filtro')){
-        ativarFiltro(false);
-      }
-    });
-  }
-})();
 
 (function bindOpenToggle(){
   const btnFloat = document.getElementById("btnBuscaFlutuante");
@@ -1595,4 +1580,5 @@ window.addEventListener("DOMContentLoaded", ()=>{
     if (secC) obs.observe(secC, { attributes:true, attributeFilter:["class"] });
   }
 });
+
 

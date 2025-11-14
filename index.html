@@ -360,6 +360,14 @@
     margin-top:.5rem;
   }
   body.modo-filtro #filtroLinhaProdutos{ display:flex; }
+  .produtos-actions{
+    display:flex;
+    justify-content:flex-end;
+    margin-top:.35rem;
+  }
+  .produtos-actions .cmp-modal-btn{
+    margin-top:0;
+  }
   .produtos-headline{
     margin-top:.75rem;
   }
@@ -716,7 +724,7 @@
     background:#fff;
     color:#0f172a;
   }
-  #btnModalComparar{
+  .cmp-modal-btn{
     width:100%;
     margin-top:.4rem;
     border-radius:16px;
@@ -735,17 +743,25 @@
     box-shadow:0 8px 18px rgba(245,158,11,.25);
     transition:transform .15s ease, box-shadow .15s ease;
   }
-  #btnModalComparar::before{
+  .cmp-modal-btn::before{
     content:"\21C4";
     font-size:1.1rem;
   }
-  #btnModalComparar:hover{
+  .cmp-modal-btn:hover{
     transform:translateY(-1px);
     box-shadow:0 10px 24px rgba(245,158,11,.35);
   }
-  #btnModalComparar:focus-visible{
+  .cmp-modal-btn:focus-visible{
     outline:3px solid rgba(245,158,11,.4);
     outline-offset:2px;
+  }
+  .cmp-modal-btn--inline{
+    width:auto;
+    margin-top:0;
+    font-size:.85rem;
+    padding:.5rem .9rem;
+    border-width:1.5px;
+    display:inline-flex;
   }
   @media (max-width:640px){
     #listaComparativos{ gap:.75rem; }
@@ -806,51 +822,102 @@
     body.modo-filtro main .text-center > .bg-gradient-to-r { margin-top: 0 !important; }
 
     #filtroLinhaProdutos{
-      padding: 8px 10px !important;
-      border-radius: 16px;
-      border:1px solid rgba(214,167,92,.25);
-      background:rgba(255,255,255,.9);
-      box-shadow:0 6px 16px rgba(0,0,0,.08);
+      padding: 10px 12px !important;
+      border-radius: 18px;
+      border:1px solid rgba(27,33,45,.4);
+      background:linear-gradient(135deg,#111827 0%,#1f2937 60%,#0f172a 100%);
+      box-shadow:0 14px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
     }
     #filtroLinhaProdutos .f-controls{
-      display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap: 8px 10px;
+      display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap: 10px;
     }
 
-    .search-wrap{ position:relative; min-width: 240px; max-width: 680px; width:100%; }
-    .search-wrap .icon{ position:absolute; left:12px; top:50%; transform:translateY(-50%); width:18px; height:18px; opacity:.65; pointer-events:auto; }
-    .search-wrap input{
-      width:100%; height:40px; padding:0 40px 0 36px;
-      border-radius:9999px; border:1.5px solid rgba(214,167,92,.45);
-      background:rgba(255,255,255,.95); font-weight:600; letter-spacing:.1px;
-      box-shadow: inset 0 1px 2px rgba(0,0,0,.05); transition:.2s;
+    .search-wrap{
+      position:relative;
+      min-width: 240px;
+      max-width: 680px;
+      width:100%;
+      background:linear-gradient(135deg,#1f2937,#111827);
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.35);
+      box-shadow:0 10px 22px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.08);
+      overflow:hidden;
     }
-    .search-wrap input::placeholder{ color:#9ca3af; font-weight:500; }
-    .search-wrap input:focus{ outline:0; border-color:#d6a75c; box-shadow:0 0 0 3px rgba(214,167,92,.25); }
+    .search-wrap .icon{
+      position:absolute;
+      left:14px;
+      top:50%;
+      transform:translateY(-50%);
+      width:18px;
+      height:18px;
+      opacity:.7;
+      pointer-events:none;
+      color:#e2e8f0;
+    }
+    .search-wrap input{
+      width:100%;
+      height:44px;
+      padding:0 48px 0 44px;
+      border-radius:999px;
+      border:0;
+      background:transparent;
+      color:#f8fafc;
+      font-weight:600;
+      letter-spacing:.05em;
+    }
+    .search-wrap input::placeholder{ color:#94a3b8; font-weight:500; }
+    .search-wrap input:focus{
+      outline:none;
+      box-shadow:0 0 0 2px rgba(125,211,252,.35);
+    }
     .search-wrap .clear{
       position:absolute; right:8px; top:50%; transform:translateY(-50%);
-      width:28px; height:28px; border-radius:9999px; border:1px solid #e5e7eb;
-      background:#fff; display:none; place-items:center; font-weight:900;
+      width:28px; height:28px;
+      border-radius:9999px;
+      border:1px solid rgba(255,255,255,.25);
+      background:rgba(148,163,184,.15);
+      color:#f8fafc;
+      display:none;
+      place-items:center;
+      font-weight:900;
+      transition:background .2s,border-color .2s;
+    }
+    .search-wrap .clear:hover{
+      background:rgba(248,250,252,.25);
+      border-color:rgba(255,255,255,.45);
     }
     .search-wrap .clear.show{ display:grid; }
 
     .select-pill{
-      appearance:none; height:40px; padding:0 36px 0 14px; border-radius:9999px;
-      border:1.5px solid #e5e7eb; background:#fff; font-weight:700;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M5 7l5 5 5-5" stroke="%236b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
-      background-repeat:no-repeat; background-position:right 10px center;
+      appearance:none;
+      height:44px;
+      padding:0 44px 0 16px;
+      border-radius:9999px;
+      border:1.5px solid rgba(148,163,184,.35);
+      background:linear-gradient(145deg,#1e293b,#0f172a);
+      color:#f8fafc;
+      font-weight:700;
+      box-shadow:0 10px 18px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.05);
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M5 7l5 5 5-5" stroke="%238c97b4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+      background-repeat:no-repeat;
+      background-position:right 16px center;
+      transition:border-color .2s,box-shadow .2s;
     }
-    .select-pill:focus{ outline:0; border-color:#d6a75c; box-shadow:0 0 0 3px rgba(214,167,92,.2); }
+    .select-pill:focus{
+      outline:0;
+      border-color:rgba(125,211,252,.7);
+      box-shadow:0 0 0 2px rgba(125,211,252,.35);
+    }
 
     #filtroOrigem{ gap:8px !important; margin-top:6px !important; }
     #filtroOrigem label{ margin:0 !important; }
 
     @media (max-width:1024px){
-      #filtroLinhaProdutos{ padding:8px !important; }
-      .search-wrap input, .select-pill{ height:38px; }
+      #filtroLinhaProdutos{ padding:9px !important; }
+      .search-wrap input, .select-pill{ height:42px; }
     }
     @media (max-width:640px){ .search-wrap{ min-width: 100%; } }
 
-    .search-wrap .icon, .search-wrap svg { display: none !important; }
     #filtroCategoria { height: 40px; font-weight: 600; }
     #filtroOrigem label .texto{ display:none !important; }
   </style>
@@ -951,6 +1018,8 @@
 
       <div id="filtroLinhaProdutos"
            class="produtos-filter-slot w-full"></div>
+
+      <div id="produtosActions" class="produtos-actions hidden"></div>
 
       <div id="listaProdutos" class="faixa-geral"></div>
     </section>
