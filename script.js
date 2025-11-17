@@ -795,7 +795,7 @@ function renderBanner(containerId, tipos) {
     const p = autoFillDiscount({...obj});
     const meta = STORE_META[p.tipo];
     const finalPrice = getFinalPrice(p);
-    const freteLabel = p.freteInfo?.label || "";
+    const prazoResumo = ""; // remove label para cards compactos
 
     const card = document.createElement("div");
     card.className = "relative banner-card card-compact rounded-lg flex-shrink-0 cursor-pointer hover:scale-[1.03] transition";
@@ -812,11 +812,11 @@ function renderBanner(containerId, tipos) {
 
     card.insertAdjacentHTML("beforeend", `
       <h2 class="font-semibold text-center banner-title text-gray-800">${p.nome}</h2>
-      ${p.specsLabel ? `<p class="text-[11px] text-gray-500 font-medium text-center leading-tight">${p.specsLabel}</p>` : ""}
+      ${p.specsLabel ? `<p class="card-specs">${p.specsLabel}</p>` : ""}
       <p class="card-old">${p.precoAntigo ? fmt(p.precoAntigo) : ""}</p>
       <p class="card-price">${fmt(finalPrice)}</p>
       <span class="card-off">${p.desconto || ""}</span>
-      ${freteLabel ? `<p class="text-[10px] uppercase tracking-wide text-gray-500 text-center mt-1">${freteLabel}</p>` : ""}
+      ${""}
     `);
 
     card.addEventListener("click", () => openModal(p));
@@ -870,7 +870,7 @@ function renderLista(lista) {
     const p = autoFillDiscount({...obj});
     const meta = STORE_META[p.tipo];
     const finalPrice = getFinalPrice(p);
-    const freteLabel = p.freteInfo?.label || "";
+    const prazoResumo = "";
 
     const card = document.createElement("div");
     card.className = "relative card-geral card-compact";
@@ -892,11 +892,11 @@ function renderLista(lista) {
 
     card.insertAdjacentHTML("beforeend", `
       <h2 class="font-semibold text-center banner-title text-gray-800">${p.nome}</h2>
-      ${p.specsLabel ? `<p class="text-[11px] text-gray-500 font-medium text-center leading-tight">${p.specsLabel}</p>` : ""}
+      ${p.specsLabel ? `<p class="card-specs">${p.specsLabel}</p>` : ""}
       <p class="card-old">${p.precoAntigo ? fmt(p.precoAntigo) : ""}</p>
       <p class="card-price">${fmt(finalPrice)}</p>
       <span class="card-off">${p.desconto || ""}</span>
-      ${freteLabel ? `<p class="text-[10px] uppercase tracking-wide text-gray-500 text-center mt-1">${freteLabel}</p>` : ""}
+      ${""}
     `);
 
     card.addEventListener("click", ()=> openModal(p));
@@ -946,33 +946,28 @@ function renderModalFrete(p){
   if (!wrap){
     return;
   }
+  const meta = STORE_META[p.tipo] || {};
   const info = p.freteInfo || {};
-  if (!info.label){
+  const summary = getShippingSummary(p, meta);
+  const referencia = typeof info.valorReferencia === "number" ? fmt(info.valorReferencia) : "";
+  const headline = summary || info.label || "";
+  if (!headline){
     wrap.classList.add("hidden");
     wrap.innerHTML = "";
     return;
   }
-  const referencia = typeof info.valorReferencia === "number" ? fmt(info.valorReferencia) : "";
   wrap.classList.remove("hidden");
   wrap.innerHTML = `
     <div class="frete-head">
-      <strong>${info.label}</strong>
-      ${referencia ? `<span class="frete-chip">${referencia}</span>` : ""}
+      <span>Prazo estimado</span>
+      <strong>${headline}</strong>
     </div>
-    ${info.observacao ? `<p class="frete-obs">${info.observacao}</p>` : ""}
-    <button type="button" class="frete-cta">Calcular frete na loja</button>
-  `;
-  const href = (p.link && p.link !== "#") ? p.link : null;
-  const btn = wrap.querySelector(".frete-cta");
-  if (btn){
-    if (href){
-      btn.disabled = false;
-      btn.addEventListener("click", ()=> window.open(href, "_blank", "noopener"));
-    } else {
-      btn.disabled = true;
-      btn.textContent = "Consulte o frete no site";
+    ${
+      [info.observacao, referencia]
+        .filter(Boolean)
+        .map(text => `<p class="frete-obs">${text}</p>`).join("")
     }
-  }
+  `;
 }
 
 function renderModalCoupon(p){
@@ -1007,6 +1002,38 @@ function renderModalCoupon(p){
 }
 
 /* ===================== MODAL ===================== */
+function showImagePreview(src, alt="Prévia do produto"){
+  const overlay = el("#modalImagePreview");
+  const img = el("#modalZoomImg");
+  if (!overlay || !img) return;
+  img.src = src || IMG_PLACEHOLDER;
+  img.alt = alt || "Prévia do produto";
+  overlay.classList.remove("hidden");
+  overlay.classList.add("flex");
+}
+
+function hideImagePreview(){
+  const overlay = el("#modalImagePreview");
+  if (!overlay) return;
+  overlay.classList.add("hidden");
+  overlay.classList.remove("flex");
+}
+
+(function bindImagePreview(){
+  const overlay = el("#modalImagePreview");
+  if (!overlay) return;
+  overlay.addEventListener("click", (evt)=>{
+    if (evt.target === overlay) hideImagePreview();
+  });
+  const closeBtn = el("#modalZoomClose");
+  if (closeBtn){
+    closeBtn.addEventListener("click", hideImagePreview);
+  }
+  document.addEventListener("keydown", (evt)=>{
+    if (evt.key === "Escape") hideImagePreview();
+  });
+})();
+
 function openModal(obj) {
   const p = autoFillDiscount({...obj});
   const meta = STORE_META[p.tipo];
@@ -1018,6 +1045,9 @@ function openModal(obj) {
   if (modalImg){
     modalImg.src = p.imagem || IMG_PLACEHOLDER;
     modalImg.onerror = () => { modalImg.src = IMG_PLACEHOLDER; };
+    modalImg.alt = p.nome || "Produto";
+    modalImg.classList.add("modal-img-zoomable");
+    modalImg.onclick = () => showImagePreview(p.imagem || IMG_PLACEHOLDER, p.nome);
   }
 
   const title = el("#modalTitle");
@@ -1497,22 +1527,27 @@ function resolveShippingOptions(prod, meta){
   return [];
 }
 
-function buildShippingHtml(options){
-  if (!options.length) return "";
-  const trimmed = options.slice(0,3);
-  return `
-    <div class="cmp-ship-grid">
-      ${trimmed.map(opt => `
-        <div class="cmp-ship-chip ${opt.freteGratis ? "is-free" : ""}" data-speed="${opt.tipo || "regular"}">
-          <div>
-            <span>${opt.nome}</span>
-            ${opt.detalhe ? `<small>${opt.detalhe}</small>` : ""}
-          </div>
-          <strong>${opt.prazo}</strong>
-        </div>
-      `).join("")}
-    </div>
-  `;
+function getShippingSummary(prod, meta){
+  const options = resolveShippingOptions(prod, meta);
+  if (options.length){
+    const prefer = options.find(opt => opt.tipo === "express") || options[0];
+    if (prefer){
+      if (prefer.nome){
+        return `${prefer.nome}: ${prefer.prazo}`;
+      }
+      return prefer.prazo;
+    }
+  }
+  if (prod?.freteInfo?.label){
+    return prod.freteInfo.label;
+  }
+  return "";
+}
+
+function buildShippingSummaryHtml(prod, meta){
+  const summary = getShippingSummary(prod, meta);
+  if (!summary) return "";
+  return `<div class="cmp-ship-summary">Prazo estimado: ${summary}</div>`;
 }
 
 function renderComparador(grupo, baseProduct){
@@ -1580,16 +1615,12 @@ function renderComparador(grupo, baseProduct){
     const diffValue = finalPrice - menorValor;
     const diffChip = !isBest ? `<span class="cmp-chip cmp-chip--neutral">+ ${fmt(diffValue)} vs melhor</span>` : "";
     const parcelasInfo = p.parcelas ? `<span class="cmp-price-note">${p.parcelas}</span>` : "";
-    const freteLabel = p.freteAPartir
-      ? `Frete: ${fmt(p.freteAPartir)}`
-      : (p.freteInfo?.label || "");
     const tagChips = [
       p.precoAntigo ? `<span class="cmp-chip cmp-chip--old">${fmt(p.precoAntigo)}</span>` : "",
-      p.desconto ? `<span class="cmp-chip cmp-chip--discount">${p.desconto}</span>` : "",
-      freteLabel ? `<span class="cmp-chip cmp-chip--neutral">${freteLabel}</span>` : ""
+      p.desconto ? `<span class="cmp-chip cmp-chip--discount">${p.desconto}</span>` : ""
     ].filter(Boolean).join("");
     const tagsBlock = tagChips ? `<div class="cmp-card-tags">${tagChips}</div>` : "";
-    const shippingHtml = buildShippingHtml(resolveShippingOptions(p, meta));
+    const shippingHtml = buildShippingSummaryHtml(p, meta);
     const cupomHtml = p.cupom?.codigo ? `
       <div class="cmp-coupon">
         <div class="cmp-coupon-row">
