@@ -302,13 +302,16 @@
   .card-compact .card-off{
     font-size:10px;
     font-weight:900;
-    margin-top:1px;
+    margin-top:4px;
     display:inline-flex;
     align-self:flex-start;
-    padding:2px 6px;
+    padding:3px 8px;
     border-radius:999px;
-    background:rgba(16,185,129,.15);
-    color:#047857;
+    background:linear-gradient(120deg,rgba(5,150,105,.12),rgba(16,185,129,.35));
+    color:#065f46;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+    box-shadow:0 0 0 1px rgba(16,185,129,.35),0 2px 4px rgba(16,185,129,.15);
   }
 
   /* Ações (botões mini) */
@@ -565,6 +568,101 @@
   .modal-meta .meta-item.meta-item--wide{
     grid-column:1 / -1;
   }
+  .modal-specs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .modal-spec-chip{
+    font-size:.78rem;
+    font-weight:700;
+    padding:.3rem .75rem;
+    border-radius:999px;
+    background:#fff;
+    border:1px solid rgba(17,94,89,.2);
+    color:#0f172a;
+  }
+  .modal-frete{
+    border:1px dashed rgba(15,23,42,.2);
+    border-radius:.85rem;
+    padding:.6rem .85rem;
+    background:#fff;
+    display:flex;
+    flex-direction:column;
+    gap:.35rem;
+  }
+  .modal-frete .frete-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-weight:800;
+    color:#0f172a;
+    font-size:.85rem;
+  }
+  .modal-frete .frete-chip{
+    background:rgba(59,130,246,.1);
+    color:#1d4ed8;
+    border-radius:999px;
+    padding:.2rem .65rem;
+    font-size:.75rem;
+    font-weight:800;
+  }
+  .modal-frete .frete-obs{
+    font-size:.8rem;
+    color:#4b5563;
+    margin:0;
+  }
+  .modal-frete .frete-cta{
+    align-self:flex-start;
+    border-radius:999px;
+    border:1px solid rgba(16,185,129,.4);
+    background:linear-gradient(120deg,rgba(16,185,129,.12),rgba(16,185,129,.32));
+    color:#065f46;
+    font-size:.78rem;
+    font-weight:800;
+    padding:.35rem .9rem;
+  }
+  .modal-frete .frete-cta:hover{
+    background:linear-gradient(120deg,rgba(16,185,129,.2),rgba(16,185,129,.38));
+  }
+  .modal-coupon{
+    border:1px dashed rgba(234,179,8,.6);
+    background:#fffbea;
+    border-radius:1rem;
+    padding:.75rem;
+    display:flex;
+    flex-direction:column;
+    gap:.45rem;
+  }
+  .modal-coupon-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:.75rem;
+  }
+  .modal-coupon-code{
+    font-size:1.1rem;
+    font-weight:900;
+    letter-spacing:.2rem;
+    color:#854d0e;
+  }
+  .modal-coupon-copy{
+    border-radius:999px;
+    background:#fff;
+    border:1px solid rgba(180,83,9,.4);
+    font-size:.78rem;
+    font-weight:800;
+    padding:.35rem .95rem;
+    color:#7c2d12;
+  }
+  .modal-coupon-copy:hover{
+    background:#fef3c7;
+  }
+  .modal-coupon-desc{
+    font-size:.8rem;
+    color:#92400e;
+    margin:0;
+  }
   #modalDetails{
     columns:2;
     column-gap:1rem;
@@ -749,6 +847,43 @@
     gap:.3rem;
   }
   #secComparador .cmp-card-tags:empty{ display:none; }
+  #secComparador .cmp-coupon{
+    margin-top:.35rem;
+    border:1px dashed rgba(234,179,8,.45);
+    border-radius:.85rem;
+    padding:.45rem .65rem;
+    background:#fffbeb;
+    display:flex;
+    flex-direction:column;
+    gap:.35rem;
+  }
+  #secComparador .cmp-coupon-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:.5rem;
+  }
+  #secComparador .cmp-coupon-code{
+    font-weight:900;
+    letter-spacing:.2rem;
+    color:#92400e;
+  }
+  #secComparador .cmp-copy-btn{
+    border-radius:999px;
+    border:1px solid rgba(180,83,9,.35);
+    padding:.25rem .7rem;
+    font-size:.75rem;
+    font-weight:800;
+    color:#7c2d12;
+    background:#fff;
+  }
+  #secComparador .cmp-copy-btn:hover{
+    background:#fef3c7;
+  }
+  #secComparador .cmp-coupon small{
+    font-size:.75rem;
+    color:#92400e;
+  }
   #secComparador .cmp-chip{
     display:inline-flex;
     align-items:center;
@@ -1171,6 +1306,16 @@
             <div id="modalPixRow" class="meta-item hidden"></div>
             <div id="modalGtinRow" class="meta-item meta-item--wide hidden"></div>
             <div id="modalCupomRow" class="meta-item meta-item--wide hidden"></div>
+          </div>
+
+          <div id="modalSpecs" class="modal-specs hidden"></div>
+          <div id="modalFreteInfo" class="modal-frete hidden"></div>
+          <div id="modalCouponBlock" class="modal-coupon hidden">
+            <div class="modal-coupon-row">
+              <span id="modalCouponCode" class="modal-coupon-code"></span>
+              <button id="modalCouponCopy" type="button" class="modal-coupon-copy">Copiar</button>
+            </div>
+            <p id="modalCouponDesc" class="modal-coupon-desc"></p>
           </div>
 
           <ul id="modalDetails" class="list-disc pl-5 text-sm text-gray-700 space-y-1 text-left"></ul>

@@ -266,126 +266,281 @@ const STORE_META = {
   },
 };
 
-/* ===================== PRODUTOS (exemplos; inclui GTIN) ===================== */
-const produtos = [
-  // Exemplos gerais
-  { tipo:"shopee", nome:"Laços Premium — kit 20 un. (cores sortidas)", precoAntigo:69.90, precoAtual:39.90, desconto:"43% OFF", parcelas:"6x sem juros", detalhes:["Elástico macio","Não puxa o pelo","Cores vivas"], imagem:"https://images.unsplash.com/photo-1596495578065-8c1b2f6a3513?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"shopee", nome:"Peitoral Conforto X-Soft (PP/P) — Anti-puxão", precoAntigo:89.90, precoAtual:54.90, desconto:"39% OFF", parcelas:"6x sem juros", detalhes:["Ajuste rápido","Almofadado","Anel em metal"], imagem:"https://images.unsplash.com/photo-1560807707-8cc77767d783?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"petlove", nome:"Shampoo Hipoalergênico (300ml) — Pelos longos", precoAntigo:54.90, precoAtual:39.90, desconto:"27% OFF", parcelas:"3x sem juros", detalhes:["pH balanceado","Sem parabenos","Cheiro suave"], imagem:"https://images.unsplash.com/photo-1625314887424-9f189ffd40dc?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"petlove", nome:"Cama Donut Antiestresse (P) — Bege", precoAntigo:189.90, precoAtual:129.90, desconto:"32% OFF", parcelas:"6x sem juros", detalhes:["Tecido soft","Antiderrapante","Zíper para lavar"], imagem:"https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"amazon", nome:"Escova Slicker + Pente 2 em 1 — Anti-embolo", precoAntigo:59.90, precoAtual:39.90, desconto:"33% OFF", parcelas:"Em até 10x", detalhes:["Cerdas macias","Cabo ergonômico"], imagem:"https://images.unsplash.com/photo-1567359781514-3b964e06a3ab?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"amazon", nome:"Hidratante de Almofadinhas (50g) — Natural", precoAntigo:49.90, precoAtual:31.90, desconto:"36% OFF", parcelas:"Em até 10x", detalhes:["Manteiga de karité","Sem álcool"], imagem:"https://images.unsplash.com/photo-1525253013412-55c1a69a5738?q=80&w=800&auto=format&fit=crop", link:"#"},
-
-  /* ====== COMPARADOR (MESMO PRODUTO — MESMO GTIN) ======
-     Produto: Simparic Zoetis 40 mg (10,1–20 kg) — 1 unidade
-     GTIN/EAN: 7898049719488
-  */
+/* ===================== PRODUTOS (catálogo com GTIN padronizado) ===================== */
+const PRODUTOS_BASE = [
   {
-    tipo: "mercadolivre",
     gtin: "7898049719488",
     nome: "Simparic Zoetis 40 mg 10,1–20 kg — 1 unidade",
     brand: "Zoetis",
-    doseMg: 40,
-    weightRange: "10,1–20 kg",
-    packQty: 1,
-    precoAntigo: 118.33,
-    precoAtual: 74.60,
-    desconto: "36% OFF",
-    parcelas: "12x R$ 7,35",
-    rating: 4.8,
-    reviews: 29113,
-    badges: ["Novo","Mais vendido"],
-    categoryRank: "1º em Tratamentos Anti-Pulgas",
-    cashback: "até R$ 2,24",
-    imagem: "https://http2.mlstatic.com/D_NQ_NP_2X_905561-MLA88406142177_072025-F.webp",
-    link: "https://mercadolivre.com/sec/1t7W5Sn",
-    detalhes: [
-      "Proteção contra parasitas por 5 semanas.",
-      "Indicado para cães de 10,1 a 20 kg.",
-      "Unidades por kit: 1."
-    ]
-  },
-  {
-    tipo: "cobasi",
-    gtin: "7898049719488",
-    nome: "Simparic Zoetis 40 mg 10,1–20 kg — 1 unidade",
-    brand: "Zoetis",
-    doseMg: 40,
-    weightRange: "10,1–20 kg",
-    packQty: 1,
-    precoAntigo: 133.90,
-    precoAtual: 79.90,
-    desconto: "40% OFF",
-    parcelas: "à vista",
-    rating: 4.8,
-    reviews: 1370,
-    badges: ["Produto original", "Compra Programada", "Amigo Cobasi"],
-    loyaltyPoints: 79,
-    shippingOptions: [
-      { nome: "Retire na loja", prazo: "até 11h", preco: 0, freteGratis: true },
-      { nome: "Econômica", prazo: "até 1 dia útil", preco: 15.90 },
-      { nome: "Cobasi Já", prazo: "até 1 hora*", preco: 17.90 }
+    specs: {
+      doseMg: 40,
+      faixaPeso: "10,1–20 kg",
+      unidadesPorKit: 1,
+      tipoUnidade: "comprimido mastigável",
+      pesoLiquidoKg: 0.04
+    },
+    descricaoPadrao: [
+      "Dose mastigável de 40 mg indicada para cães de 10,1–20 kg.",
+      "Protege contra pulgas e carrapatos por até 5 semanas.",
+      "Kit com 1 comprimido mastigável individual."
     ],
-    pickupAvailable: true,
-    imagem: "https://cobasi.vteximg.com.br/arquivos/ids/1089375-368-368/Antipulgas%20Simparic%2040mg%20para%20Caes%2010%20a%2020kg.webp?v=638974276600530000",
-    link: "#",
-    detalhes: [
-      "Elimina 100% de pulgas e carrapatos.",
-      "Comprimido mastigável e altamente palatável.",
-      "Combate também três tipos de sarnas.",
-      "Indicado para cães a partir de 8 semanas de idade.",
-      "Começa a fazer efeito em 3 horas e protege por até 35 dias."
+    ofertas: [
+      {
+        tipo: "mercadolivre",
+        precoAntigo: 118.33,
+        precoFinal: 74.60,
+        descontoPercent: 36,
+        parcelas: "12x R$ 7,35",
+        rating: 4.8,
+        reviews: 29113,
+        badges: ["Novo","Mais vendido"],
+        categoryRank: "1º em Tratamentos Anti-Pulgas",
+        cashback: "até R$ 2,24",
+        imagem: "https://http2.mlstatic.com/D_NQ_NP_2X_905561-MLA88406142177_072025-F.webp",
+        link: "https://mercadolivre.com/sec/1t7W5Sn",
+        freteInfo: {
+          tipo: "variavel",
+          label: "Frete calculado no checkout",
+          observacao: "Valores variam conforme o CEP e o tipo de envio."
+        }
+      },
+      {
+        tipo: "cobasi",
+        precoAntigo: 133.90,
+        precoFinal: 79.90,
+        descontoPercent: 40,
+        parcelas: "à vista",
+        rating: 4.8,
+        reviews: 1370,
+        badges: ["Produto original", "Compra Programada", "Amigo Cobasi"],
+        loyaltyPoints: 79,
+        pickupAvailable: true,
+        imagem: "https://cobasi.vteximg.com.br/arquivos/ids/1089375-368-368/Antipulgas%20Simparic%2040mg%20para%20Caes%2010%20a%2020kg.webp?v=638974276600530000",
+        link: "#",
+        shippingOptions: [
+          { nome: "Retire na loja", prazo: "até 11h", preco: 0, freteGratis: true },
+          { nome: "Econômica", prazo: "até 1 dia útil", preco: 15.90 },
+          { nome: "Cobasi Já", prazo: "até 1 hora*", preco: 17.90 }
+        ],
+        freteInfo: {
+          tipo: "variavel",
+          label: "Frete varia por região",
+          observacao: "Consulte retirada e entrega no site da Cobasi."
+        }
+      },
+      {
+        tipo: "magalu",
+        precoAntigo: 85.87,
+        precoFinal: 74.97,
+        precoPix: 59.98,
+        descontoLabel: "≈30% OFF",
+        parcelas: "1x R$ 74,97 sem juros",
+        rating: 4.7,
+        reviews: 232,
+        badges: ["Magalu garante", "Olist Plus"],
+        cupom: {
+          codigo: "PET10",
+          descricao: "10% OFF (válido até 16/11)"
+        },
+        freteAPartir: 28.47,
+        imagem: "https://a-static.mlcdn.com.br/800x560/antipulgas-simparic-1-comp-10-a-20kg-zoetis/olistplus/opmjuho68xxtdv8l/43719ef3c6447d809db36e10d861f933.jpeg",
+        link: "https://divulgador.magalu.com/3BWYo8lG",
+        freteInfo: {
+          tipo: "variavel",
+          label: "Frete varia por CEP",
+          observacao: "Magalu calcula valores a partir do endereço informado.",
+          valorReferencia: 28.47
+        }
+      }
     ]
   },
   {
-    tipo: "magalu",
-    gtin: "7898049719488",
-    nome: "Simparic Zoetis 40 mg 10,1–20 kg — 1 unidade",
-    brand: "Zoetis",
-    doseMg: 40,
-    weightRange: "10,1–20 kg",
-    packQty: 1,
-    precoAntigo: 85.87,
-    precoAtual: 74.97,
-    precoPix: 59.98,
-    desconto: "≈30% OFF",
-    parcelas: "1x R$ 74,97 sem juros",
-    rating: 4.7,
-    reviews: 232,
-    badges: ["Magalu garante", "Olist Plus"],
-    cupom: "PET10",
-    cupomDescricao: "10% OFF (válido até 16/11)",
-    freteAPartir: 28.47,
-    imagem: "https://a-static.mlcdn.com.br/800x560/antipulgas-simparic-1-comp-10-a-20kg-zoetis/olistplus/opmjuho68xxtdv8l/43719ef3c6447d809db36e10d861f933.jpeg",
-    link: "https://divulgador.magalu.com/3BWYo8lG",
-    detalhes: [
-      "Proteção contra parasitas por 5 semanas.",
-      "Indicado para cães de 10,1 a 20 kg.",
-      "Unidades por kit: 1."
+    gtin: "7898904621243",
+    nome: "Ração Premier Ambientes Internos Adultos Castrados Raças Pequenas 12kg",
+    brand: "PremierPet",
+    specs: {
+      unidadesPorKit: 1,
+      tipoUnidade: "saco",
+      pesoLiquidoKg: 12,
+      faixaPeso: "Raças pequenas adultas castradas"
+    },
+    descricaoPadrao: [
+      "Ração Super Premium para cães adultos castrados de raças pequenas.",
+      "Embalagem de 12 kg com sabor frango e salmão.",
+      "Ajuda no controle de peso e na saúde urinária."
+    ],
+    ofertas: [
+      {
+        tipo: "magalu",
+        precoAntigo: 263.41,
+        precoFinal: 237.07,
+        precoPix: 237.07,
+        descontoPercent: 10,
+        parcelas: "1x R$ 263,41 sem juros",
+        rating: 4.9,
+        reviews: 17,
+        badges: ["Magalu garante"],
+        freteAPartir: 62.90,
+        imagem: "https://a-static.mlcdn.com.br/800x560/racao-premier-ambientes-internos-caes-adultos-castrados-racas-pequenas-frango-e-salmao-12kg/tudodebichoii/101927/668e894ba2fb3213df9ae0338500762d.jpeg",
+        link: "https://divulgador.magalu.com/vc8Itlv6",
+        freteInfo: {
+          tipo: "variavel",
+          label: "Frete varia por CEP",
+          observacao: "O valor mostrado é apenas uma referência inicial.",
+          valorReferencia: 62.90
+        }
+      },
+      {
+        tipo: "mercadolivre",
+        precoAntigo: 295.00,
+        precoFinal: 260.00,
+        precoPix: 260.00,
+        descontoPercent: 11,
+        parcelas: "6x de R$ 46,83 sem juros",
+        rating: 4.9,
+        reviews: 63,
+        badges: ["Loja oficial Long Dog", "Mais vendido"],
+        imagem: "https://http2.mlstatic.com/D_NQ_NP_2X_841714-MLA84121834736_052025-F.webp",
+        link: "https://mercadolivre.com/sec/1hrWuPA",
+        freteInfo: {
+          tipo: "variavel",
+          label: "Frete calculado no checkout",
+          observacao: "O marketplace mostra opções após informar o CEP."
+        }
+      }
     ]
-  },
-
-  // Outros exemplos
-  { tipo:"mercadolivre", nome:"Conjunto Bandana + Gravata (3 peças) — Shih Tzu", precoAntigo:49.90, precoAtual:32.90, desconto:"34% OFF", parcelas:"10x sem juros", detalhes:["Tecido respirável","Lavável","Ajuste com velcro"], imagem:"https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"petz", nome:"Tapete Higiênico Premium p/ Cães (30 un.)", precoAntigo:119.90, precoAtual:89.90, parcelas:"3x sem juros", detalhes:["Gel superabsorvente","Adesivo antideslizante","Neutraliza odores"], imagem:"https://images.unsplash.com/photo-1543465077-db45d34b88a5?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"petz", nome:"Escova Dupla — Macia & Pinos (p/ pelos longos)", precoAntigo:69.90, precoAtual:44.90, parcelas:"4x sem juros", detalhes:["Remoção de nós","Evita quebra do pelo","Cabo ergonômico"], imagem:"https://images.unsplash.com/photo-1561736778-92e52a7769ef?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"cobasi", nome:"Bebedouro Portátil Retrátil — Passeios", precoAntigo:79.90, precoAtual:49.90, parcelas:"3x sem juros", detalhes:["Livre de BPA","Trava anti-vazamento","Ideal para viagens"], imagem:"https://images.unsplash.com/photo-1583511655867-9b681b2d7239?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"cobasi", nome:"Lenços Umedecidos p/ Patas e Focinho (100 un.)", precoAntigo:59.90, precoAtual:34.90, parcelas:"3x sem juros", detalhes:["Aloe vera","Sem álcool","Uso diário"], imagem:"https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"americanas", nome:"Kit Banho: Shampoo + Condicionador — Pelos Sedosos", precoAntigo:79.90, precoAtual:52.90, parcelas:"Em até 10x", detalhes:["Brilho e maciez","Sem parabenos","Aroma suave"], imagem:"https://images.unsplash.com/photo-1556229060-3f04231b39d0?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"americanas", nome:"Corta Unhas com Trava de Segurança — Shih Tzu", precoAntigo:49.90, precoAtual:29.90, parcelas:"Em até 10x", detalhes:["Lâmina afiada","Cabo antiderrapante","Uso doméstico"], imagem:"https://images.unsplash.com/photo-1516979187457-637abb4f9353?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"aliexpress", nome:"Coleira com Plaquinha Personalizada — Anti-Perda", precoAntigo:69.90, precoAtual:35.90, parcelas:"Em até 6x", detalhes:["Gravação do nome","Ajuste macio","Várias cores"], imagem:"https://images.unsplash.com/photo-1543796076-2a4270f1502b?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"aliexpress", nome:"Macacão de Tricô para Inverno — Tamanho P", precoAntigo:89.90, precoAtual:49.90, parcelas:"Em até 6x", detalhes:["Quentinho","Confortável","Não prende os pelos"], imagem:"https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"carrefour", nome:"Comedouro Antivoracidade — Médio", precoAntigo:69.90, precoAtual:39.90, parcelas:"3x sem juros", detalhes:["Reduz ansiedade ao comer","Base antiderrapante","Fácil de lavar"], imagem:"https://images.unsplash.com/photo-1568640347023-a616a30bc3bd?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"carrefour", nome:"Escova para Desembolar Nós — Uso Diário", precoAntigo:64.90, precoAtual:34.90, parcelas:"3x sem juros", detalhes:["Minimiza queda de pelos","Ideal para pelagem longa","Cabo confortável"], imagem:"https://images.unsplash.com/photo-1505628346881-b72b27e84530?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"casasbahia", nome:"Kit Higiene Bucal — Pasta + Escova", precoAntigo:59.90, precoAtual:36.90, parcelas:"4x sem juros", detalhes:["Ação antitártaro","Sabor agradável","Uso fácil"], imagem:"https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"casasbahia", nome:"Toalha de Microfibra — Secagem Rápida", precoAntigo:49.90, precoAtual:27.90, parcelas:"4x sem juros", detalhes:["Superabsorvente","Antiodor","Tamanho P (50×90cm)"], imagem:"https://images.unsplash.com/photo-1543357530-d91dab30fa50?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"ponto", nome:"Caminha Retangular — Confort P", precoAntigo:159.90, precoAtual:109.90, parcelas:"6x sem juros", detalhes:["Espuma de alta densidade","Zíper para lavar","Tecido antialérgico"], imagem:"https://images.unsplash.com/photo-1620088809808-5850b89cd87a?q=80&w=800&auto=format&fit=crop", link:"#"},
-  { tipo:"ponto", nome:"Escova Removedora de Pelos — Reutilizável", precoAntigo:79.90, precoAtual:39.90, parcelas:"6x sem juros", detalhes:["Remove pelos de sofás/roupas","Sem refis","Lavagem rápida"], imagem:"https://images.unsplash.com/photo-1541364983171-a8ba01e95cfc?q=80&w=800&auto=format&fit=crop", link:"#"}
+  }
 ];
+
+function montarSpecsInfo(specs = {}) {
+  const list = [];
+  if (specs.doseMg) list.push({ label: "Dose", value: `${specs.doseMg} mg` });
+  if (specs.faixaPeso) list.push({ label: "Faixa de peso", value: specs.faixaPeso });
+  if (specs.unidadesPorKit) {
+    const unidade = specs.tipoUnidade || (specs.unidadesPorKit > 1 ? "unidades" : "unidade");
+    list.push({ label: "Embalagem", value: `${specs.unidadesPorKit} ${unidade}` });
+  }
+  if (specs.pesoLiquidoKg) list.push({ label: "Peso líquido", value: `${specs.pesoLiquidoKg} kg` });
+  if (specs.medidaExtra) list.push({ label: "Medida", value: specs.medidaExtra });
+  return {
+    specsList: list,
+    specsLabel: list.map(item => item.value).join(" • ")
+  };
+}
+
+function normalizeCupomInfo(raw) {
+  if (!raw) return null;
+  if (typeof raw === "string") {
+    const codigo = raw.trim();
+    return codigo ? { codigo, descricao: "", expiraEm: "", destaque: "" } : null;
+  }
+  if (typeof raw === "object") {
+    const codigo = (raw.codigo || raw.code || raw.cupom || "").trim();
+    if (!codigo) return null;
+    return {
+      codigo,
+      descricao: raw.descricao || raw.descr || "",
+      expiraEm: raw.expiraEm || raw.validade || "",
+      destaque: raw.destaque || raw.label || ""
+    };
+  }
+  return null;
+}
+
+function montarProduto(base, oferta) {
+  const specsInfo = montarSpecsInfo(base.specs || {});
+  const precoFinal = Number(oferta.precoFinal ?? oferta.precoAtual ?? oferta.preco ?? 0);
+  const precoAntigo = typeof oferta.precoAntigo === "number" ? oferta.precoAntigo : null;
+  const descontoPercent = oferta.descontoPercent ??
+    (precoAntigo && precoAntigo > precoFinal ? Math.round((1 - (precoFinal / precoAntigo)) * 100) : null);
+  const descontoLabel = oferta.descontoLabel || oferta.desconto || (descontoPercent ? `${descontoPercent}% OFF` : "");
+  const cupom = normalizeCupomInfo(oferta.cupom);
+  const freteInfo = oferta.freteInfo || base.freteInfo || {
+    tipo: "variavel",
+    label: "Frete varia conforme o CEP",
+    observacao: "Calcule o frete na loja para ver o valor final."
+  };
+
+  return {
+    tipo: oferta.tipo,
+    gtin: base.gtin,
+    nome: base.nome,
+    brand: base.brand,
+    doseMg: base.specs?.doseMg ?? null,
+    weightRange: base.specs?.faixaPeso || "",
+    packQty: base.specs?.unidadesPorKit ?? null,
+    precoAntigo,
+    precoAtual: precoFinal,
+    precoFinal,
+    precoPix: oferta.precoPix ?? null,
+    parcelas: oferta.parcelas || "",
+    rating: oferta.rating ?? null,
+    reviews: oferta.reviews ?? null,
+    badges: oferta.badges || [],
+    categoryRank: oferta.categoryRank || "",
+    cashback: oferta.cashback || "",
+    imagem: oferta.imagem || "",
+    link: oferta.link || "#",
+    detalhes: (base.descricaoPadrao || []).slice(),
+    descricaoPadrao: (base.descricaoPadrao || []).slice(),
+    specsLabel: specsInfo.specsLabel,
+    specsList: specsInfo.specsList,
+    descontoPercent,
+    descontoLabel,
+    desconto: descontoLabel,
+    freteInfo: {
+      ...freteInfo,
+      valorReferencia: typeof oferta.freteAPartir === "number" ? oferta.freteAPartir : freteInfo.valorReferencia ?? null
+    },
+    freteAPartir: typeof oferta.freteAPartir === "number" ? oferta.freteAPartir : null,
+    shippingOptions: oferta.shippingOptions || [],
+    pickupAvailable: oferta.pickupAvailable ?? false,
+    loyaltyPoints: oferta.loyaltyPoints ?? null,
+    cupom: cupom,
+    cupomDescricao: cupom?.descricao || "",
+    cupomValidade: cupom?.expiraEm || "",
+    cupomDestaque: cupom?.destaque || "",
+    precosAlternativos: oferta.precosAlternativos || (oferta.precoPix ? { pix: oferta.precoPix } : null)
+  };
+}
+
+const produtos = PRODUTOS_BASE.flatMap(base =>
+  (base.ofertas || []).map(oferta => montarProduto(base, oferta))
+);
+window.produtos = produtos;
 
 /* ===================== UTILS ===================== */
 const el  = (sel, root=document) => root.querySelector(sel);
 const fmt = (n) => `R$ ${Number(n).toFixed(2)}`;
+const getFinalPrice = (prod) => {
+  const value = Number(prod?.precoFinal ?? prod?.precoAtual ?? 0);
+  return Number.isFinite(value) ? value : 0;
+};
+
+function copyTextToClipboard(text) {
+  if (!text) return Promise.resolve(false);
+  if (navigator?.clipboard?.writeText) {
+    return navigator.clipboard.writeText(text).then(
+      () => true,
+      () => false
+    );
+  }
+  return new Promise((resolve) => {
+    try {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+      resolve(ok);
+    } catch (err) {
+      resolve(false);
+    }
+  });
+}
 
 const IMG_PLACEHOLDER =
   'data:image/svg+xml;utf8,' +
@@ -557,11 +712,20 @@ function buildImg(src, alt, opts = "") {
   return wrap;
 }
 
-/* calcula % OFF se vier vazio mas houver preço antigo */
+/* garante preço final e etiqueta de desconto calculada */
 function autoFillDiscount(p){
-  if ((!p.desconto || p.desconto.trim()==="") && p.precoAntigo && p.precoAntigo>p.precoAtual){
-    const pct = Math.round((1 - (p.precoAtual / p.precoAntigo))*100);
+  const precoFinal = getFinalPrice(p);
+  p.precoFinal = precoFinal;
+  p.precoAtual = precoFinal;
+
+  const descontoTexto = p.descontoLabel || p.desconto || "";
+  if (!descontoTexto && p.precoAntigo && p.precoAntigo > precoFinal){
+    const pct = Math.round((1 - (precoFinal / p.precoAntigo))*100);
     p.desconto = `${pct}% OFF`;
+    p.descontoLabel = p.desconto;
+  } else {
+    p.desconto = descontoTexto;
+    p.descontoLabel = descontoTexto;
   }
   return p;
 }
@@ -630,6 +794,8 @@ function renderBanner(containerId, tipos) {
   produtos.filter(p => tipos.includes(p.tipo)).forEach(obj => {
     const p = autoFillDiscount({...obj});
     const meta = STORE_META[p.tipo];
+    const finalPrice = getFinalPrice(p);
+    const freteLabel = p.freteInfo?.label || "";
 
     const card = document.createElement("div");
     card.className = "relative banner-card card-compact rounded-lg flex-shrink-0 cursor-pointer hover:scale-[1.03] transition";
@@ -646,9 +812,11 @@ function renderBanner(containerId, tipos) {
 
     card.insertAdjacentHTML("beforeend", `
       <h2 class="font-semibold text-center banner-title text-gray-800">${p.nome}</h2>
+      ${p.specsLabel ? `<p class="text-[11px] text-gray-500 font-medium text-center leading-tight">${p.specsLabel}</p>` : ""}
       <p class="card-old">${p.precoAntigo ? fmt(p.precoAntigo) : ""}</p>
-      <p class="card-price">${fmt(p.precoAtual)}</p>
+      <p class="card-price">${fmt(finalPrice)}</p>
       <span class="card-off">${p.desconto || ""}</span>
+      ${freteLabel ? `<p class="text-[10px] uppercase tracking-wide text-gray-500 text-center mt-1">${freteLabel}</p>` : ""}
     `);
 
     card.addEventListener("click", () => openModal(p));
@@ -701,6 +869,8 @@ function renderLista(lista) {
   data.forEach(obj => {
     const p = autoFillDiscount({...obj});
     const meta = STORE_META[p.tipo];
+    const finalPrice = getFinalPrice(p);
+    const freteLabel = p.freteInfo?.label || "";
 
     const card = document.createElement("div");
     card.className = "relative card-geral card-compact";
@@ -722,9 +892,11 @@ function renderLista(lista) {
 
     card.insertAdjacentHTML("beforeend", `
       <h2 class="font-semibold text-center banner-title text-gray-800">${p.nome}</h2>
+      ${p.specsLabel ? `<p class="text-[11px] text-gray-500 font-medium text-center leading-tight">${p.specsLabel}</p>` : ""}
       <p class="card-old">${p.precoAntigo ? fmt(p.precoAntigo) : ""}</p>
-      <p class="card-price">${fmt(p.precoAtual)}</p>
+      <p class="card-price">${fmt(finalPrice)}</p>
       <span class="card-off">${p.desconto || ""}</span>
+      ${freteLabel ? `<p class="text-[10px] uppercase tracking-wide text-gray-500 text-center mt-1">${freteLabel}</p>` : ""}
     `);
 
     card.addEventListener("click", ()=> openModal(p));
@@ -753,6 +925,86 @@ const setMetaRow = (id, html) => {
     target.innerHTML = html;
   }
 };
+
+function renderModalSpecs(p){
+  const wrap = el("#modalSpecs");
+  if (!wrap) return;
+  const specs = Array.isArray(p.specsList) ? p.specsList : [];
+  if (!specs.length){
+    wrap.classList.add("hidden");
+    wrap.innerHTML = "";
+    return;
+  }
+  wrap.classList.remove("hidden");
+  wrap.innerHTML = specs.map(spec => `
+    <span class="modal-spec-chip"><strong>${spec.label}:</strong> ${spec.value}</span>
+  `).join("");
+}
+
+function renderModalFrete(p){
+  const wrap = el("#modalFreteInfo");
+  if (!wrap){
+    return;
+  }
+  const info = p.freteInfo || {};
+  if (!info.label){
+    wrap.classList.add("hidden");
+    wrap.innerHTML = "";
+    return;
+  }
+  const referencia = typeof info.valorReferencia === "number" ? fmt(info.valorReferencia) : "";
+  wrap.classList.remove("hidden");
+  wrap.innerHTML = `
+    <div class="frete-head">
+      <strong>${info.label}</strong>
+      ${referencia ? `<span class="frete-chip">${referencia}</span>` : ""}
+    </div>
+    ${info.observacao ? `<p class="frete-obs">${info.observacao}</p>` : ""}
+    <button type="button" class="frete-cta">Calcular frete na loja</button>
+  `;
+  const href = (p.link && p.link !== "#") ? p.link : null;
+  const btn = wrap.querySelector(".frete-cta");
+  if (btn){
+    if (href){
+      btn.disabled = false;
+      btn.addEventListener("click", ()=> window.open(href, "_blank", "noopener"));
+    } else {
+      btn.disabled = true;
+      btn.textContent = "Consulte o frete no site";
+    }
+  }
+}
+
+function renderModalCoupon(p){
+  const block = el("#modalCouponBlock");
+  if (!block){
+    return;
+  }
+  const codeEl = el("#modalCouponCode");
+  const descEl = el("#modalCouponDesc");
+  const copyBtn = el("#modalCouponCopy");
+  const info = p.cupom;
+  if (!info?.codigo){
+    block.classList.add("hidden");
+    if (codeEl) codeEl.textContent = "";
+    if (descEl) descEl.textContent = "";
+    if (copyBtn) copyBtn.onclick = null;
+    return;
+  }
+  if (codeEl) codeEl.textContent = info.codigo;
+  if (descEl) descEl.textContent = p.cupomDescricao || info.descricao || p.cupomValidade || "Copie e aplique no carrinho.";
+  block.classList.remove("hidden");
+  if (copyBtn){
+    copyBtn.textContent = "Copiar";
+    copyBtn.onclick = async () => {
+      const ok = await copyTextToClipboard(info.codigo);
+      if (ok){
+        copyBtn.textContent = "Copiado!";
+        setTimeout(()=> copyBtn.textContent = "Copiar", 1600);
+      }
+    };
+  }
+}
 
 /* ===================== MODAL ===================== */
 function openModal(obj) {
@@ -835,7 +1087,11 @@ function openModal(obj) {
   setMetaRow("modalCashbackRow", p.cashback ? `Cashback: ${p.cashback}` : "");
   setMetaRow("modalPixRow", p.precoPix ? `Pix: <strong>${fmt(p.precoPix)}</strong>` : "");
   setMetaRow("modalGtinRow", p.gtin ? `GTIN/EAN: <strong>${normalizeGTIN(p.gtin)}</strong>` : "");
-  setMetaRow("modalCupomRow", p.cupom ? `Cupom ${p.cupom}${p.cupomDescricao ? ' - ' + p.cupomDescricao : ''}` : "");
+  setMetaRow("modalCupomRow", "");
+
+  renderModalSpecs(p);
+  renderModalFrete(p);
+  renderModalCoupon(p);
 
   let btnCmp = el("#btnModalComparar");
   if (!btnCmp){
@@ -915,6 +1171,7 @@ function aplicarFiltros(arg){
   document.body.classList.toggle("catalogo-focus", temAlvo);
 
   const filtrados = produtos.filter(p=>{
+    const precoFinal = getFinalPrice(p);
     // origem
     if (origens.length && !origens.includes(p.tipo)) return false;
     // texto
@@ -925,9 +1182,9 @@ function aplicarFiltros(arg){
       if (!termos.some(t=>p.nome.toLowerCase().includes(t))) return false;
     }
     // preço
-    if (preco === "0" && p.precoAtual > 50) return false;
-    if (preco === "1" && (p.precoAtual < 50 || p.precoAtual > 150)) return false;
-    if (preco === "2" && p.precoAtual < 150) return false;
+    if (preco === "0" && precoFinal > 50) return false;
+    if (preco === "1" && (precoFinal < 50 || precoFinal > 150)) return false;
+    if (preco === "2" && precoFinal < 150) return false;
 
     // ==== interseção com alvo selecionado ====
     if (alvoGTIN || alvoSIMK){
@@ -1275,10 +1532,11 @@ function renderComparador(grupo, baseProduct){
     return;
   }
 
-  const ordenados = [...grupo].sort((a,b)=> a.precoAtual - b.precoAtual);
+  const ordenados = [...grupo].sort((a,b)=> getFinalPrice(a) - getFinalPrice(b));
   const menor = ordenados[0];
   const maior = ordenados[ordenados.length-1];
-  const media = ordenados.reduce((acc,p)=>acc+p.precoAtual,0)/ordenados.length;
+  const menorValor = getFinalPrice(menor);
+  const media = ordenados.reduce((acc,p)=>acc+getFinalPrice(p),0)/ordenados.length;
 
   const head = document.createElement("div");
   head.className = "col-span-full bg-white border border-gray-200 rounded-lg p-3 shadow-sm";
@@ -1296,7 +1554,7 @@ function renderComparador(grupo, baseProduct){
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs sm:text-sm">
         <div class="bg-green-50 border border-green-200 rounded-md p-2">
           <div class="font-bold text-green-700">Menor preço</div>
-          <div class="text-green-800">${(STORE_META[menor.tipo]?.nome) || menor.tipo} — <b>${fmt(menor.precoAtual)}</b></div>
+          <div class="text-green-800">${(STORE_META[menor.tipo]?.nome) || menor.tipo} — <b>${fmt(menorValor)}</b></div>
         </div>
         <div class="bg-amber-50 border border-amber-200 rounded-md p-2">
           <div class="font-bold text-amber-700">Preço médio</div>
@@ -1304,7 +1562,7 @@ function renderComparador(grupo, baseProduct){
         </div>
         <div class="bg-red-50 border border-red-200 rounded-md p-2">
           <div class="font-bold text-red-700">Maior preço</div>
-          <div class="text-red-800">${(STORE_META[maior.tipo]?.nome) || maior.tipo} — <b>${fmt(maior.precoAtual)}</b></div>
+          <div class="text-red-800">${(STORE_META[maior.tipo]?.nome) || maior.tipo} — <b>${fmt(getFinalPrice(maior))}</b></div>
         </div>
       </div>
       <p class="text-[11px] sm:text-xs text-gray-500 leading-snug">Estimativas de frete abaixo consideram as modalidades mais rápidas de cada loja e podem variar por CEP.</p>
@@ -1318,16 +1576,29 @@ function renderComparador(grupo, baseProduct){
     const card = document.createElement("div");
     card.className = "cmp-card bg-white border border-gray-200 rounded-2xl shadow-sm";
     const isBest = (p === menor);
-    const diffValue = p.precoAtual - menor.precoAtual;
+    const finalPrice = getFinalPrice(p);
+    const diffValue = finalPrice - menorValor;
     const diffChip = !isBest ? `<span class="cmp-chip cmp-chip--neutral">+ ${fmt(diffValue)} vs melhor</span>` : "";
     const parcelasInfo = p.parcelas ? `<span class="cmp-price-note">${p.parcelas}</span>` : "";
+    const freteLabel = p.freteAPartir
+      ? `Frete: ${fmt(p.freteAPartir)}`
+      : (p.freteInfo?.label || "");
     const tagChips = [
       p.precoAntigo ? `<span class="cmp-chip cmp-chip--old">${fmt(p.precoAntigo)}</span>` : "",
       p.desconto ? `<span class="cmp-chip cmp-chip--discount">${p.desconto}</span>` : "",
-      p.freteAPartir ? `<span class="cmp-chip cmp-chip--neutral">Frete: ${fmt(p.freteAPartir)}</span>` : ""
+      freteLabel ? `<span class="cmp-chip cmp-chip--neutral">${freteLabel}</span>` : ""
     ].filter(Boolean).join("");
     const tagsBlock = tagChips ? `<div class="cmp-card-tags">${tagChips}</div>` : "";
     const shippingHtml = buildShippingHtml(resolveShippingOptions(p, meta));
+    const cupomHtml = p.cupom?.codigo ? `
+      <div class="cmp-coupon">
+        <div class="cmp-coupon-row">
+          <span class="cmp-coupon-code">${p.cupom.codigo}</span>
+          <button type="button" class="cmp-copy-btn" data-code="${p.cupom.codigo}">Copiar</button>
+        </div>
+        ${p.cupomDescricao || p.cupom?.descricao || p.cupomValidade ? `<small>${p.cupomDescricao || p.cupom?.descricao || p.cupomValidade}</small>` : ""}
+      </div>
+    ` : "";
     const storeName = meta?.nome || (p.tipo || "Loja");
     const logoSrc = meta?.logo || "";
     const priceColor = meta?.corTexto || "#0f172a";
@@ -1345,7 +1616,7 @@ function renderComparador(grupo, baseProduct){
       </div>
 
       <div class="cmp-card-priceRow">
-        <div class="cmp-price" style="color:${priceColor}">${fmt(p.precoAtual)}</div>
+        <div class="cmp-price" style="color:${priceColor}">${fmt(finalPrice)}</div>
         <div class="cmp-price-meta">
           ${parcelasInfo}
           ${diffChip}
@@ -1353,6 +1624,7 @@ function renderComparador(grupo, baseProduct){
       </div>
 
       ${tagsBlock}
+      ${cupomHtml}
       ${shippingHtml}
 
       <div class="cmp-card-actions">
@@ -1378,6 +1650,18 @@ function renderComparador(grupo, baseProduct){
     top.appendChild(nm);
 
     card.insertBefore(top, card.firstChild);
+    const copyBtn = card.querySelector(".cmp-copy-btn");
+    if (copyBtn){
+      copyBtn.addEventListener("click", async ()=> {
+        const code = copyBtn.getAttribute("data-code") || "";
+        const ok = await copyTextToClipboard(code);
+        if (ok){
+          copyBtn.textContent = "Copiado!";
+          setTimeout(()=> copyBtn.textContent = "Copiar", 1600);
+        }
+      });
+    }
+
     card.querySelector(".ver-btn")?.addEventListener("click", ()=> openModal(p));
 
     cont.appendChild(card);
