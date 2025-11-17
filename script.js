@@ -929,7 +929,7 @@ const setMetaRow = (id, html) => {
 function renderModalSpecs(p){
   const wrap = el("#modalSpecs");
   if (!wrap) return;
-  const specs = Array.isArray(p.specsList) ? p.specsList : [];
+  const specs = Array.isArray(p.specsList) ? p.specsList.slice(0,3) : [];
   if (!specs.length){
     wrap.classList.add("hidden");
     wrap.innerHTML = "";
@@ -1094,7 +1094,7 @@ function openModal(obj) {
   const ul = el("#modalDetails");
   if (ul){
     ul.innerHTML = "";
-    const maxDetails = window.innerWidth <= 640 ? 3 : 6;
+    const maxDetails = window.innerWidth <= 640 ? 2 : 3;
     const detalhes = (p.detalhes || []).slice(0, maxDetails);
     if (detalhes.length){
       ul.classList.remove("hidden");

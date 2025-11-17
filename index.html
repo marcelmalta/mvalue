@@ -542,19 +542,22 @@
   .modal-box{
     background:linear-gradient(135deg,#ffffff 0%, #FFF8ED 100%);
     border:1px solid rgba(214,167,92,.45);
-    width:min(92vw,900px);
-    max-height:92vh;
+    width:min(90vw,760px);
+    max-height:82vh;
+    padding:18px 16px;
   }
   .modal-content{
-    gap:.85rem;
+    gap:.6rem;
+    align-items:stretch;
   }
   .modal-media{
-    flex:0 0 260px;
-    max-width:280px;
+    flex:0 0 220px;
+    max-width:240px;
     width:100%;
+    padding:.45rem;
   }
   .modal-media img{
-    max-height:210px;
+    max-height:180px;
     width:100%;
     object-fit:contain;
     transition:transform .2s ease;
@@ -562,19 +565,19 @@
   .modal-img-zoomable{ cursor:zoom-in; }
   .modal-img-zoomable:active{ transform:scale(.98); }
   .modal-info{
-    gap:.55rem;
+    gap:.45rem;
   }
   .modal-meta{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-    gap:0.35rem;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:0.25rem;
   }
   .modal-meta .meta-item{
     background:#fff;
-    border:1px solid rgba(247,186,60,.5);
+    border:1px solid rgba(247,186,60,.35);
     border-radius:999px;
-    padding:.3rem .7rem;
-    font-size:.85rem;
+    padding:.25rem .6rem;
+    font-size:.78rem;
     font-weight:700;
     text-align:center;
     color:#7a4600;
@@ -590,12 +593,12 @@
   .modal-specs{
     display:flex;
     flex-wrap:wrap;
-    gap:6px;
+    gap:4px;
   }
   .modal-spec-chip{
-    font-size:.78rem;
+    font-size:.72rem;
     font-weight:700;
-    padding:.3rem .75rem;
+    padding:.25rem .65rem;
     border-radius:999px;
     background:#fff;
     border:1px solid rgba(17,94,89,.2);
@@ -603,12 +606,12 @@
   }
   .modal-frete{
     border:1px dashed rgba(15,23,42,.2);
-    border-radius:.85rem;
-    padding:.6rem .85rem;
+    border-radius:.75rem;
+    padding:.45rem .7rem;
     background:#fff;
     display:flex;
     flex-direction:column;
-    gap:.35rem;
+    gap:.25rem;
   }
   .modal-frete .frete-head{
     display:flex;
@@ -627,90 +630,87 @@
     font-weight:800;
   }
   .modal-frete .frete-obs{
-    font-size:.8rem;
+    font-size:.78rem;
     color:#4b5563;
     margin:0;
   }
   .modal-coupon{
     border:1px dashed rgba(234,179,8,.6);
     background:#fffbea;
-    border-radius:1rem;
-    padding:.75rem;
+    border-radius:.85rem;
+    padding:.6rem;
     display:flex;
     flex-direction:column;
-    gap:.45rem;
+    gap:.35rem;
   }
   .modal-coupon-row{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:.75rem;
+    gap:.5rem;
   }
   .modal-coupon-code{
-    font-size:1.1rem;
+    font-size:1rem;
     font-weight:900;
-    letter-spacing:.2rem;
+    letter-spacing:.18rem;
     color:#854d0e;
   }
   .modal-coupon-copy{
     border-radius:999px;
     background:#fff;
     border:1px solid rgba(180,83,9,.4);
-    font-size:.78rem;
+    font-size:.72rem;
     font-weight:800;
-    padding:.35rem .95rem;
+    padding:.3rem .8rem;
     color:#7c2d12;
   }
   .modal-coupon-copy:hover{
     background:#fef3c7;
   }
   .modal-coupon-desc{
-    font-size:.8rem;
+    font-size:.78rem;
     color:#92400e;
     margin:0;
   }
   #modalDetails{
-    columns:2;
-    column-gap:1rem;
+    columns:1;
+    column-gap:.5rem;
   }
   #modalDetails li{
-    font-size:.9rem;
+    font-size:.85rem;
     break-inside:avoid;
-    margin-bottom:.25rem;
+    margin-bottom:.2rem;
   }
   @media (max-width:640px){
     #modalBox{
       width:calc(100vw - 18px);
-      padding:12px 10px 16px;
-      max-height:88vh;
+      padding:10px 10px 12px;
+      max-height:78vh;
     }
     .modal-content{
-      gap:.75rem;
+      gap:.5rem;
       flex-direction:column;
     }
     .modal-media{
-      padding:0.5rem;
+      padding:0.35rem;
       max-width:100%;
       flex:0 0 auto;
     }
     .modal-media img{
-      max-height:150px;
+      max-height:140px;
     }
     #modalPrice{
-      font-size:1.75rem;
+      font-size:1.5rem;
     }
     .modal-meta{
       grid-template-columns:repeat(2,minmax(0,1fr));
     }
     .modal-meta .meta-item{
-      font-size:.78rem;
-      padding:.25rem .55rem;
+      font-size:.72rem;
+      padding:.2rem .45rem;
     }
     #modalDetails{
       columns:1;
-      max-height:140px;
-      overflow:auto;
-      padding-right:4px;
     }
   }
   #modalStoreLogo{ height:40px; margin-left:auto; margin-right:auto; display:block; }
