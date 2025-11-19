@@ -107,13 +107,14 @@
 })();
 
 /* ================== IDENTIDADE POR LOJA ================== */
+const LOGO_BASE_URL = "https://pub-2d0d5179217b4c9898495dd1236b5ae8.r2.dev/";
 const STORE_META = {
   shopee: {
     nome:"Shopee",
     corBorda:"#EE4D2D",
     corTexto:"#8B1F0D",
     bgCard:"linear-gradient(to bottom,#FF8A70,#FFD3C9)",
-    logo:"logos/shopee.svg",
+    logo:`${LOGO_BASE_URL}shopee.svg`,
     btn:["#EE4D2D","#FF7B5F"],
     off:"#7A1A0F",
     shipping:[
@@ -126,7 +127,7 @@ const STORE_META = {
     corBorda:"#00AEEF",
     corTexto:"#0070A8",
     bgCard:"linear-gradient(to bottom,#00AEEF,#B3ECFF)",
-    logo:"logos/petlove.svg",
+    logo:`${LOGO_BASE_URL}petlove.svg`,
     btn:["#00AEEF","#4FC3F7"],
     off:"#0070A8",
     shipping:[
@@ -139,7 +140,7 @@ const STORE_META = {
     corBorda:"#232F3E",
     corTexto:"#FF9900",
     bgCard:"linear-gradient(to bottom,#232F3E,#3A4553)",
-    logo:"logos/amazon.svg",
+    logo:`${LOGO_BASE_URL}amazon.svg`,
     btn:["#232F3E","#3A4553"],
     off:"#FF9900",
     shipping:[
@@ -152,7 +153,7 @@ const STORE_META = {
     corBorda:"#FFE600",
     corTexto:"#0B4EA2",
     bgCard:"linear-gradient(to bottom,#FFF6A6,#FFE600)",
-    logo:"logos/mercadolivre.svg",
+    logo:`${LOGO_BASE_URL}mercadolivre.svg`,
     btn:["#FFE600","#FFE24A"],
     off:"#0B4EA2",
     shipping:[
@@ -165,7 +166,7 @@ const STORE_META = {
     corBorda:"#1976D2",
     corTexto:"#0D47A1",
     bgCard:"linear-gradient(to bottom,#2196F3,#6EC6FF)",
-    logo:"logos/magalu.svg",
+    logo:`${LOGO_BASE_URL}magalu.svg`,
     btn:["#1976D2","#64B5F6"],
     off:"#0D47A1",
     shipping:[
@@ -178,7 +179,7 @@ const STORE_META = {
     corBorda:"#00B2FF",
     corTexto:"#004E92",
     bgCard:"linear-gradient(to bottom,#B3E5FF,#E6F5FF)",
-    logo:"logos/petz.svg",
+    logo:`${LOGO_BASE_URL}petz.svg`,
     btn:["#00B2FF","#66CCFF"],
     off:"#004E92",
     shipping:[
@@ -191,7 +192,7 @@ const STORE_META = {
     corBorda:"#0077BE",
     corTexto:"#005A8C",
     bgCard:"linear-gradient(to bottom,#B3DBFF,#E8F3FF)",
-    logo:"logos/cobasi.svg",
+    logo:`${LOGO_BASE_URL}cobasi.svg`,
     btn:["#0077BE","#66AEE6"],
     off:"#005A8C",
     shipping:[
@@ -204,7 +205,7 @@ const STORE_META = {
     corBorda:"#D50000",
     corTexto:"#B71C1C",
     bgCard:"linear-gradient(to bottom,#FFCCCC,#FFE6E6)",
-    logo:"logos/americanas.svg",
+    logo:`${LOGO_BASE_URL}americanas.svg`,
     btn:["#D50000","#FF5252"],
     off:"#B71C1C",
     shipping:[
@@ -217,7 +218,7 @@ const STORE_META = {
     corBorda:"#FF5A00",
     corTexto:"#D84315",
     bgCard:"linear-gradient(to bottom,#FFD5BF,#FFF0E6)",
-    logo:"logos/aliexpress.svg",
+    logo:`${LOGO_BASE_URL}aliexpress.svg`,
     btn:["#FF5A00","#FF8A50"],
     off:"#D84315",
     shipping:[
@@ -230,7 +231,7 @@ const STORE_META = {
     corBorda:"#005EB8",
     corTexto:"#003B73",
     bgCard:"linear-gradient(to bottom,#CFE8FF,#EAF3FF)",
-    logo:"logos/carrefour.svg",
+    logo:`${LOGO_BASE_URL}carrefour.svg`,
     btn:["#005EB8","#4EA3FF"],
     off:"#003B73",
     shipping:[
@@ -243,7 +244,7 @@ const STORE_META = {
     corBorda:"#0033A0",
     corTexto:"#001A66",
     bgCard:"linear-gradient(to bottom,#D0DBFF,#EEF3FF)",
-    logo:"logos/casasbahia.svg",
+    logo:`${LOGO_BASE_URL}casasbahia.svg`,
     btn:["#0033A0","#4D6DFF"],
     off:"#001A66",
     shipping:[
@@ -256,7 +257,7 @@ const STORE_META = {
     corBorda:"#111111",
     corTexto:"#FF5500",
     bgCard:"linear-gradient(to bottom,#F0F0F0,#FFFFFF)",
-    logo:"logos/ponto.svg",
+    logo:`${LOGO_BASE_URL}ponto.svg`,
     btn:["#111111","#444444"],
     off:"#FF5500",
     shipping:[
@@ -810,13 +811,35 @@ function renderBanner(containerId, tipos) {
     card.appendChild(seloWrap);
     attachLogoFallback(seloWrap.querySelector("img"));
 
+    const showFireBadge = p.descontoPercent && p.descontoPercent >= 15;
+    const badgeHtml = showFireBadge
+      ? `<div class="best-price-badge">🔥 OFERTA TOP</div>`
+      : ``;
+
     card.insertAdjacentHTML("beforeend", `
-      <h2 class="font-semibold text-center banner-title text-gray-800">${p.nome}</h2>
-      ${p.specsLabel ? `<p class="card-specs">${p.specsLabel}</p>` : ""}
-      <p class="card-old">${p.precoAntigo ? fmt(p.precoAntigo) : ""}</p>
-      <p class="card-price">${fmt(finalPrice)}</p>
-      <span class="card-off">${p.desconto || ""}</span>
-      ${""}
+      ${badgeHtml}
+      <div class="flex flex-col justify-between h-full w-full">
+          <div class="mt-1">
+            <h2 class="font-semibold text-center banner-title text-gray-800 leading-tight mb-1 line-clamp-2 min-h-[2.4em]">${p.nome}</h2>
+            ${p.specsLabel ? `<p class="card-specs text-[10px] text-gray-500 text-center mb-1">${p.specsLabel}</p>` : ""}
+          </div>
+
+          <div class="text-center mt-auto">
+            <!-- Preço Antigo e Desconto -->
+            <div class="flex items-center justify-center gap-2 mb-0.5 h-4">
+                ${p.precoAntigo ? `<span class="text-[10px] text-gray-400 line-through">${fmt(p.precoAntigo)}</span>` : ""}
+                ${p.desconto ? `<span class="bg-green-100 text-green-700 text-[9px] font-bold px-1.5 rounded uppercase">-${p.desconto}</span>` : ""}
+            </div>
+            
+            <!-- Preço Atual Grande -->
+            <p class="card-price font-black leading-none mb-2">${fmt(finalPrice)}</p>
+
+            <!-- BOTÃO DE AÇÃO (NOVO) -->
+            <button class="cta-compare w-full py-1.5 rounded-md text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-wide shadow-sm">
+               Comparar 🔍
+            </button>
+          </div>
+      </div>
     `);
 
     card.addEventListener("click", () => openModal(p));
@@ -890,13 +913,35 @@ function renderLista(lista) {
     card.appendChild(seloWrap);
     attachLogoFallback(seloWrap.querySelector("img"));
 
+    const showFireBadge = p.descontoPercent && p.descontoPercent >= 15;
+    const badgeHtml = showFireBadge
+      ? `<div class="best-price-badge">🔥 OFERTA TOP</div>`
+      : ``;
+
     card.insertAdjacentHTML("beforeend", `
-      <h2 class="font-semibold text-center banner-title text-gray-800">${p.nome}</h2>
-      ${p.specsLabel ? `<p class="card-specs">${p.specsLabel}</p>` : ""}
-      <p class="card-old">${p.precoAntigo ? fmt(p.precoAntigo) : ""}</p>
-      <p class="card-price">${fmt(finalPrice)}</p>
-      <span class="card-off">${p.desconto || ""}</span>
-      ${""}
+      ${badgeHtml}
+      <div class="flex flex-col justify-between h-full w-full">
+          <div class="mt-1">
+            <h2 class="font-semibold text-center banner-title text-gray-800 leading-tight mb-1 line-clamp-2 min-h-[2.4em]">${p.nome}</h2>
+            ${p.specsLabel ? `<p class="card-specs text-[10px] text-gray-500 text-center mb-1">${p.specsLabel}</p>` : ""}
+          </div>
+
+          <div class="text-center mt-auto">
+            <!-- Preço Antigo e Desconto -->
+            <div class="flex items-center justify-center gap-2 mb-0.5 h-4">
+                ${p.precoAntigo ? `<span class="text-[10px] text-gray-400 line-through">${fmt(p.precoAntigo)}</span>` : ""}
+                ${p.desconto ? `<span class="bg-green-100 text-green-700 text-[9px] font-bold px-1.5 rounded uppercase">-${p.desconto}</span>` : ""}
+            </div>
+            
+            <!-- Preço Atual Grande -->
+            <p class="card-price font-black leading-none mb-2">${fmt(finalPrice)}</p>
+
+            <!-- BOTÃO DE AÇÃO (NOVO) -->
+            <button class="cta-compare w-full py-1.5 rounded-md text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-wide shadow-sm">
+               Comparar 🔍
+            </button>
+          </div>
+      </div>
     `);
 
     card.addEventListener("click", ()=> openModal(p));

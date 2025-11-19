@@ -325,6 +325,52 @@
     box-shadow:0 0 0 1px rgba(16,185,129,.18);
   }
 
+.best-price-badge{
+  position:absolute;
+  top:6px; left:6px;
+  z-index:5;
+  background:linear-gradient(135deg,#ef4444,#f97316);
+  color:#fff;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.3px;
+  padding:2px 6px;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  gap:2px;
+  box-shadow:0 4px 12px rgba(249,115,22,.35);
+  text-transform:uppercase;
+}
+
+.cta-compare{
+  position:relative;
+  border:none;
+  background:linear-gradient(120deg,#ec4899,#a855f7 45%,#6366f1);
+  box-shadow:0 6px 16px rgba(99,102,241,.35);
+  transition:transform .15s ease, box-shadow .15s ease, filter .15s ease;
+}
+.cta-compare::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  border:1px solid rgba(255,255,255,.35);
+  pointer-events:none;
+  opacity:.8;
+}
+.cta-compare:hover{
+  transform:translateY(-1px) scale(1.01);
+  box-shadow:0 10px 20px rgba(99,102,241,.45);
+}
+.cta-compare:focus-visible{
+  outline:2px solid rgba(59,130,246,.8);
+  outline-offset:2px;
+}
+.cta-compare:active{
+  transform:translateY(0);
+  box-shadow:0 4px 10px rgba(99,102,241,.35);
+}
   /* Ações (botões mini) */
   .card-actions-mini{ margin-top:5px; display:flex; gap:4px; justify-content:center; align-items:center; }
   .btn-mini{ padding:3px 6px; border-radius:6px; border:1px solid #e5e7eb; background:#fff; font-size:9.5px; font-weight:800; }
@@ -1229,18 +1275,19 @@
          style="grid-template-columns: minmax(0,1fr) max-content; gap:.5rem">
       <!-- Pitch -->
       <div class="hdr-pitch smartPitch smartPitch--2lines" aria-label="Comparador multilojas com filtros.">
-        <div class="pitch-line-desktop">
+                        <div class="pitch-line-desktop">
           <span class="brandMark">Shihtzuz&nbsp;Shop</span>
           <span class="dash">—</span>
-          <span class="claim claim--lg">Compare preços <span class="muted">do mesmo produto</span>
-            <span class="highlight">em várias lojas</span>, <span class="muted">filtre por</span> categoria/preço
-            <span class="muted">e</span> encontre a <span class="highlight">melhor oferta</span>.
+          <span class="claim claim--lg">
+            Não pague caro! 🛑 Encontramos o <span class="highlight">menor preço</span> 
+            de Simparic, Rações e mais na Shopee, Amazon e Petlove.
+            <span class="muted">Economize agora.</span>
           </span>
         </div>
-        <div class="pitch-line-mobile" aria-hidden="true">
+                        <div class="pitch-line-mobile" aria-hidden="true">
           <span class="brandMark">Shihtzuz&nbsp;Shop</span>
           <span class="claim claim--mobile">
-            Compare preços do mesmo produto em várias lojas
+            🛑 Não pague caro! Compare preços e ache a <span class="text-green-700 font-black">oferta mais barata</span> hoje.
           </span>
         </div>
       </div>
