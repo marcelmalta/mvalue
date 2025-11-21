@@ -1390,10 +1390,11 @@ function setupAutocomplete(){
   input.parentElement.style.position="relative";
   input.parentElement.appendChild(box);
 
-  function renderSuggestions(txt){
+  function renderSuggestions(txt, allowDefault=false){
     const val=txt.toLowerCase().trim();
-    if(!val){ box.style.display="none"; return; }
-    const matches=produtos.filter(p=>p.nome.toLowerCase().includes(val)).slice(0,8);
+    const matches = val
+      ? produtos.filter(p=>p.nome.toLowerCase().includes(val)).slice(0,8)
+      : (allowDefault ? produtos.slice(0,8) : []);
     if(!matches.length){
       box.innerHTML="<div style='padding:6px;color:#555;font-size:13px;'>Nenhum resultado encontrado</div>";
       box.style.display="block";return;
@@ -1425,7 +1426,8 @@ function setupAutocomplete(){
     });
     box.style.display="block";
   }
-  input.addEventListener("input",()=>renderSuggestions(input.value));
+  input.addEventListener("input",()=>renderSuggestions(input.value,true));
+  input.addEventListener("focus",()=>renderSuggestions(input.value,true));
   document.addEventListener("click",e=>{
     if(!box.contains(e.target)&&e.target!==input) box.style.display="none";
   });
@@ -1623,6 +1625,10 @@ function renderComparador(grupo, baseProduct){
   const maior = ordenados[ordenados.length-1];
   const menorValor = getFinalPrice(menor);
   const media = ordenados.reduce((acc,p)=>acc+getFinalPrice(p),0)/ordenados.length;
+  const metaMenor = STORE_META[menor.tipo] || {};
+  const metaMaior = STORE_META[maior.tipo] || {};
+  const logoMenor = metaMenor.logo ? `<img src="${metaMenor.logo}" alt="${metaMenor.nome || menor.tipo}" class="h-5 w-auto" />` : "";
+  const logoMaior = metaMaior.logo ? `<img src="${metaMaior.logo}" alt="${metaMaior.nome || maior.tipo}" class="h-5 w-auto" />` : "";
 
   const head = document.createElement("div");
   head.className = "col-span-full bg-white border border-gray-200 rounded-lg p-3 shadow-sm";
@@ -1640,7 +1646,7 @@ function renderComparador(grupo, baseProduct){
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs sm:text-sm">
         <div class="bg-green-50 border border-green-200 rounded-md p-2">
           <div class="font-bold text-green-700">Menor preço</div>
-          <div class="text-green-800">${(STORE_META[menor.tipo]?.nome) || menor.tipo} — <b>${fmt(menorValor)}</b></div>
+          <div class="text-green-800 flex items-center gap-2">${logoMenor}<span><b>${fmt(menorValor)}</b></span></div>
         </div>
         <div class="bg-amber-50 border border-amber-200 rounded-md p-2">
           <div class="font-bold text-amber-700">Preço médio</div>
@@ -1648,7 +1654,7 @@ function renderComparador(grupo, baseProduct){
         </div>
         <div class="bg-red-50 border border-red-200 rounded-md p-2">
           <div class="font-bold text-red-700">Maior preço</div>
-          <div class="text-red-800">${(STORE_META[maior.tipo]?.nome) || maior.tipo} — <b>${fmt(getFinalPrice(maior))}</b></div>
+          <div class="text-red-800 flex items-center gap-2">${logoMaior}<span><b>${fmt(getFinalPrice(maior))}</b></span></div>
         </div>
       </div>
       <p class="text-[11px] sm:text-xs text-gray-500 leading-snug">Estimativas de frete abaixo consideram as modalidades mais rápidas de cada loja e podem variar por CEP.</p>

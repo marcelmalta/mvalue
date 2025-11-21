@@ -235,8 +235,8 @@
     position:relative;
     display:flex; flex-direction:column; align-items:center;
     width:100%; min-width:0;
-    min-height:168px;
-    padding:6px;
+    min-height:178px;
+    padding:8px 8px 10px;
     border-radius:10px;
     border:2px solid rgba(0,0,0,.06);
     background:#fffdf6;
@@ -258,32 +258,36 @@
   }
   .card-compact .card-selo{
     width:100%; display:flex; align-items:center; justify-content:center; gap:6px;
-    background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:.45rem;
-    margin-bottom:2px; padding:2px 6px;
+    background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:.55rem;
+    margin-bottom:4px; padding:4px 6px;
   }
   .card-compact .card-logo{ height:14px; max-width:100%; object-fit:contain; }
 
   .card-compact .banner-title{
-    font-size:10px;
-    line-height:1.2;
+    font-size:11px;
+    line-height:1.25;
     margin-top:2px;
     display:-webkit-box;
     -webkit-line-clamp:3;
     -webkit-box-orient:vertical;
     text-align:left;
-    font-weight:800;
+    font-weight:900;
     color:#0f172a;
+    letter-spacing:.01em;
     overflow:hidden;\r\n    overflow-y:hidden;
   }
   @media (max-width:640px){
-    .card-compact .banner-title{ -webkit-line-clamp:2; }
+    .card-compact .banner-title{
+      -webkit-line-clamp:2;
+      font-size:11.5px;
+    }
   }
   .card-compact .card-specs{
-    font-size:9.5px;
-    color:#6b7280;
+    font-size:10.5px;
+    color:#475569;
     text-align:left;
-    margin-top:2px;
-    line-height:1.15;
+    margin-top:3px;
+    line-height:1.2;
     display:-webkit-box;
     -webkit-line-clamp:1;
     -webkit-box-orient:vertical;
@@ -299,13 +303,13 @@
     text-align:left;
   }
   .card-compact .card-price{
-    font-size:11px;
-    font-weight:800;
-    line-height:1.15;
-    margin-top:2px;
+    font-size:12px;
+    font-weight:900;
+    line-height:1.2;
+    margin-top:4px;
     width:100%;
     text-align:left;
-    padding:2px 6px;
+    padding:3px 8px;
     border-radius:.4rem;
     background:linear-gradient(120deg,rgba(214,167,92,.18),rgba(255,255,255,.95));
     box-shadow:inset 0 0 0 1px rgba(214,167,92,.28);
