@@ -819,33 +819,13 @@ function renderBanner(containerId, tipos) {
           </div>
 
           <div class="text-center mt-auto">
-            <!-- Preço Antigo e Desconto -->
-            <div class="flex items-center justify-center gap-2 mb-0.5 h-4">
-                ${p.precoAntigo ? `<span class="text-[10px] text-gray-400 line-through">${fmt(p.precoAntigo)}</span>` : ""}
-                ${p.desconto ? `<span class="bg-green-100 text-green-700 text-[9px] font-bold px-1.5 rounded uppercase">-${p.desconto}</span>` : ""}
-            </div>
-            
-            <!-- Preço Atual Grande -->
             <p class="card-price font-black leading-none mb-2">${fmt(finalPrice)}</p>
-
-            <!-- BOTÃO DE AÇÃO (NOVO) -->
-           <button class="cta-compare w-full py-1.5 rounded-md text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-wide shadow-sm">
-               Comparar 🔍
-            </button>
           </div>
       </div>
     `);
 
-    const compareBtn = card.querySelector(".cta-compare");
-    if (compareBtn){
-      compareBtn.addEventListener("click", (evt)=>{
-        evt.stopPropagation();
-        evt.preventDefault();
-        abrirComparador(p);
-      });
-    }
-
-    card.addEventListener("click", () => openModal(p));
+    // clique no card abre o comparador entre lojas
+    card.addEventListener("click", () => abrirComparador(p));
     faixa.appendChild(card);
   });
 }
@@ -924,33 +904,13 @@ function renderLista(lista) {
           </div>
 
           <div class="text-center mt-auto">
-            <!-- Preço Antigo e Desconto -->
-            <div class="flex items-center justify-center gap-2 mb-0.5 h-4">
-                ${p.precoAntigo ? `<span class="text-[10px] text-gray-400 line-through">${fmt(p.precoAntigo)}</span>` : ""}
-                ${p.desconto ? `<span class="bg-green-100 text-green-700 text-[9px] font-bold px-1.5 rounded uppercase">-${p.desconto}</span>` : ""}
-            </div>
-            
-            <!-- Preço Atual Grande -->
             <p class="card-price font-black leading-none mb-2">${fmt(finalPrice)}</p>
-
-            <!-- BOTÃO DE AÇÃO (NOVO) -->
-            <button class="cta-compare w-full py-1.5 rounded-md text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-wide shadow-sm">
-               Comparar 🔍
-            </button>
           </div>
       </div>
     `);
 
-    const compareBtn = card.querySelector(".cta-compare");
-    if (compareBtn){
-      compareBtn.addEventListener("click", (evt)=>{
-        evt.stopPropagation();
-        evt.preventDefault();
-        abrirComparador(p);
-      });
-    }
-
-    card.addEventListener("click", ()=> openModal(p));
+    // clique no card abre o comparador entre lojas
+    card.addEventListener("click", ()=> abrirComparador(p));
 
     wrap.appendChild(card);
   });
