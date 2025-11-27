@@ -1425,6 +1425,24 @@
     .banner-card.card-compact .card-body{ width:100%; }
   </style>
 
+  <!-- Unir filtros de lojas + busca/preço/categoria no mesmo bloco -->
+  <style id="filtros-merge">
+    #filtroLojasTopo{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    #filtroLojasTopo .filtro-lojas-slot{ width:100%; }
+    #filtroLojasTopo #filtroLinhaProdutos{
+      width:100%;
+      margin-top:2px !important;
+    }
+    @media (max-width:640px){
+      #filtroLojasTopo{ gap:4px; padding-left:8px !important; padding-right:8px !important; }
+      #filtroLojasTopo #filtroLinhaProdutos{ margin-top:0 !important; }
+    }
+  </style>
+
   <!-- Pequenos ajustes de tipografia (evita queda de peso/altura em títulos e botões) -->
   <style id="typography-fix">
     .hdr-pitch.smartPitch,
