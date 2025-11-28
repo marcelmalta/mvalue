@@ -62,9 +62,7 @@
     #filtroOrigem label.ativo[data-src="magalu"]{ --ring: rgba(25,118,210,.18); background: linear-gradient(145deg,#E5F2FF,#BFE0FF); color:#0D47A1; border-color:#1976D2; }
     #filtroOrigem label.ativo[data-src="petz"]{ --ring: rgba(0,178,255,.18); background: linear-gradient(145deg,#E9F6FF,#CDECFF); color:#004E92; border-color:#00B2FF; }
     #filtroOrigem label.ativo[data-src="cobasi"]{ --ring: rgba(0,119,190,.18); background: linear-gradient(145deg,#E6F2FF,#CFE6FF); color:#005A8C; border-color:#0077BE; }
-    #filtroOrigem label.ativo[data-src="americanas"]{ --ring: rgba(213,0,0,.18); background: linear-gradient(145deg,#FFE1E1,#FFCACA); color:#8F1010; border-color:#D50000; }
     #filtroOrigem label.ativo[data-src="aliexpress"]{ --ring: rgba(255,90,0,.18); background: linear-gradient(145deg,#FFEEE2,#FFE0CC); color:#B33A12; border-color:#FF5A00; }
-    #filtroOrigem label.ativo[data-src="carrefour"]{ --ring: rgba(0,94,184,.18); background: linear-gradient(145deg,#E7F1FF,#D7E9FF); color:#003B73; border-color:#005EB8; }
     #filtroOrigem label.ativo[data-src="casasbahia"]{ --ring: rgba(0,51,160,.18); background: linear-gradient(145deg,#E7EDFF,#D8E4FF); color:#001A66; border-color:#0033A0; }
     #filtroOrigem label.ativo[data-src="ponto"]{ --ring: rgba(255,106,42,.18); background: linear-gradient(145deg,#FFE8D9,#FFD8BF); color:#6B2E00; border-color:#FF6A2A; }
   `;
@@ -199,20 +197,7 @@ const STORE_META = {
       { nome:"Cobasi Já", prazo:"1-3h", detalhe:"retirada e parceiros delivery", tipo:"express" },
       { nome:"Entrega econômica", prazo:"1-3 dias úteis", detalhe:"sudeste/sul", tipo:"regular" }
     ]
-  },
-  americanas:{
-    nome:"Americanas",
-    corBorda:"#D50000",
-    corTexto:"#B71C1C",
-    bgCard:"linear-gradient(to bottom,#FFCCCC,#FFE6E6)",
-    logo:`${LOGO_BASE_URL}americanas.svg`,
-    btn:["#D50000","#FF5252"],
-    off:"#B71C1C",
-    shipping:[
-      { nome:"Entrega rápida", prazo:"1-3 dias úteis", detalhe:"capitais com estoque", tipo:"express" },
-      { nome:"Marketplace padrão", prazo:"3-7 dias úteis", detalhe:"lojistas parceiros", tipo:"regular" }
-    ]
-  },
+  },
   aliexpress:{
     nome:"AliExpress",
     corBorda:"#FF5A00",
@@ -225,20 +210,7 @@ const STORE_META = {
       { nome:"Entrega Brasil", prazo:"7-12 dias úteis", detalhe:"depósitos nacionais", tipo:"regular" },
       { nome:"Envio internacional", prazo:"12-20 dias úteis", detalhe:"frete combinado", tipo:"economy" }
     ]
-  },
-  carrefour:{
-    nome:"Carrefour",
-    corBorda:"#005EB8",
-    corTexto:"#003B73",
-    bgCard:"linear-gradient(to bottom,#CFE8FF,#EAF3FF)",
-    logo:`${LOGO_BASE_URL}carrefour.svg`,
-    btn:["#005EB8","#4EA3FF"],
-    off:"#003B73",
-    shipping:[
-      { nome:"Express Carrefour", prazo:"1-2 dias úteis", detalhe:"capitais e RMSP/RJ", tipo:"express" },
-      { nome:"Entrega padrão", prazo:"3-5 dias úteis", detalhe:"transportadora parceira", tipo:"regular" }
-    ]
-  },
+  },
   casasbahia:{
     nome:"Casas Bahia",
     corBorda:"#0033A0",
@@ -517,17 +489,6 @@ const PRODUTOS_BASE = [
         reviews: 460,
         imagem: "https://a-static.mlcdn.com.br/800x560/racao-golden-special-caes-adultos-frango-e-carne-15kg/zagodao2/d18a621f12bf11ef8c3042010a180051/8c35a38dcd54b66ea336ad1e4c4d71bc.jpeg",
         link: "#"
-      },
-      {
-        tipo: "carrefour",
-        precoAntigo: 149.90,
-        precoFinal: 129.90,
-        descontoPercent: 13,
-        parcelas: "2x R$ 64,95",
-        rating: 4.7,
-        reviews: 310,
-        imagem: "https://a-static.mlcdn.com.br/800x560/racao-golden-special-caes-adultos-frango-e-carne-15kg/zagodao2/d18a621f12bf11ef8c3042010a180051/8c35a38dcd54b66ea336ad1e4c4d71bc.jpeg",
-        link: "#"
       }
     ]
   },
@@ -547,17 +508,6 @@ const PRODUTOS_BASE = [
       "Pacote de 12kg com alta absorção."
     ],
     ofertas: [
-      {
-        tipo: "americanas",
-        precoAntigo: 69.90,
-        precoFinal: 59.90,
-        descontoPercent: 14,
-        parcelas: "2x R$ 29,95",
-        rating: 4.6,
-        reviews: 530,
-        imagem: "https://http2.mlstatic.com/D_NQ_NP_2X_704099-MLB45678723044_042021-F.webp",
-        link: "#"
-      },
       {
         tipo: "shopee",
         precoAntigo: 62.90,
@@ -1614,7 +1564,7 @@ function ativarFiltro(ativo){
     }
     if (header) header.classList.remove("hidden");
     if (selo) selo.classList.remove("hidden");
-    renderBanner("bannerA", ["shopee","amazon","magalu","americanas","aliexpress","petlove","mercadolivre","petz","cobasi","carrefour","casasbahia","ponto"]);
+    renderBanner("bannerA", ["shopee","amazon","magalu","aliexpress","petlove","mercadolivre","petz","cobasi","casasbahia","ponto"]);
     toggleComparador(false);
     listaAtual = produtos.slice();
     window.listaAtual = listaAtual;
@@ -2058,7 +2008,7 @@ function renderComparador(grupo, baseProduct){
     // banners
     const faixa = document.getElementById('bannerA');
     if (faixa){
-      const tipos = ['shopee','amazon','magalu','americanas','aliexpress','petlove','mercadolivre','petz','cobasi','carrefour','casasbahia','ponto'];
+      const tipos = ['shopee','amazon','magalu','aliexpress','petlove','mercadolivre','petz','cobasi','casasbahia','ponto'];
       const rendered = (window.produtos || []).filter(p => tipos.includes(p.tipo));
       const cards = faixa.querySelectorAll('.banner-card');
       cards.forEach((card, idx)=>{
