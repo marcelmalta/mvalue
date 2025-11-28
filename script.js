@@ -1895,6 +1895,7 @@ function renderComparador(grupo, baseProduct){
 
   let rafMove = null;
   function moveHoverTip(px, py){
+    if (tip.classList.contains('is-mobile')) return;
     if(rafMove) cancelAnimationFrame(rafMove);
     rafMove = requestAnimationFrame(()=>{
       const pad = 16;
@@ -1915,7 +1916,8 @@ function renderComparador(grupo, baseProduct){
 
   function showHoverTip(prod, px, py){
     if(!prod) return;
-    if (window.innerWidth <= 640) return;
+    const isMobile = window.innerWidth <= 640;
+    tip.classList.toggle('is-mobile', isMobile);
     const meta = storeMeta(prod.tipo);
 
     tipImg.src = prod.imagem || '';
@@ -1942,12 +1944,25 @@ function renderComparador(grupo, baseProduct){
 
     tip.classList.add('show');
     tip.setAttribute('aria-hidden','false');
-    moveHoverTip(px, py);
+    if (isMobile){
+      tip.style.left = '50%';
+      tip.style.top = '50%';
+      tip.style.transform = 'translate(-50%,-50%) scale(1)';
+    } else {
+      tip.style.left = '';
+      tip.style.top = '';
+      tip.style.transform = '';
+      moveHoverTip(px, py);
+    }
   }
 
   function hideHoverTip(){
+    tip.classList.remove('is-mobile');
     tip.classList.remove('show');
     tip.setAttribute('aria-hidden','true');
+    tip.style.left = '';
+    tip.style.top = '';
+    tip.style.transform = '';
   }
 
   function bindHoverForCard(cardEl, prod){
