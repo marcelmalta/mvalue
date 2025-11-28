@@ -118,57 +118,6 @@
     .btn-filter .lbl-sm{ display:none; }
   }
   @media (max-width:340px){ .btn-filter{ padding:.44rem .65rem; } .btn-filter .lbl{ display:none; } }
-  .btn-filter.btn-filter-float{
-    position:fixed;
-    bottom:18px; right:16px;
-    z-index:60;
-    box-shadow:0 18px 32px rgba(0,0,0,.35);
-    transition:transform .2s ease, box-shadow .2s ease;
-    animation:calloutPulse 2.6s ease-in-out infinite;
-  }
-  .btn-filter.btn-filter-float:hover{
-    transform:translateY(-2px);
-    box-shadow:0 20px 32px rgba(0,0,0,.3);
-  }
-  .btn-filter.btn-filter-float.ativo{
-    background:linear-gradient(120deg,#fcd34d,#fbbf24,#f59e0b);
-  }
-  @media (min-width:640px){
-    .btn-filter.btn-filter-float{
-      bottom:24px; right:28px;
-    }
-  }
-  .btn-filter.btn-filter-float::after{
-    content:"Use os filtros!";
-    position:absolute;
-    top:-32px;
-    right:0;
-    background:linear-gradient(120deg,#fff,#fef3c7);
-    color:#b45309;
-    border-radius:999px;
-    font-size:10px;
-    font-weight:800;
-    padding:4px 10px;
-    box-shadow:0 6px 16px rgba(0,0,0,.25);
-    border:1px solid rgba(249,115,22,.4);
-    animation:calloutWiggle 2s ease-in-out infinite;
-  }
-  @media (max-width:640px){
-    .btn-filter.btn-filter-float::after{
-      font-size:9px;
-      top:-28px;
-      right:-4px;
-    }
-  }
-  @keyframes calloutPulse{
-    0%,100%{ transform:scale(1); box-shadow:0 18px 32px rgba(0,0,0,.35),0 0 0 rgba(251,191,36,.4); }
-    40%{ transform:scale(1.04); box-shadow:0 22px 38px rgba(0,0,0,.4),0 0 18px rgba(251,191,36,.4); }
-    70%{ transform:scale(1.02); }
-  }
-  @keyframes calloutWiggle{
-    0%,100%{ transform:translateY(0); }
-    50%{ transform:translateY(-4px); }
-  }
 
   .smartPitch .arrow-mobile{ display:none; }
   @media (max-width:640px){
@@ -192,14 +141,7 @@
     .ml-selo{ display:none !important; }
     /* carrossel continua vis¡vel no mobile */
     .banner-shelf{ padding:6px 6px; }
-    /* botúo flutuante menos intrusivo */
-    .btn-filter.btn-filter-float{
-      animation:none;
-      box-shadow:0 12px 22px rgba(0,0,0,.25);
-      right:14px; bottom:16px;
-    }
-    .btn-filter.btn-filter-float::after{ display:none; }
-  }
+}
 
   /* Responsividade do pitch */
   @media (max-width:360px){ .hdr-pitch.smartPitch{ max-width:64vw; font-size:11px; } }
@@ -1889,13 +1831,6 @@
     </div>
     <div class="tip-desc"></div>
   </div>
-
-  <!-- Botúo flutuante de filtros -->
-  <button id="btnBuscaFlutuante" class="btn-filter btn-filter-float" aria-label="Abrir filtros e comparador">
-    <span class="ico" aria-hidden="true">öÄ</span>
-    <span class="lbl lbl-sm">Compare</span>
-    <span class="lbl lbl-lg">Comparar Preºos</span>
-  </button>
 
   <!-- =========================================================
        SCRIPTS

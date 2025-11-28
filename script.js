@@ -197,7 +197,8 @@ const STORE_META = {
       { nome:"Cobasi Já", prazo:"1-3h", detalhe:"retirada e parceiros delivery", tipo:"express" },
       { nome:"Entrega econômica", prazo:"1-3 dias úteis", detalhe:"sudeste/sul", tipo:"regular" }
     ]
-  },
+  },
+
   aliexpress:{
     nome:"AliExpress",
     corBorda:"#FF5A00",
@@ -210,7 +211,8 @@ const STORE_META = {
       { nome:"Entrega Brasil", prazo:"7-12 dias úteis", detalhe:"depósitos nacionais", tipo:"regular" },
       { nome:"Envio internacional", prazo:"12-20 dias úteis", detalhe:"frete combinado", tipo:"economy" }
     ]
-  },
+  },
+
   casasbahia:{
     nome:"Casas Bahia",
     corBorda:"#0033A0",
@@ -1559,16 +1561,11 @@ function setupAutocomplete(){
 /* mostra/oculta modo filtro e restaura listas */
 function ativarFiltro(ativo){
   const body = document.body;
-  const btn = document.getElementById("btnBuscaFlutuante");
   const header = document.querySelector("header.sticky");
   const selo = document.querySelector(".ml-selo");
 
   if (ativo){
     body.classList.add("modo-filtro");
-    if (btn){
-      btn.classList.add("ativo");
-      btn.innerHTML = '<span class="ico" aria-hidden="true">&times;</span><span class="lbl lbl-sm">Fechar</span><span class="lbl lbl-lg">Fechar filtros</span>';
-    }
     if (header) header.classList.add("hidden");
     if (selo) selo.classList.add("hidden");
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1580,10 +1577,6 @@ function ativarFiltro(ativo){
     window.filtrosAlvo.rotulo = null;
     ensureChipSelecionado();
     destacarSelecao();
-    if (btn){
-      btn.classList.remove("ativo");
-      btn.innerHTML = '<span class="ico" aria-hidden="true">&#128269;</span><span class="lbl lbl-sm">Compare</span><span class="lbl lbl-lg">Comparar Pre\u00E7os</span>';
-    }
     if (header) header.classList.remove("hidden");
     if (selo) selo.classList.remove("hidden");
     renderBanner("bannerA", ["shopee","amazon","magalu","aliexpress","petlove","mercadolivre","petz","cobasi","casasbahia","ponto"]);
@@ -1593,24 +1586,6 @@ function ativarFiltro(ativo){
     renderLista(produtos);
   }
 }
-
-(function bindOpenToggle(){
-  const btnFloat = document.getElementById("btnBuscaFlutuante");
-  if (!btnFloat) return;
-  const syncAria = () => {
-    btnFloat.setAttribute(
-      'aria-expanded',
-      document.body.classList.contains('modo-filtro') ? 'true':'false'
-    );
-    btnFloat.classList.toggle('ativo', document.body.classList.contains('modo-filtro'));
-  };
-  btnFloat.addEventListener("click", () => {
-    const ativo = document.body.classList.contains("modo-filtro");
-    ativarFiltro(!ativo);
-    setTimeout(syncAria, 0);
-  });
-  document.addEventListener('DOMContentLoaded', syncAria);
-})();
 
 /* =============== ROLAGEM AUTOMÁTICA BANNERS =============== */
 function autoScroll(containerId){
