@@ -1,281 +1,1518 @@
 [
   {
-    "gtin": "7898049719488",
-    "nome": "Simparic Zoetis 40 mg 10,1–20 kg — 1 unidade",
-    "brand": "Zoetis",
+    "gtin": "7899123456701",
+    "nome": "Samsung Galaxy A55 5G 256GB 8GB RAM",
+    "brand": "Samsung",
     "specs": {
-      "doseMg": 40,
-      "faixaPeso": "10,1–20 kg",
-      "unidadesPorKit": 1,
-      "tipoUnidade": "comprimido mastigável",
-      "pesoLiquidoKg": 0.04
+      "telaPolegadas": 6.6,
+      "ramGb": 8,
+      "armazenamentoGb": 256,
+      "bateriaMah": 5000,
+      "cameraMp": 50
     },
     "descricaoPadrao": [
-      "Dose mastigável de 40 mg indicada para cães de 10,1–20 kg.",
-      "Protege contra pulgas e carrapatos por até 5 semanas.",
-      "Kit com 1 comprimido mastigável individual."
+      "Tela Super AMOLED de 6.6 polegadas com 120Hz.",
+      "Processador Exynos com desempenho para jogos e apps do dia a dia.",
+      "Bateria de 5000 mAh com boa autonomia para uso intenso."
     ],
     "ofertas": [
       {
         "tipo": "mercadolivre",
-        "precoAntigo": 118.33,
-        "precoFinal": 74.60,
-        "descontoPercent": 36,
-        "parcelas": "12x R$ 7,35",
+        "precoAntigo": 2399,
+        "precoFinal": 1999,
+        "precoPix": 1899.05,
+        "descontoPercent": 17,
+        "parcelas": "12x R$ 166,58 sem juros",
         "rating": 4.8,
-        "reviews": 29113,
-        "badges": ["Novo","Mais vendido"],
-        "categoryRank": "1º em Tratamentos Anti-Pulgas",
-        "cashback": "até R$ 2,24",
-        "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_905561-MLA88406142177_072025-F.webp",
-        "link": "https://mercadolivre.com/sec/1t7W5Sn",
-        "freteInfo": {
-          "tipo": "variavel",
-          "label": "Frete calculado no checkout",
-          "observacao": "Valores variam conforme o CEP e o tipo de envio."
-        }
-      },
-      {
-        "tipo": "cobasi",
-        "precoAntigo": 133.90,
-        "precoFinal": 79.90,
-        "descontoPercent": 40,
-        "parcelas": "à vista",
-        "rating": 4.8,
-        "reviews": 1370,
-        "badges": ["Produto original", "Compra Programada", "Amigo Cobasi"],
-        "loyaltyPoints": 79,
-        "pickupAvailable": true,
-        "imagem": "https://cobasi.vteximg.com.br/arquivos/ids/1089375-368-368/Antipulgas%20Simparic%2040mg%20para%20Caes%2010%20a%2020kg.webp?v=638974276600530000",
-        "link": "#",
-        "shippingOptions": [
-          { "nome": "Retire na loja", "prazo": "até 11h", "preco": 0, "freteGratis": true },
-          { "nome": "Econômica", "prazo": "até 1 dia útil", "preco": 15.90 },
-          { "nome": "Cobasi Já", "prazo": "até 1 hora*", "preco": 17.90 }
+        "reviews": 1840,
+        "badges": [
+          "Loja oficial",
+          "Envio Full"
         ],
-        "freteInfo": {
-          "tipo": "variavel",
-          "label": "Frete varia por região",
-          "observacao": "Consulte retirada e entrega no site da Cobasi."
-        }
-      },
-      {
-        "tipo": "magalu",
-        "precoAntigo": 85.87,
-        "precoFinal": 74.97,
-        "precoPix": 59.98,
-        "descontoLabel": "≈30% OFF",
-        "parcelas": "1x R$ 74,97 sem juros",
-        "rating": 4.7,
-        "reviews": 232,
-        "badges": ["Magalu garante", "Olist Plus"],
-        "cupom": {
-          "codigo": "PET10",
-          "descricao": "10% OFF (válido até 16/11)"
-        },
-        "freteAPartir": 28.47,
-        "imagem": "https://a-static.mlcdn.com.br/800x560/antipulgas-simparic-1-comp-10-a-20kg-zoetis/olistplus/opmjuho68xxtdv8l/43719ef3c6447d809db36e10d861f933.jpeg",
-        "link": "https://divulgador.magalu.com/3BWYo8lG",
-        "freteInfo": {
-          "tipo": "variavel",
-          "label": "Frete varia por CEP",
-          "observacao": "Magalu calcula valores a partir do endereço informado.",
-          "valorReferencia": 28.47
-        }
-      }
-    ]
-  },
-  {
-    "gtin": "7898904621243",
-    "nome": "Ração Premier Ambientes Internos Adultos Castrados Raças Pequenas 12kg",
-    "brand": "PremierPet",
-    "specs": {
-      "unidadesPorKit": 1,
-      "tipoUnidade": "saco",
-      "pesoLiquidoKg": 12,
-      "faixaPeso": "Raças pequenas adultas castradas"
-    },
-    "descricaoPadrao": [
-      "Ração Super Premium para cães adultos castrados de raças pequenas.",
-      "Embalagem de 12 kg com sabor frango e salmão.",
-      "Ajuda no controle de peso e na saúde urinária."
-    ],
-    "ofertas": [
-      {
-        "tipo": "magalu",
-        "precoAntigo": 263.41,
-        "precoFinal": 237.07,
-        "precoPix": 237.07,
-        "descontoPercent": 10,
-        "parcelas": "1x R$ 263,41 sem juros",
-        "rating": 4.9,
-        "reviews": 17,
-        "badges": ["Magalu garante"],
-        "freteAPartir": 62.90,
-        "imagem": "https://a-static.mlcdn.com.br/800x560/racao-premier-ambientes-internos-caes-adultos-castrados-racas-pequenas-frango-e-salmao-12kg/tudodebichoii/101927/668e894ba2fb3213df9ae0338500762d.jpeg",
-        "link": "https://divulgador.magalu.com/vc8Itlv6",
-        "freteInfo": {
-          "tipo": "variavel",
-          "label": "Frete varia por CEP",
-          "observacao": "O valor mostrado é apenas uma referência inicial.",
-          "valorReferencia": 62.90
-        }
-      },
-      {
-        "tipo": "mercadolivre",
-        "precoAntigo": 295.00,
-        "precoFinal": 260.00,
-        "precoPix": 260.00,
-        "descontoPercent": 11,
-        "parcelas": "6x de R$ 46,83 sem juros",
-        "rating": 4.9,
-        "reviews": 63,
-        "badges": ["Loja oficial Long Dog", "Mais vendido"],
-        "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_841714-MLA84121834736_052025-F.webp",
-        "link": "https://mercadolivre.com/sec/1hrWuPA",
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a556elvdzto/gallery/br-galaxy-a55-5g-sm-a556-sm-a556elvdzto-540659399?$684_547_PNG$",
+        "link": "https://www.mercadolivre.com.br/",
         "freteInfo": {
           "tipo": "variavel",
           "label": "Frete calculado no checkout",
-          "observacao": "O marketplace mostra opções após informar o CEP."
+          "observacao": "Prazo e valor variam conforme o CEP."
         }
-      }
-    ]
-  },
-  {
-    "gtin": "7897930881226",
-    "nome": "Bravecto MSD 1000 mg 4,4–10 kg — 1 comprimido",
-    "brand": "MSD",
-    "specs": {
-      "doseMg": 1000,
-      "faixaPeso": "4,4–10 kg",
-      "unidadesPorKit": 1,
-      "tipoUnidade": "comprimido mastigável"
-    },
-    "descricaoPadrao": [
-      "Proteção contra pulgas e carrapatos por até 12 semanas.",
-      "Comprimido mastigável sabor carne para cães de 4,4 a 10 kg.",
-      "Dose única mensal com rápida ação."
-    ],
-    "ofertas": [
+      },
       {
-        "tipo": "shopee",
-        "precoAntigo": 189.90,
-        "precoFinal": 129.90,
-        "descontoPercent": 32,
-        "parcelas": "3x R$ 43,30",
-        "rating": 4.9,
-        "reviews": 8200,
-        "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_795281-MLB72321177243_102023-F.webp",
-        "link": "#"
+        "tipo": "magalu",
+        "precoAntigo": 2499,
+        "precoFinal": 2099,
+        "precoPix": 1979,
+        "descontoPercent": 16,
+        "parcelas": "10x R$ 209,90 sem juros",
+        "rating": 4.7,
+        "reviews": 920,
+        "badges": [
+          "Magalu garante"
+        ],
+        "cupom": {
+          "codigo": "CEL100",
+          "descricao": "R$ 100 OFF em compras acima de R$ 1.999"
+        },
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a556elvdzto/gallery/br-galaxy-a55-5g-sm-a556-sm-a556elvdzto-540659399?$684_547_PNG$",
+        "link": "https://www.magazineluiza.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete varia por CEP",
+          "observacao": "Consulte opcoes de retirada e entrega."
+        }
       },
       {
         "tipo": "amazon",
-        "precoAntigo": 199.90,
-        "precoFinal": 149.90,
-        "descontoPercent": 25,
-        "parcelas": "2x R$ 74,95",
-        "rating": 4.9,
-        "reviews": 5400,
-        "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_795281-MLB72321177243_102023-F.webp",
-        "link": "#"
-      }
-    ]
-  },
-  {
-    "gtin": "7896200701834",
-    "nome": "NexGard 28 mg 4–10 kg — 1 unidade",
-    "brand": "Boehringer",
-    "specs": {
-      "doseMg": 28,
-      "faixaPeso": "4–10 kg",
-      "unidadesPorKit": 1,
-      "tipoUnidade": "tablete mastigável"
-    },
-    "descricaoPadrao": [
-      "Controle de pulgas e carrapatos por 30 dias.",
-      "Tablete palatável para cães de 4 a 10 kg.",
-      "Ação rápida nas primeiras horas."
-    ],
-    "ofertas": [
-      {
-        "tipo": "petlove",
-        "precoAntigo": 155.00,
-        "precoFinal": 119.90,
-        "descontoPercent": 23,
-        "parcelas": "3x R$ 39,97",
-        "rating": 4.8,
-        "reviews": 2100,
-        "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_807045-MLB72174136457_102023-F.webp",
-        "link": "#"
+        "precoAntigo": 2399,
+        "precoFinal": 2149,
+        "descontoPercent": 10,
+        "parcelas": "10x R$ 214,90 sem juros",
+        "rating": 4.7,
+        "reviews": 760,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a556elvdzto/gallery/br-galaxy-a55-5g-sm-a556-sm-a556elvdzto-540659399?$684_547_PNG$",
+        "link": "https://www.amazon.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega Prime disponivel",
+          "observacao": "Entrega pode ser no mesmo dia em regioes elegiveis."
+        }
       },
       {
-        "tipo": "mercadolivre",
-        "precoAntigo": 165.00,
-        "precoFinal": 129.00,
-        "descontoPercent": 22,
-        "parcelas": "4x R$ 32,25",
-        "rating": 4.9,
-        "reviews": 9800,
-        "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_807045-MLB72174136457_102023-F.webp",
-        "link": "#"
+        "tipo": "shopee",
+        "precoAntigo": 2299,
+        "precoFinal": 2059,
+        "descontoPercent": 10,
+        "parcelas": "12x R$ 171,58",
+        "rating": 4.8,
+        "reviews": 2100,
+        "badges": [
+          "Frete gratis"
+        ],
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a556elvdzto/gallery/br-galaxy-a55-5g-sm-a556-sm-a556elvdzto-540659399?$684_547_PNG$",
+        "link": "https://shopee.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete com cupom no app",
+          "observacao": "Promocoes e cupons podem alterar o valor final."
+        }
+      },
+      {
+        "tipo": "aliexpress",
+        "precoAntigo": 2290,
+        "precoFinal": 1985,
+        "descontoPercent": 13,
+        "parcelas": "ate 12x no cartao",
+        "rating": 4.6,
+        "reviews": 590,
+        "badges": [
+          "Choice"
+        ],
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a556elvdzto/gallery/br-galaxy-a55-5g-sm-a556-sm-a556elvdzto-540659399?$684_547_PNG$",
+        "link": "https://pt.aliexpress.com/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega internacional",
+          "observacao": "Prazo de entrega pode variar conforme importacao."
+        }
       }
     ]
   },
   {
-    "gtin": "7896004001009",
-    "nome": "Ração Golden Special Cães Adultos Frango e Carne 15kg",
-    "brand": "Golden",
+    "gtin": "194253486904",
+    "nome": "Apple iPhone 15 128GB",
+    "brand": "Apple",
     "specs": {
-      "unidadesPorKit": 1,
-      "tipoUnidade": "saco",
-      "pesoLiquidoKg": 15,
-      "faixaPeso": "Cães adultos"
+      "telaPolegadas": 6.1,
+      "ramGb": 6,
+      "armazenamentoGb": 128,
+      "bateriaMah": 3349,
+      "cameraMp": 48
     },
     "descricaoPadrao": [
-      "Ração premium sabor frango e carne para cães adultos.",
-      "Pacote econômico de 15kg.",
-      "Equilíbrio de proteínas e fibras para saúde diária."
+      "Chip A16 Bionic com alto desempenho e eficiencia energetica.",
+      "Sistema de cameras com modo retrato e video 4K.",
+      "Tela Super Retina XDR com brilho elevado."
     ],
     "ofertas": [
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 5899,
+        "precoFinal": 5199,
+        "precoPix": 4999,
+        "descontoPercent": 12,
+        "parcelas": "12x R$ 433,25 sem juros",
+        "rating": 4.9,
+        "reviews": 1280,
+        "badges": [
+          "Loja oficial",
+          "Envio Full"
+        ],
+        "imagem": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-finish-select-202309-6-1inch-blue_AV1?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1692923777972",
+        "link": "https://www.mercadolivre.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Entrega em ate 24h em algumas capitais."
+        }
+      },
       {
         "tipo": "magalu",
-        "precoAntigo": 159.90,
-        "precoFinal": 139.90,
+        "precoAntigo": 5999,
+        "precoFinal": 5299,
+        "precoPix": 5099,
         "descontoPercent": 12,
-        "parcelas": "3x R$ 46,63",
+        "parcelas": "10x R$ 529,90 sem juros",
         "rating": 4.8,
-        "reviews": 460,
-        "imagem": "https://a-static.mlcdn.com.br/800x560/racao-golden-special-caes-adultos-frango-e-carne-15kg/zagodao2/d18a621f12bf11ef8c3042010a180051/8c35a38dcd54b66ea336ad1e4c4d71bc.jpeg",
-        "link": "#"
+        "reviews": 670,
+        "badges": [
+          "Entrega rapida"
+        ],
+        "imagem": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-finish-select-202309-6-1inch-blue_AV1?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1692923777972",
+        "link": "https://www.magazineluiza.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete varia por CEP",
+          "observacao": "Verifique retirada em loja parceira."
+        }
+      },
+      {
+        "tipo": "amazon",
+        "precoAntigo": 5899,
+        "precoFinal": 5249,
+        "descontoPercent": 11,
+        "parcelas": "10x R$ 524,90 sem juros",
+        "rating": 4.9,
+        "reviews": 980,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-finish-select-202309-6-1inch-blue_AV1?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1692923777972",
+        "link": "https://www.amazon.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Prime com entrega acelerada",
+          "observacao": "Consulte disponibilidade na sua regiao."
+        }
+      },
+      {
+        "tipo": "shopee",
+        "precoAntigo": 5799,
+        "precoFinal": 5149,
+        "descontoPercent": 11,
+        "parcelas": "12x R$ 429,08",
+        "rating": 4.8,
+        "reviews": 1100,
+        "badges": [
+          "Frete gratis",
+          "Top vendedor"
+        ],
+        "imagem": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-finish-select-202309-6-1inch-blue_AV1?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1692923777972",
+        "link": "https://shopee.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete promocional",
+          "observacao": "Cupom de frete pode ser aplicado no app."
+        }
+      },
+      {
+        "tipo": "aliexpress",
+        "precoAntigo": 5699,
+        "precoFinal": 4990,
+        "descontoPercent": 12,
+        "parcelas": "ate 12x no cartao",
+        "rating": 4.7,
+        "reviews": 410,
+        "badges": [
+          "Global version"
+        ],
+        "imagem": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-finish-select-202309-6-1inch-blue_AV1?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1692923777972",
+        "link": "https://pt.aliexpress.com/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega internacional",
+          "observacao": "Pode haver tributacao de importacao."
+        }
       }
     ]
   },
   {
-    "gtin": "7898010000011",
-    "nome": "Areia Sanitária Pipicat Multi-Cat 12kg",
-    "brand": "Kelco",
+    "gtin": "7892597351924",
+    "nome": "Motorola Moto G84 5G 256GB 8GB RAM",
+    "brand": "Motorola",
     "specs": {
-      "unidadesPorKit": 1,
-      "tipoUnidade": "saco",
-      "pesoLiquidoKg": 12,
-      "faixaPeso": "Gatos"
+      "telaPolegadas": 6.5,
+      "ramGb": 8,
+      "armazenamentoGb": 256,
+      "bateriaMah": 5000,
+      "cameraMp": 50
     },
     "descricaoPadrao": [
-      "Areia sanitária aglomerante para múltiplos gatos.",
-      "Controle de odores com grãos finos.",
-      "Pacote de 12kg com alta absorção."
+      "Tela pOLED com 120Hz e bom contraste.",
+      "Som stereo com Dolby Atmos para videos e jogos.",
+      "Armazenamento de 256GB com suporte a expansao."
     ],
     "ofertas": [
       {
-        "tipo": "shopee",
-        "precoAntigo": 62.90,
-        "precoFinal": 55.90,
-        "descontoPercent": 11,
-        "parcelas": "2x R$ 27,95",
+        "tipo": "mercadolivre",
+        "precoAntigo": 1899,
+        "precoFinal": 1499,
+        "precoPix": 1424.05,
+        "descontoPercent": 21,
+        "parcelas": "12x R$ 124,92 sem juros",
+        "rating": 4.8,
+        "reviews": 2010,
+        "badges": [
+          "Mais vendido"
+        ],
+        "imagem": "https://motorolanews.com/wp-content/uploads/2023/09/Moto-G84-5G-Viva-Magenta-Render.png",
+        "link": "https://www.mercadolivre.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Prazo rapido via Full em regioes elegiveis."
+        }
+      },
+      {
+        "tipo": "magalu",
+        "precoAntigo": 1899,
+        "precoFinal": 1549,
+        "precoPix": 1469,
+        "descontoPercent": 18,
+        "parcelas": "10x R$ 154,90 sem juros",
         "rating": 4.7,
-        "reviews": 2100,
-        "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_704099-MLB45678723044_042021-F.webp",
-        "link": "#"
+        "reviews": 860,
+        "badges": [
+          "Magalu garante"
+        ],
+        "imagem": "https://motorolanews.com/wp-content/uploads/2023/09/Moto-G84-5G-Viva-Magenta-Render.png",
+        "link": "https://www.magazineluiza.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete varia por CEP",
+          "observacao": "Entrega no mesmo dia em cidades selecionadas."
+        }
+      },
+      {
+        "tipo": "amazon",
+        "precoAntigo": 1799,
+        "precoFinal": 1599,
+        "descontoPercent": 11,
+        "parcelas": "10x R$ 159,90 sem juros",
+        "rating": 4.7,
+        "reviews": 940,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://motorolanews.com/wp-content/uploads/2023/09/Moto-G84-5G-Viva-Magenta-Render.png",
+        "link": "https://www.amazon.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Prime com frete rapido",
+          "observacao": "Consulte disponibilidade por CEP."
+        }
+      },
+      {
+        "tipo": "shopee",
+        "precoAntigo": 1789,
+        "precoFinal": 1519,
+        "descontoPercent": 15,
+        "parcelas": "12x R$ 126,58",
+        "rating": 4.8,
+        "reviews": 1340,
+        "badges": [
+          "Frete gratis"
+        ],
+        "imagem": "https://motorolanews.com/wp-content/uploads/2023/09/Moto-G84-5G-Viva-Magenta-Render.png",
+        "link": "https://shopee.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Cupons no app",
+          "observacao": "Valor pode variar conforme cupons ativos."
+        }
+      },
+      {
+        "tipo": "aliexpress",
+        "precoAntigo": 1750,
+        "precoFinal": 1468,
+        "descontoPercent": 16,
+        "parcelas": "ate 12x no cartao",
+        "rating": 4.6,
+        "reviews": 520,
+        "badges": [
+          "Choice"
+        ],
+        "imagem": "https://motorolanews.com/wp-content/uploads/2023/09/Moto-G84-5G-Viva-Magenta-Render.png",
+        "link": "https://pt.aliexpress.com/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega internacional",
+          "observacao": "Prazo medio maior para importacao."
+        }
+      }
+    ]
+  },
+  {
+    "gtin": "6941812744581",
+    "nome": "Xiaomi Redmi Note 13 Pro 5G 256GB 8GB RAM",
+    "brand": "Xiaomi",
+    "specs": {
+      "telaPolegadas": 6.67,
+      "ramGb": 8,
+      "armazenamentoGb": 256,
+      "bateriaMah": 5100,
+      "cameraMp": 200
+    },
+    "descricaoPadrao": [
+      "Camera principal de 200MP para fotos com muito detalhe.",
+      "Tela AMOLED de 120Hz com brilho alto em ambiente externo.",
+      "Carregamento rapido para recuperar bateria em poucos minutos."
+    ],
+    "ofertas": [
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 2399,
+        "precoFinal": 1899,
+        "precoPix": 1804.05,
+        "descontoPercent": 21,
+        "parcelas": "12x R$ 158,25 sem juros",
+        "rating": 4.8,
+        "reviews": 990,
+        "badges": [
+          "Envio Full"
+        ],
+        "imagem": "https://i02.appmifile.com/mi-com-product/fly-birds/redmi-note-13-pro-5g/specs/pc/blue.png",
+        "link": "https://www.mercadolivre.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Consulte entrega expressa para sua regiao."
+        }
+      },
+      {
+        "tipo": "magalu",
+        "precoAntigo": 2399,
+        "precoFinal": 1969,
+        "precoPix": 1869,
+        "descontoPercent": 18,
+        "parcelas": "10x R$ 196,90 sem juros",
+        "rating": 4.7,
+        "reviews": 420,
+        "badges": [
+          "Oferta do dia"
+        ],
+        "imagem": "https://i02.appmifile.com/mi-com-product/fly-birds/redmi-note-13-pro-5g/specs/pc/blue.png",
+        "link": "https://www.magazineluiza.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete varia por CEP",
+          "observacao": "Pode ter retirada em lojas parceiras."
+        }
+      },
+      {
+        "tipo": "amazon",
+        "precoAntigo": 2299,
+        "precoFinal": 1999,
+        "descontoPercent": 13,
+        "parcelas": "10x R$ 199,90 sem juros",
+        "rating": 4.6,
+        "reviews": 380,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://i02.appmifile.com/mi-com-product/fly-birds/redmi-note-13-pro-5g/specs/pc/blue.png",
+        "link": "https://www.amazon.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Prime com frete rapido",
+          "observacao": "Disponibilidade sujeita a estoque local."
+        }
+      },
+      {
+        "tipo": "shopee",
+        "precoAntigo": 2199,
+        "precoFinal": 1919,
+        "descontoPercent": 13,
+        "parcelas": "12x R$ 159,92",
+        "rating": 4.7,
+        "reviews": 1230,
+        "badges": [
+          "Cupom da loja"
+        ],
+        "imagem": "https://i02.appmifile.com/mi-com-product/fly-birds/redmi-note-13-pro-5g/specs/pc/blue.png",
+        "link": "https://shopee.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete com cupom no app",
+          "observacao": "Cupons promocionais podem reduzir o valor."
+        }
+      },
+      {
+        "tipo": "aliexpress",
+        "precoAntigo": 2150,
+        "precoFinal": 1829,
+        "descontoPercent": 15,
+        "parcelas": "ate 12x no cartao",
+        "rating": 4.8,
+        "reviews": 1500,
+        "badges": [
+          "Choice",
+          "Top seller"
+        ],
+        "imagem": "https://i02.appmifile.com/mi-com-product/fly-birds/redmi-note-13-pro-5g/specs/pc/blue.png",
+        "link": "https://pt.aliexpress.com/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega internacional",
+          "observacao": "Prazo de entrega geralmente entre 10 e 20 dias."
+        }
+      }
+    ]
+  },
+  {
+    "gtin": "7899991112233",
+    "nome": "Samsung Galaxy S24 Ultra 256GB 12GB RAM",
+    "brand": "Samsung",
+    "specs": {
+      "telaPolegadas": 6.8,
+      "ramGb": 12,
+      "armazenamentoGb": 256,
+      "bateriaMah": 5000,
+      "cameraMp": 200
+    },
+    "descricaoPadrao": [
+      "Topo de linha com camera de 200MP e zoom avancado.",
+      "Tela grande de 6.8 polegadas com taxa de atualizacao adaptativa.",
+      "Desempenho premium para produtividade, jogos e edicao."
+    ],
+    "ofertas": [
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 8999,
+        "precoFinal": 7199,
+        "precoPix": 6839.05,
+        "descontoPercent": 20,
+        "parcelas": "12x R$ 599,92 sem juros",
+        "rating": 4.9,
+        "reviews": 880,
+        "badges": [
+          "Loja oficial",
+          "Envio Full"
+        ],
+        "imagem": "https://images.samsung.com/br/smartphones/galaxy-s24-ultra/images/galaxy-s24-ultra-highlights-kv.jpg",
+        "link": "https://www.mercadolivre.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Entrega expressa em cidades selecionadas."
+        }
+      },
+      {
+        "tipo": "magalu",
+        "precoAntigo": 8999,
+        "precoFinal": 7399,
+        "precoPix": 6999,
+        "descontoPercent": 18,
+        "parcelas": "10x R$ 739,90 sem juros",
+        "rating": 4.8,
+        "reviews": 410,
+        "badges": [
+          "Entrega rapida"
+        ],
+        "imagem": "https://images.samsung.com/br/smartphones/galaxy-s24-ultra/images/galaxy-s24-ultra-highlights-kv.jpg",
+        "link": "https://www.magazineluiza.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete varia por CEP",
+          "observacao": "Retirada em loja conforme disponibilidade."
+        }
+      },
+      {
+        "tipo": "amazon",
+        "precoAntigo": 8899,
+        "precoFinal": 7499,
+        "descontoPercent": 16,
+        "parcelas": "10x R$ 749,90 sem juros",
+        "rating": 4.8,
+        "reviews": 560,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://images.samsung.com/br/smartphones/galaxy-s24-ultra/images/galaxy-s24-ultra-highlights-kv.jpg",
+        "link": "https://www.amazon.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Prime com frete rapido",
+          "observacao": "Prazo depende de estoque no centro de distribuicao."
+        }
+      },
+      {
+        "tipo": "shopee",
+        "precoAntigo": 8599,
+        "precoFinal": 7299,
+        "descontoPercent": 15,
+        "parcelas": "12x R$ 608,25",
+        "rating": 4.8,
+        "reviews": 740,
+        "badges": [
+          "Top vendedor"
+        ],
+        "imagem": "https://images.samsung.com/br/smartphones/galaxy-s24-ultra/images/galaxy-s24-ultra-highlights-kv.jpg",
+        "link": "https://shopee.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete com cupom",
+          "observacao": "Aplicar cupons pode reduzir custo final."
+        }
+      },
+      {
+        "tipo": "aliexpress",
+        "precoAntigo": 8499,
+        "precoFinal": 6999,
+        "descontoPercent": 18,
+        "parcelas": "ate 12x no cartao",
+        "rating": 4.7,
+        "reviews": 320,
+        "badges": [
+          "Choice"
+        ],
+        "imagem": "https://images.samsung.com/br/smartphones/galaxy-s24-ultra/images/galaxy-s24-ultra-highlights-kv.jpg",
+        "link": "https://pt.aliexpress.com/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega internacional",
+          "observacao": "Pode haver impostos dependendo do envio."
+        }
+      }
+    ]
+  },
+  {
+    "gtin": "7891000000101",
+    "nome": "Samsung Galaxy A35 5G 256GB 8GB RAM",
+    "brand": "Samsung",
+    "specs": {
+      "telaPolegadas": 6.6,
+      "ramGb": 8,
+      "armazenamentoGb": 256,
+      "bateriaMah": 5000,
+      "cameraMp": 50
+    },
+    "descricaoPadrao": [
+      "Modelo fake para validacao visual de layout.",
+      "Ficha tecnica e precos simulados para testes.",
+      "Compare rapidamente entre cinco marketplaces."
+    ],
+    "ofertas": [
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 1951.56,
+        "precoFinal": 1727.04,
+        "precoPix": 1640.69,
+        "descontoPercent": 12,
+        "parcelas": "10x R$ 172.70 sem juros",
+        "rating": 4.7,
+        "reviews": 530,
+        "badges": [
+          "Envio Full"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Galaxy+A35+5G",
+        "link": "https://www.mercadolivre.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "magalu",
+        "precoAntigo": 2050.86,
+        "precoFinal": 1799,
+        "precoPix": 1709.05,
+        "descontoPercent": 12,
+        "parcelas": "10x R$ 179.90 sem juros",
+        "rating": 4.8,
+        "reviews": 710,
+        "badges": [
+          "Magalu garante"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Galaxy+A35+5G",
+        "link": "https://www.magazineluiza.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "amazon",
+        "precoAntigo": 2110.23,
+        "precoFinal": 1834.98,
+        "descontoPercent": 13,
+        "parcelas": "10x R$ 183.50 sem juros",
+        "rating": 4.6,
+        "reviews": 890,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Galaxy+A35+5G",
+        "link": "https://www.amazon.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "shopee",
+        "precoAntigo": 2065.97,
+        "precoFinal": 1781.01,
+        "descontoPercent": 14,
+        "parcelas": "10x R$ 178.10 sem juros",
+        "rating": 4.7,
+        "reviews": 1070,
+        "badges": [
+          "Frete gratis"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Galaxy+A35+5G",
+        "link": "https://shopee.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "aliexpress",
+        "precoAntigo": 1978.54,
+        "precoFinal": 1691.06,
+        "descontoPercent": 15,
+        "parcelas": "10x R$ 169.11 sem juros",
+        "rating": 4.8,
+        "reviews": 1250,
+        "badges": [
+          "Choice"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Galaxy+A35+5G",
+        "link": "https://pt.aliexpress.com/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega internacional",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      }
+    ]
+  },
+  {
+    "gtin": "7891000000102",
+    "nome": "Apple iPhone 14 128GB",
+    "brand": "Apple",
+    "specs": {
+      "telaPolegadas": 6.1,
+      "ramGb": 6,
+      "armazenamentoGb": 128,
+      "bateriaMah": 3279,
+      "cameraMp": 12
+    },
+    "descricaoPadrao": [
+      "Modelo fake para validacao visual de layout.",
+      "Ficha tecnica e precos simulados para testes.",
+      "Compare rapidamente entre cinco marketplaces."
+    ],
+    "ofertas": [
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 4376.51,
+        "precoFinal": 3839.04,
+        "precoPix": 3647.09,
+        "descontoPercent": 12,
+        "parcelas": "12x R$ 319.92 sem juros",
+        "rating": 4.8,
+        "reviews": 710,
+        "badges": [
+          "Envio Full"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=iPhone+14+128GB",
+        "link": "https://www.mercadolivre.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "magalu",
+        "precoAntigo": 4598.85,
+        "precoFinal": 3999,
+        "precoPix": 3799.05,
+        "descontoPercent": 13,
+        "parcelas": "12x R$ 333.25 sem juros",
+        "rating": 4.6,
+        "reviews": 890,
+        "badges": [
+          "Magalu garante"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=iPhone+14+128GB",
+        "link": "https://www.magazineluiza.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "amazon",
+        "precoAntigo": 4731.62,
+        "precoFinal": 4078.98,
+        "descontoPercent": 14,
+        "parcelas": "12x R$ 339.92 sem juros",
+        "rating": 4.7,
+        "reviews": 1070,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=iPhone+14+128GB",
+        "link": "https://www.amazon.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "shopee",
+        "precoAntigo": 4632.04,
+        "precoFinal": 3959.01,
+        "descontoPercent": 15,
+        "parcelas": "12x R$ 329.92 sem juros",
+        "rating": 4.8,
+        "reviews": 1250,
+        "badges": [
+          "Frete gratis"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=iPhone+14+128GB",
+        "link": "https://shopee.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "aliexpress",
+        "precoAntigo": 4435.69,
+        "precoFinal": 3759.06,
+        "descontoPercent": 15,
+        "parcelas": "12x R$ 313.25 sem juros",
+        "rating": 4.6,
+        "reviews": 1430,
+        "badges": [
+          "Choice"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=iPhone+14+128GB",
+        "link": "https://pt.aliexpress.com/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega internacional",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      }
+    ]
+  },
+  {
+    "gtin": "7891000000103",
+    "nome": "Motorola Edge 40 Neo 256GB 8GB RAM",
+    "brand": "Motorola",
+    "specs": {
+      "telaPolegadas": 6.55,
+      "ramGb": 8,
+      "armazenamentoGb": 256,
+      "bateriaMah": 5000,
+      "cameraMp": 50
+    },
+    "descricaoPadrao": [
+      "Modelo fake para validacao visual de layout.",
+      "Ficha tecnica e precos simulados para testes.",
+      "Compare rapidamente entre cinco marketplaces."
+    ],
+    "ofertas": [
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 2096.5,
+        "precoFinal": 1823.04,
+        "precoPix": 1731.89,
+        "descontoPercent": 13,
+        "parcelas": "10x R$ 182.30 sem juros",
+        "rating": 4.6,
+        "reviews": 890,
+        "badges": [
+          "Envio Full"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Edge+40+Neo",
+        "link": "https://www.mercadolivre.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "magalu",
+        "precoAntigo": 2202.84,
+        "precoFinal": 1899,
+        "precoPix": 1804.05,
+        "descontoPercent": 14,
+        "parcelas": "10x R$ 189.90 sem juros",
+        "rating": 4.7,
+        "reviews": 1070,
+        "badges": [
+          "Magalu garante"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Edge+40+Neo",
+        "link": "https://www.magazineluiza.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "amazon",
+        "precoAntigo": 2266.27,
+        "precoFinal": 1936.98,
+        "descontoPercent": 15,
+        "parcelas": "10x R$ 193.70 sem juros",
+        "rating": 4.8,
+        "reviews": 1250,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Edge+40+Neo",
+        "link": "https://www.amazon.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "shopee",
+        "precoAntigo": 2218.41,
+        "precoFinal": 1880.01,
+        "descontoPercent": 15,
+        "parcelas": "10x R$ 188.00 sem juros",
+        "rating": 4.6,
+        "reviews": 1430,
+        "badges": [
+          "Frete gratis"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Edge+40+Neo",
+        "link": "https://shopee.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "aliexpress",
+        "precoAntigo": 2124.22,
+        "precoFinal": 1785.06,
+        "descontoPercent": 16,
+        "parcelas": "10x R$ 178.51 sem juros",
+        "rating": 4.7,
+        "reviews": 1610,
+        "badges": [
+          "Choice"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Edge+40+Neo",
+        "link": "https://pt.aliexpress.com/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega internacional",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      }
+    ]
+  },
+  {
+    "gtin": "7891000000104",
+    "nome": "Xiaomi POCO X6 Pro 512GB 12GB RAM",
+    "brand": "Xiaomi",
+    "specs": {
+      "telaPolegadas": 6.67,
+      "ramGb": 12,
+      "armazenamentoGb": 512,
+      "bateriaMah": 5000,
+      "cameraMp": 64
+    },
+    "descricaoPadrao": [
+      "Modelo fake para validacao visual de layout.",
+      "Ficha tecnica e precos simulados para testes.",
+      "Compare rapidamente entre cinco marketplaces."
+    ],
+    "ofertas": [
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 2894.25,
+        "precoFinal": 2495.04,
+        "precoPix": 2370.29,
+        "descontoPercent": 14,
+        "parcelas": "10x R$ 249.50 sem juros",
+        "rating": 4.7,
+        "reviews": 1070,
+        "badges": [
+          "Envio Full"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=POCO+X6+Pro",
+        "link": "https://www.mercadolivre.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "magalu",
+        "precoAntigo": 3040.83,
+        "precoFinal": 2599,
+        "precoPix": 2469.05,
+        "descontoPercent": 15,
+        "parcelas": "10x R$ 259.90 sem juros",
+        "rating": 4.8,
+        "reviews": 1250,
+        "badges": [
+          "Magalu garante"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=POCO+X6+Pro",
+        "link": "https://www.magazineluiza.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "amazon",
+        "precoAntigo": 3128.16,
+        "precoFinal": 2650.98,
+        "descontoPercent": 15,
+        "parcelas": "10x R$ 265.10 sem juros",
+        "rating": 4.6,
+        "reviews": 1430,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=POCO+X6+Pro",
+        "link": "https://www.amazon.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "shopee",
+        "precoAntigo": 3061.88,
+        "precoFinal": 2573.01,
+        "descontoPercent": 16,
+        "parcelas": "10x R$ 257.30 sem juros",
+        "rating": 4.7,
+        "reviews": 1610,
+        "badges": [
+          "Frete gratis"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=POCO+X6+Pro",
+        "link": "https://shopee.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "aliexpress",
+        "precoAntigo": 2931.67,
+        "precoFinal": 2443.06,
+        "descontoPercent": 17,
+        "parcelas": "10x R$ 244.31 sem juros",
+        "rating": 4.8,
+        "reviews": 1790,
+        "badges": [
+          "Choice"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=POCO+X6+Pro",
+        "link": "https://pt.aliexpress.com/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega internacional",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      }
+    ]
+  },
+  {
+    "gtin": "7891000000105",
+    "nome": "Realme 12 Pro Plus 256GB 12GB RAM",
+    "brand": "Realme",
+    "specs": {
+      "telaPolegadas": 6.7,
+      "ramGb": 12,
+      "armazenamentoGb": 256,
+      "bateriaMah": 5000,
+      "cameraMp": 50
+    },
+    "descricaoPadrao": [
+      "Modelo fake para validacao visual de layout.",
+      "Ficha tecnica e precos simulados para testes.",
+      "Compare rapidamente entre cinco marketplaces."
+    ],
+    "ofertas": [
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 2582.24,
+        "precoFinal": 2207.04,
+        "precoPix": 2096.69,
+        "descontoPercent": 15,
+        "parcelas": "10x R$ 220.70 sem juros",
+        "rating": 4.8,
+        "reviews": 1250,
+        "badges": [
+          "Envio Full"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Realme+12+Pro+Plus",
+        "link": "https://www.mercadolivre.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "magalu",
+        "precoAntigo": 2712.82,
+        "precoFinal": 2299,
+        "precoPix": 2184.05,
+        "descontoPercent": 15,
+        "parcelas": "10x R$ 229.90 sem juros",
+        "rating": 4.6,
+        "reviews": 1430,
+        "badges": [
+          "Magalu garante"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Realme+12+Pro+Plus",
+        "link": "https://www.magazineluiza.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "amazon",
+        "precoAntigo": 2790.53,
+        "precoFinal": 2344.98,
+        "descontoPercent": 16,
+        "parcelas": "10x R$ 234.50 sem juros",
+        "rating": 4.7,
+        "reviews": 1610,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Realme+12+Pro+Plus",
+        "link": "https://www.amazon.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "shopee",
+        "precoAntigo": 2731.21,
+        "precoFinal": 2276.01,
+        "descontoPercent": 17,
+        "parcelas": "10x R$ 227.60 sem juros",
+        "rating": 4.8,
+        "reviews": 1790,
+        "badges": [
+          "Frete gratis"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Realme+12+Pro+Plus",
+        "link": "https://shopee.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "aliexpress",
+        "precoAntigo": 2614.88,
+        "precoFinal": 2161.06,
+        "descontoPercent": 17,
+        "parcelas": "10x R$ 216.11 sem juros",
+        "rating": 4.6,
+        "reviews": 1970,
+        "badges": [
+          "Choice"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Realme+12+Pro+Plus",
+        "link": "https://pt.aliexpress.com/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega internacional",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      }
+    ]
+  },
+  {
+    "gtin": "7891000000106",
+    "nome": "Google Pixel 8 128GB 8GB RAM",
+    "brand": "Google",
+    "specs": {
+      "telaPolegadas": 6.2,
+      "ramGb": 8,
+      "armazenamentoGb": 128,
+      "bateriaMah": 4575,
+      "cameraMp": 50
+    },
+    "descricaoPadrao": [
+      "Modelo fake para validacao visual de layout.",
+      "Ficha tecnica e precos simulados para testes.",
+      "Compare rapidamente entre cinco marketplaces."
+    ],
+    "ofertas": [
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 4756.63,
+        "precoFinal": 4031.04,
+        "precoPix": 3829.49,
+        "descontoPercent": 15,
+        "parcelas": "12x R$ 335.92 sem juros",
+        "rating": 4.6,
+        "reviews": 1430,
+        "badges": [
+          "Envio Full"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Google+Pixel+8",
+        "link": "https://www.mercadolivre.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "magalu",
+        "precoAntigo": 4996.81,
+        "precoFinal": 4199,
+        "precoPix": 3989.05,
+        "descontoPercent": 16,
+        "parcelas": "12x R$ 349.92 sem juros",
+        "rating": 4.7,
+        "reviews": 1610,
+        "badges": [
+          "Magalu garante"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Google+Pixel+8",
+        "link": "https://www.magazineluiza.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "amazon",
+        "precoAntigo": 5139.58,
+        "precoFinal": 4282.98,
+        "descontoPercent": 17,
+        "parcelas": "12x R$ 356.91 sem juros",
+        "rating": 4.8,
+        "reviews": 1790,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Google+Pixel+8",
+        "link": "https://www.amazon.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "shopee",
+        "precoAntigo": 5029.98,
+        "precoFinal": 4157.01,
+        "descontoPercent": 17,
+        "parcelas": "12x R$ 346.42 sem juros",
+        "rating": 4.6,
+        "reviews": 1970,
+        "badges": [
+          "Frete gratis"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Google+Pixel+8",
+        "link": "https://shopee.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "aliexpress",
+        "precoAntigo": 4815.41,
+        "precoFinal": 3947.06,
+        "descontoPercent": 18,
+        "parcelas": "12x R$ 328.92 sem juros",
+        "rating": 4.7,
+        "reviews": 2150,
+        "badges": [
+          "Choice"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Google+Pixel+8",
+        "link": "https://pt.aliexpress.com/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega internacional",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      }
+    ]
+  },
+  {
+    "gtin": "7891000000107",
+    "nome": "Samsung Galaxy Z Flip5 256GB 8GB RAM",
+    "brand": "Samsung",
+    "specs": {
+      "telaPolegadas": 6.7,
+      "ramGb": 8,
+      "armazenamentoGb": 256,
+      "bateriaMah": 3700,
+      "cameraMp": 12
+    },
+    "descricaoPadrao": [
+      "Modelo fake para validacao visual de layout.",
+      "Ficha tecnica e precos simulados para testes.",
+      "Compare rapidamente entre cinco marketplaces."
+    ],
+    "ofertas": [
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 5253.9,
+        "precoFinal": 4415.04,
+        "precoPix": 4194.29,
+        "descontoPercent": 16,
+        "parcelas": "12x R$ 367.92 sem juros",
+        "rating": 4.7,
+        "reviews": 1610,
+        "badges": [
+          "Envio Full"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Galaxy+Z+Flip5",
+        "link": "https://www.mercadolivre.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "magalu",
+        "precoAntigo": 5518.8,
+        "precoFinal": 4599,
+        "precoPix": 4369.05,
+        "descontoPercent": 17,
+        "parcelas": "12x R$ 383.25 sem juros",
+        "rating": 4.8,
+        "reviews": 1790,
+        "badges": [
+          "Magalu garante"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Galaxy+Z+Flip5",
+        "link": "https://www.magazineluiza.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "amazon",
+        "precoAntigo": 5676.09,
+        "precoFinal": 4690.98,
+        "descontoPercent": 17,
+        "parcelas": "12x R$ 390.91 sem juros",
+        "rating": 4.6,
+        "reviews": 1970,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Galaxy+Z+Flip5",
+        "link": "https://www.amazon.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "shopee",
+        "precoAntigo": 5554.67,
+        "precoFinal": 4553.01,
+        "descontoPercent": 18,
+        "parcelas": "12x R$ 379.42 sem juros",
+        "rating": 4.7,
+        "reviews": 2150,
+        "badges": [
+          "Frete gratis"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Galaxy+Z+Flip5",
+        "link": "https://shopee.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "aliexpress",
+        "precoAntigo": 5317.36,
+        "precoFinal": 4323.06,
+        "descontoPercent": 19,
+        "parcelas": "12x R$ 360.26 sem juros",
+        "rating": 4.8,
+        "reviews": 2330,
+        "badges": [
+          "Choice"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Galaxy+Z+Flip5",
+        "link": "https://pt.aliexpress.com/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega internacional",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      }
+    ]
+  },
+  {
+    "gtin": "7891000000108",
+    "nome": "Xiaomi 14T 512GB 12GB RAM",
+    "brand": "Xiaomi",
+    "specs": {
+      "telaPolegadas": 6.67,
+      "ramGb": 12,
+      "armazenamentoGb": 512,
+      "bateriaMah": 5000,
+      "cameraMp": 50
+    },
+    "descricaoPadrao": [
+      "Modelo fake para validacao visual de layout.",
+      "Ficha tecnica e precos simulados para testes.",
+      "Compare rapidamente entre cinco marketplaces."
+    ],
+    "ofertas": [
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 4146.05,
+        "precoFinal": 3455.04,
+        "precoPix": 3282.29,
+        "descontoPercent": 17,
+        "parcelas": "12x R$ 287.92 sem juros",
+        "rating": 4.8,
+        "reviews": 1790,
+        "badges": [
+          "Envio Full"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Xiaomi+14T",
+        "link": "https://www.mercadolivre.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "magalu",
+        "precoAntigo": 4354.79,
+        "precoFinal": 3599,
+        "precoPix": 3419.05,
+        "descontoPercent": 17,
+        "parcelas": "12x R$ 299.92 sem juros",
+        "rating": 4.6,
+        "reviews": 1970,
+        "badges": [
+          "Magalu garante"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Xiaomi+14T",
+        "link": "https://www.magazineluiza.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "amazon",
+        "precoAntigo": 4478.6,
+        "precoFinal": 3670.98,
+        "descontoPercent": 18,
+        "parcelas": "12x R$ 305.92 sem juros",
+        "rating": 4.7,
+        "reviews": 2150,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Xiaomi+14T",
+        "link": "https://www.amazon.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "shopee",
+        "precoAntigo": 4382.5,
+        "precoFinal": 3563.01,
+        "descontoPercent": 19,
+        "parcelas": "12x R$ 296.92 sem juros",
+        "rating": 4.8,
+        "reviews": 2330,
+        "badges": [
+          "Frete gratis"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Xiaomi+14T",
+        "link": "https://shopee.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
+      },
+      {
+        "tipo": "aliexpress",
+        "precoAntigo": 4194.99,
+        "precoFinal": 3383.06,
+        "descontoPercent": 19,
+        "parcelas": "12x R$ 281.92 sem juros",
+        "rating": 4.6,
+        "reviews": 2510,
+        "badges": [
+          "Choice"
+        ],
+        "imagem": "https://dummyimage.com/900x900/e2e8f0/0f172a.png&text=Xiaomi+14T",
+        "link": "https://pt.aliexpress.com/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega internacional",
+          "observacao": "Produto de demonstracao para visual do layout."
+        }
       }
     ]
   }

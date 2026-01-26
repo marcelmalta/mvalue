@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -7,23 +7,47 @@
        ========================================================= -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shihtzuz Shop — Comparador de Preços para Pets</title>
+  <title>MValue.Shop - Compare preco de celulares nas principais lojas</title>
 
-  <!-- Favicon (Golden Shih Tzu) -->
+  <meta name="description"
+    content="MValue.Shop: compare rapido e encontre o menor preco de iPhone, Samsung, Xiaomi e Motorola na Shopee, Amazon, Mercado Livre, Magalu e AliExpress." />
+  <link rel="canonical" href="https://mvalue.shop/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="MValue.Shop" />
+  <meta property="og:title" content="MValue.Shop - Compare preco de celulares nas principais lojas" />
+  <meta property="og:description"
+    content="Compare rapido e encontre o menor preco de iPhone, Samsung, Xiaomi e Motorola em Shopee, Amazon, Mercado Livre, Magalu e AliExpress." />
+  <meta property="og:url" content="https://mvalue.shop/" />
+  <meta property="og:image" content="https://mvalue.shop/logos/favicon_new.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MValue.Shop - Compare preco de celulares nas principais lojas" />
+  <meta name="twitter:description"
+    content="Compare rapido e encontre o menor preco de celulares nas principais lojas." />
+  <meta name="twitter:image" content="https://mvalue.shop/logos/favicon_new.jpg" />
+
+  <!-- Favicon -->
   <link rel="icon" type="image/jpeg" href="logos/favicon_new.jpg" sizes="any" />
   <!-- Fallback SVG inline (Optional/Legacy) -->
   <!-- <link rel="icon" href='data:image/svg+xml;...' /> -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
 
   <!-- Tailwind (CDN) -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- =========================================================
-       STYLES (CSS) ÔÇö IDs/Classes compat¡veis com script.js
+       STYLES (CSS) Ã”Ã‡Ã¶ IDs/Classes compatÂ¡veis com script.js
        ========================================================= -->
   <style>
-    /* ===================== Base e variíveis ===================== */
+    /* ===================== Base e variÃ­veis ===================== */
     html {
       scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Manrope', 'Segoe UI', Tahoma, sans-serif;
     }
 
     ::-webkit-scrollbar {
@@ -39,14 +63,14 @@
     :root {
       /* Palette Vibrant & Friendly */
       --primary: #0d9488;
-      /* Teal 600 - Ação Principal */
+      /* Teal 600 - AÃ§Ã£o Principal */
       --primary-light: #14b8a6;
       /* Teal 500 - Hover/Brilho */
       --primary-dark: #0f766e;
       /* Teal 700 - Active/Textos Fortes */
 
       --accent: #f59e0b;
-      /* Amber 500 - Destaque/Preço */
+      /* Amber 500 - Destaque/PreÃ§o */
       --accent-light: #fbbf24;
       /* Amber 400 */
       --accent-soft: #fef3c7;
@@ -65,13 +89,18 @@
       /* Slate 500 */
 
       --radius-lg: 1rem;
-      /* 16px - Arredondamento padrão */
+      /* 16px - Arredondamento padrÃ£o */
       --radius-full: 9999px;
       /* Pill shapes */
+
+      /* Legacy vars used by Tailwind utility classes in markup */
+      --bege: #f1f5ff;
+      --marrom: #0f172a;
+      --dourado: #38bdf8;
     }
 
     /* =========================================================
-     HEADER COMPACTO ÔÇö CONSOLIDADO (1 linha, sem logos no header)
+     HEADER COMPACTO Ã”Ã‡Ã¶ CONSOLIDADO (1 linha, sem logos no header)
      ========================================================= */
     .hdr-inner {
       min-height: 48px;
@@ -90,7 +119,7 @@
       min-height: 60px;
     }
 
-    /* Pitch amigável - Fonte arredondada se possível, ou sans limpa */
+    /* Pitch amigÃ¡vel - Fonte arredondada se possÃ­vel, ou sans limpa */
     .hdr-pitch.smartPitch {
       min-width: 0;
       display: flex;
@@ -102,13 +131,14 @@
       font-weight: 600;
       color: var(--text-main);
       line-height: 1;
-      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      font-family: 'Manrope', 'Segoe UI', Tahoma, sans-serif;
     }
 
     .smartPitch .brandMark {
       font-weight: 800;
       letter-spacing: -0.5px;
       font-size: 1.25rem;
+      font-family: 'Sora', 'Manrope', sans-serif;
       color: var(--primary);
       position: relative;
     }
@@ -155,7 +185,7 @@
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
     }
 
-    /* Botão “Filtrar/Comparar” - Pill Style */
+    /* BotÃ£o "Filtrar/Comparar" - Pill Style */
     .btn-filter {
       position: relative;
       display: inline-flex;
@@ -255,7 +285,7 @@
         display: none !important;
       }
 
-      /* carrossel continua vis¡vel no mobile */
+      /* carrossel continua visÂ¡vel no mobile */
       .banner-shelf {
         padding: 6px 6px;
       }
@@ -330,7 +360,7 @@
     }
 
     /* =========================================================
-     CARDS ÔÇö versúo COMPACTA (imagem 40/48/56px)
+     CARDS Ã”Ã‡Ã¶ versÃºo COMPACTA (imagem 40/48/56px)
      ========================================================= */
     #listaProdutos {
       display: flex;
@@ -667,7 +697,7 @@
       box-shadow: 0 4px 10px rgba(99, 102, 241, .35);
     }
 
-    /* AºÁes (botÁes mini) */
+    /* AÂºÃes (botÃes mini) */
     .card-actions-mini {
       margin-top: 5px;
       display: flex;
@@ -859,7 +889,7 @@
       padding: 9px 12px;
     }
 
-    /* Origem (marcas) ÔÇö estados ativos principais */
+    /* Origem (marcas) Ã”Ã‡Ã¶ estados ativos principais */
     #filtroOrigem {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
@@ -957,12 +987,6 @@
       border-color: #ee4d2d;
     }
 
-    #filtroOrigem label.ativo[data-src="petlove"] {
-      background: linear-gradient(145deg, #00AEEF, #b3ecff);
-      color: #00324a;
-      border-color: #00AEEF;
-    }
-
     #filtroOrigem label.ativo[data-src="amazon"] {
       background: linear-gradient(145deg, #ff9900, #232f3e);
       color: #fff;
@@ -975,7 +999,19 @@
       border-color: #ffe600;
     }
 
-    /* ====== AUTOCOMPLETE / SUGESTòES (at® 8 itens) ====== */
+    #filtroOrigem label.ativo[data-src="magalu"] {
+      background: linear-gradient(145deg, #2196f3, #6ec6ff);
+      color: #ffffff;
+      border-color: #1976d2;
+    }
+
+    #filtroOrigem label.ativo[data-src="aliexpress"] {
+      background: linear-gradient(145deg, #ff5a00, #ff8a50);
+      color: #ffffff;
+      border-color: #ff5a00;
+    }
+
+    /* ====== AUTOCOMPLETE / SUGESTÃ²ES (atÂ® 8 itens) ====== */
     .ac-list {
       position: absolute;
       left: 0;
@@ -1440,7 +1476,7 @@
       color: #0f172a;
     }
 
-    /* Carrossel de logos (selo multimarcas) ÔÇö logos menores */
+    /* Carrossel de logos (selo multimarcas) Ã”Ã‡Ã¶ logos menores */
     .ml-selo {
       overflow: hidden;
       \r\n overflow-y: hidden;
@@ -1452,29 +1488,81 @@
       margin-bottom: 0;
     }
 
-    .logos-container {
-      display: flex;
-      gap: 28px;
-      align-items: center;
-      animation: slide 40s linear infinite;
-      width: max-content;
+    .logos-marquee {
+      position: relative;
+      overflow: hidden;
+      padding-inline: 8px;
+      mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
     }
 
-    .logos-container:hover {
+    .logos-track {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: max-content;
+      animation: slideMarquee 28s linear infinite;
+      will-change: transform;
+    }
+
+    .logos-marquee:hover .logos-track {
       animation-play-state: paused;
     }
 
-    .logos-container img {
-      height: 20px;
+    .logos-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 104px;
+      height: 34px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+      backdrop-filter: blur(6px);
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+
+    .logo-pill:hover {
+      transform: translateY(-1px);
+      border-color: rgba(56, 189, 248, 0.7);
+      box-shadow: 0 10px 24px rgba(2, 132, 199, 0.18);
+    }
+
+    .logo-pill img {
+      height: 16px;
       object-fit: contain;
-      transition: transform .3s;
+      filter: saturate(1.05);
     }
 
-    .logos-container img:hover {
-      transform: scale(1.1);
+    @media (max-width: 640px) {
+      .logos-track {
+        gap: 10px;
+      }
+
+      .logos-group {
+        gap: 10px;
+      }
+
+      .logo-pill {
+        min-width: 92px;
+        height: 30px;
+        padding: 0 10px;
+      }
+
+      .logo-pill img {
+        height: 14px;
+      }
     }
 
-    @keyframes slide {
+    @keyframes slideMarquee {
       from {
         transform: translateX(0);
       }
@@ -1484,7 +1572,7 @@
       }
     }
 
-    /* Overrides ÔÇö banners somem no modo filtro */
+    /* Overrides Ã”Ã‡Ã¶ banners somem no modo filtro */
     body.modo-filtro section:has(#bannerA) {
       padding: 0 !important;
       margin: 0 !important;
@@ -1889,7 +1977,7 @@
     }
 
     .cmp-modal-btn::before {
-      content: "Ôçä";
+      content: "Ã”Ã§Ã¤";
       font-size: 1rem;
     }
 
@@ -2390,7 +2478,7 @@
     }
   </style>
 
-  <!-- Unir filtros de lojas + busca/preço/categoria no mesmo bloco -->
+  <!-- Unir filtros de lojas + busca/preÃ§o/categoria no mesmo bloco -->
   <style id="filtros-merge">
     #filtroLojasTopo {
       display: flex;
@@ -2461,7 +2549,7 @@
     }
   </style>
 
-  <!-- Pequenos ajustes de tipografia (evita queda de peso/altura em títulos e botões) -->
+  <!-- Pequenos ajustes de tipografia (evita queda de peso/altura em tÃ­tulos e botÃµes) -->
   <style id="typography-fix">
     .hdr-pitch.smartPitch,
     .hdr-pitch.smartPitch .claim {
@@ -2613,9 +2701,9 @@
       }
 
       #listaProdutos {
-        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-        gap: 6px !important;
-        padding-inline: 4px !important;
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+        padding-inline: 12px !important;
       }
 
       #listaProdutos>.card-geral {
@@ -2623,12 +2711,13 @@
       }
 
       .card-compact {
-        padding: 6px 6px 7px !important;
-        min-height: 92px !important;
-        gap: 6px !important;
-        border-radius: 10px !important;
-        flex-direction: column !important;
-        align-items: flex-start !important;
+        padding: 12px !important;
+        min-height: auto !important;
+        gap: 12px !important;
+        border-radius: 16px !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
       }
 
       .card-compact .card-media {
@@ -2719,32 +2808,330 @@
       }
     }
   </style>
+  <style id="mobile-polish-v2">
+    :root {
+      --mv-surface: #f8fbff;
+      --mv-border: #dbe6f2;
+      --mv-shadow: 0 10px 24px rgba(15, 23, 42, .10);
+      --mv-radius: 16px;
+    }
+
+    body {
+      background: linear-gradient(180deg, #f6f9fe 0%, #ffffff 28%, #f8fafc 100%);
+    }
+
+    #hdr {
+      border-bottom: 1px solid #e2e8f0 !important;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, .06);
+    }
+
+    .brandMark {
+      letter-spacing: .2px;
+    }
+
+    .claim--lg {
+      line-height: 1.35;
+    }
+
+    .ml-selo {
+      border-top: 1px solid rgba(148, 163, 184, .28);
+      border-bottom: 1px solid rgba(148, 163, 184, .28);
+      background: linear-gradient(90deg, #e0f2fe 0%, #f0f9ff 45%, #dbeafe 100%);
+    }
+
+    .logos-track {
+      gap: 12px;
+      animation-duration: 24s;
+    }
+
+    .logos-group {
+      gap: 12px;
+    }
+
+    .logo-pill {
+      min-width: 110px;
+      height: 36px;
+      background: rgba(255, 255, 255, .95);
+      border: 1px solid rgba(148, 163, 184, .35);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, .08);
+    }
+
+    .logo-pill img {
+      height: 15px;
+    }
+
+    #filtroLojasTopo {
+      padding-inline: 10px !important;
+    }
+
+    #filtroLinhaProdutos {
+      margin-top: 2px !important;
+      margin-bottom: 6px !important;
+    }
+
+    #filtroLojasTopo .drawer-advanced {
+      border-color: var(--mv-border) !important;
+      border-radius: var(--mv-radius) !important;
+      box-shadow: var(--mv-shadow) !important;
+    }
+
+    #secListaProdutos .produtos-headline {
+      margin-bottom: 8px;
+    }
+
+    #secListaProdutos .bg-gradient-to-r {
+      border-radius: 12px;
+    }
+
+    #listaProdutos {
+      padding-inline: 2px;
+      gap: 10px;
+    }
+
+    .card-geral {
+      border: 1px solid var(--mv-border) !important;
+      border-radius: var(--mv-radius) !important;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, .08) !important;
+    }
+
+    .card-geral .card-body h2 {
+      font-size: .95rem;
+      line-height: 1.3;
+    }
+
+    .card-geral .card-price {
+      font-size: 1.4rem !important;
+      letter-spacing: -.01em;
+    }
+
+    .card-geral .card-logo-row {
+      align-items: center;
+    }
+
+    .cmp-summary,
+    .cmp-card {
+      border-radius: 16px !important;
+      border-color: var(--mv-border) !important;
+    }
+
+    @media (max-width: 640px) {
+      #hdr .hdr-inner {
+        height: 58px !important;
+      }
+
+      .pitch-line-desktop {
+        display: none !important;
+      }
+
+      .pitch-line-mobile {
+        display: flex !important;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .logo-pill {
+        min-width: 92px;
+        height: 30px;
+      }
+
+      .logo-pill img {
+        height: 13px;
+      }
+
+      #filtroLojasTopo {
+        padding-inline: 6px !important;
+      }
+
+      #secListaProdutos {
+        margin-top: 4px;
+      }
+
+      #listaProdutos {
+        padding-inline: 0;
+      }
+
+      .card-geral .card-body h2 {
+        font-size: .88rem;
+      }
+    }
+  </style>
+  <style id="header-revamp-v3">
+    #hdr {
+      background: linear-gradient(180deg, rgba(255, 255, 255, .98) 0%, rgba(246, 250, 255, .96) 100%) !important;
+      border-bottom: 1px solid #dbe6f2 !important;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, .08) !important;
+      backdrop-filter: blur(14px) saturate(140%);
+    }
+
+    #hdr .hdr-inner {
+      min-height: 74px !important;
+      height: auto !important;
+      display: flex !important;
+      align-items: center !important;
+      padding-top: 8px !important;
+      padding-bottom: 8px !important;
+    }
+
+    #hdr .hdr-pitch.smartPitch {
+      width: 100% !important;
+      display: block !important;
+      white-space: normal !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
+    }
+
+    #hdr .pitch-line-desktop {
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+      min-width: 0;
+    }
+
+    #hdr .brand-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex: 0 0 auto;
+      min-width: max-content;
+    }
+
+    #hdr .brandMark {
+      font-family: 'Sora', 'Manrope', sans-serif !important;
+      font-size: 1.22rem !important;
+      font-weight: 800 !important;
+      letter-spacing: -.02em !important;
+      color: #0f172a !important;
+      line-height: 1;
+    }
+
+    #hdr .brandMark::after {
+      display: none !important;
+    }
+
+    #hdr .brandTag {
+      display: inline-flex;
+      align-items: center;
+      height: 24px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: #075985;
+      background: linear-gradient(90deg, #e0f2fe, #dbeafe);
+      border: 1px solid #bfdbfe;
+    }
+
+    #hdr .dash {
+      display: none !important;
+    }
+
+    #hdr .claim {
+      min-width: 0;
+      color: #334155 !important;
+    }
+
+    #hdr .claim--lg {
+      font-size: 14px !important;
+      font-weight: 700 !important;
+      line-height: 1.35 !important;
+    }
+
+    #hdr .claim .highlight {
+      color: #0f766e !important;
+      font-weight: 900 !important;
+    }
+
+    #hdr .pitch-line-mobile {
+      display: none !important;
+    }
+
+    @media (max-width: 767px) {
+      #hdr .hdr-inner {
+        min-height: 72px !important;
+        height: auto !important;
+        padding-top: 7px !important;
+        padding-bottom: 7px !important;
+      }
+
+      #hdr .pitch-line-desktop {
+        display: none !important;
+      }
+
+      #hdr .pitch-line-mobile {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 3px !important;
+        width: 100% !important;
+      }
+
+      #hdr .pitch-line-mobile .brand-row {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      #hdr .pitch-line-mobile .brandMark {
+        font-size: 1.08rem !important;
+        line-height: 1.1;
+      }
+
+      #hdr .pitch-line-mobile .brandTag {
+        height: 21px;
+        padding: 0 8px;
+        font-size: 9px;
+      }
+
+      #hdr .pitch-line-mobile .claim--mobile {
+        display: block !important;
+        font-size: 11.5px !important;
+        font-weight: 800 !important;
+        color: #334155 !important;
+        line-height: 1.25 !important;
+        padding: 0 !important;
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 380px) {
+      #hdr .pitch-line-mobile .brandMark {
+        font-size: 1rem !important;
+      }
+
+      #hdr .pitch-line-mobile .claim--mobile {
+        font-size: 10.5px !important;
+      }
+    }
+  </style>
 </head>
 
 <body class="bg-[var(--bege)] text-gray-900 font-sans">
 
   <!-- =========================================================
-       HEADER (compacto, 1 linha, sem p¡lulas; texto 2-linhas no desktop)
+       HEADER (compacto, 1 linha, sem pÂ¡lulas; texto 2-linhas no desktop)
        ========================================================= -->
-  <header id="hdr" class="sticky top-0 z-50 bg-white border-b border-black/10">
-    <div class="hdr-inner max-w-6xl mx-auto pl-4 pr-3 lg:pl-1 h-12 sm:h-14 grid items-center"
-      style="grid-template-columns: minmax(0,1fr) max-content; gap:.5rem">
+  <header id="hdr" class="sticky top-0 z-[60] bg-white/95 border-b border-gray-100 backdrop-blur-md">
+    <div class="hdr-inner max-w-6xl mx-auto pl-3 pr-3 sm:pl-4 sm:pr-4">
       <!-- Pitch -->
-      <div class="hdr-pitch smartPitch smartPitch--2lines" aria-label="Comparador multilojas com filtros.">
+      <div class="hdr-pitch smartPitch smartPitch--2lines" aria-label="Comparador de precos de celulares em cinco lojas.">
         <div class="pitch-line-desktop">
-          <span class="brandMark">Shihtzuz&nbsp;Shop</span>
-          <span class="dash">—</span>
+          <div class="brand-row">
+            <span class="brandMark">MValue.Shop</span>
+            <span class="brandTag">Mobile Value</span>
+          </div>
           <span class="claim claim--lg">
-            Não pague caro! — Encontramos o <span class="highlight">menor preço</span>
-            de Simparic, Rações e mais na Shopee, Amazon e Petlove.
-            <span class="muted">Economize agora.</span>
+            Compare rapido e encontre o <span class="highlight">menor preco</span>
+            de iPhone, Samsung, Xiaomi e Motorola em Shopee, Amazon, Mercado Livre, Magalu e AliExpress.
           </span>
         </div>
-        <div class="pitch-line-mobile" aria-hidden="true">
-          <span class="brandMark">Shihtzuz&nbsp;Shop</span>
+        <div class="pitch-line-mobile">
+          <div class="brand-row">
+            <span class="brandMark">MValue.Shop</span>
+            <span class="brandTag">Mobile Value</span>
+          </div>
           <span class="claim claim--mobile">
-            — Não pague caro! Compare preços e ache a <span class="text-green-700 font-black">oferta mais barata</span>
-            hoje.
+            Menor preco em 5 lojas, em poucos toques.
           </span>
         </div>
       </div>
@@ -2752,46 +3139,36 @@
     </div>
   </header>
 
-  <!-- Faixa fixa para botÁes de lojas no topo (preenchido via JS) -->
-  <div id="filtroLojasTopo" class="filtro-lojas-slot max-w-6xl mx-auto px-3 sm:px-4"></div>
+  <!-- Faixa fixa para botÃµes de lojas no topo (preenchido via JS) - Drawer Container -->
+  <div id="filtroLojasTopo" class="max-w-6xl mx-auto px-0 sm:px-4 z-40 relative -mt-3 sm:mt-0"></div>
 
   <!-- =========================================================
-       SELO MULTIMARCAS ÔÇö CARROSSEL INFINITO (logos locais) ÔÇö menores
+       SELO MULTIMARCAS Ã”Ã‡Ã¶ CARROSSEL INFINITO (logos locais) Ã”Ã‡Ã¶ menores
        ========================================================= -->
-  <section class="ml-selo bg-gradient-to-r from-[#fff3d6] via-[#b3e5fc] to-[#ffecb3]
+    <section class="ml-selo bg-gradient-to-r from-[#dbeafe] via-[#e0f2fe] to-[#f0f9ff]
            py-3 border-b border-[var(--dourado)]/40 shadow">
-    <div class="logos-container">
-      <!-- Bloco A -->
-      <div class="flex items-center gap-7 px-4">
-        <img src="logos/shopee.svg" class="h-5" alt="Shopee" />
-        <img src="logos/petlove.svg" class="h-5" alt="Petlove" />
-        <img src="logos/amazon.svg" class="h-5" alt="Amazon" />
-        <img src="logos/mercadolivre.svg" class="h-5" alt="Mercado Livre" />
-        <img src="logos/magalu.svg" class="h-5" alt="Magalu" />
-        <img src="logos/petz.svg" class="h-5" alt="Petz" />
-        <img src="logos/cobasi.svg" class="h-5" alt="Cobasi" />
-        <img src="logos/aliexpress.svg" class="h-5" alt="AliExpress" />
-        <img src="logos/casasbahia.svg" class="h-5" alt="Casas Bahia" />
-        <img src="logos/ponto.svg" class="h-5" alt="Ponto" />
-      </div>
-      <!-- Bloco B (cpia) para loop cont¡nuo -->
-      <div class="flex items-center gap-7 px-4">
-        <img src="logos/shopee.svg" class="h-5" alt="Shopee" />
-        <img src="logos/petlove.svg" class="h-5" alt="Petlove" />
-        <img src="logos/amazon.svg" class="h-5" alt="Amazon" />
-        <img src="logos/mercadolivre.svg" class="h-5" alt="Mercado Livre" />
-        <img src="logos/magalu.svg" class="h-5" alt="Magalu" />
-        <img src="logos/petz.svg" class="h-5" alt="Petz" />
-        <img src="logos/cobasi.svg" class="h-5" alt="Cobasi" />
-        <img src="logos/aliexpress.svg" class="h-5" alt="AliExpress" />
-        <img src="logos/casasbahia.svg" class="h-5" alt="Casas Bahia" />
-        <img src="logos/ponto.svg" class="h-5" alt="Ponto" />
+    <div class="logos-marquee" aria-label="Lojas monitoradas no comparador">
+      <div class="logos-track">
+        <div class="logos-group">
+          <span class="logo-pill"><img src="logos/mercadolivre.svg" alt="Mercado Livre" /></span>
+          <span class="logo-pill"><img src="logos/magalu.svg" alt="Magalu" /></span>
+          <span class="logo-pill"><img src="logos/amazon.svg" alt="Amazon" /></span>
+          <span class="logo-pill"><img src="logos/shopee.svg" alt="Shopee" /></span>
+          <span class="logo-pill"><img src="logos/aliexpress.svg" alt="AliExpress" /></span>
+        </div>
+        <div class="logos-group" aria-hidden="true">
+          <span class="logo-pill"><img src="logos/mercadolivre.svg" alt="" /></span>
+          <span class="logo-pill"><img src="logos/magalu.svg" alt="" /></span>
+          <span class="logo-pill"><img src="logos/amazon.svg" alt="" /></span>
+          <span class="logo-pill"><img src="logos/shopee.svg" alt="" /></span>
+          <span class="logo-pill"><img src="logos/aliexpress.svg" alt="" /></span>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- =========================================================
-       BANNERS (A e B) ÔÇö preenchidos pelo script.js
+       BANNERS (A e B) Ã”Ã‡Ã¶ preenchidos pelo script.js
        ========================================================= -->
   <section class="banner-shelf bg-white py-2 px-2 overflow-x-auto flex gap-3 scrollbar-thin scrollbar-thumb-gray-300">
     <div id="bannerA" class="flex gap-2 w-full"></div>
@@ -2803,12 +3180,12 @@
   <main class="p-2 space-y-4 max-w-6xl mx-auto">
     <section id="secListaProdutos" class="text-center space-y-1">
       <div class="produtos-headline text-center sm:text-left">
-        <div class="bg-gradient-to-r from-[var(--marrom)] via-[#3a2518] to-[var(--marrom)]
-                 text-[var(--bege)] font-bold text-[13px] sm:text-[14px] tracking-wide
+        <div class="bg-gradient-to-r from-[#0f172a] via-[#1e293b] to-[#0f172a]
+                 text-white font-bold text-[13px] sm:text-[14px] tracking-wide
                  flex items-center justify-center sm:justify-start gap-2 py-1 rounded-md mt-3
-                 shadow-md border border-[var(--marrom)]/40">
-          <span>🐾</span>
-          <span>Todos os Produtos para Cães e Gatos</span>
+                 shadow-md border border-[#0f172a]/40">
+          <span>ðŸ“±</span>
+          <span>Ofertas de Celulares nas Principais Lojas</span>
         </div>
       </div>
 
@@ -2820,16 +3197,16 @@
     </section>
   </main>
 
-  <!-- ======================= COMPARADOR (mesmo GTIN em vírias lojas) ======================= -->
+  <!-- ======================= COMPARADOR (mesmo GTIN em vÃ­rias lojas) ======================= -->
   <section id="secComparador" class="hidden mt-3 max-w-6xl mx-auto px-2">
     <h2 class="text-sm sm:text-base font-bold text-white bg-black py-1.5 px-3 rounded-md text-center shadow-md">
-      ⚖️ Comparador — mesmo produto em várias lojas
+      âš–ï¸ Comparador â€” mesmo produto em vÃ¡rias lojas
     </h2>
     <div id="listaComparativos" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 mt-3"></div>
   </section>
 
   <!-- =========================================================
-       MODAL ÜNICO PADRONIZADO
+       MODAL ÃœNICO PADRONIZADO
        ========================================================= -->
   <!-- MODAL REFINED - Glassy & Vibrant -->
   <div id="productModal" class="fixed inset-0 hidden items-center justify-center z-50 modal-bg"
@@ -2841,7 +3218,7 @@
 
       <button id="closeModal"
         class="absolute top-4 right-4 text-gray-500 hover:text-red-500 hover:bg-red-50
-                     text-xl font-bold rounded-full w-10 h-10 flex items-center justify-center transition-colors">✕</button>
+                     text-xl font-bold rounded-full w-10 h-10 flex items-center justify-center transition-colors">âœ•</button>
 
       <div class="modal-content">
         <div class="modal-media flex items-center justify-center bg-gray-50 rounded-2xl p-4 border border-gray-100">
@@ -2902,7 +3279,7 @@
             </a>
             <button id="btnModalComparar" type="button"
               class="cmp-modal-btn w-full py-3 rounded-full font-bold text-gray-600 bg-gray-100 hover:bg-gray-200 transition-colors">
-              Comparar preços em outras lojas
+              Comparar preÃ§os em outras lojas
             </button>
           </div>
         </div>
@@ -2912,8 +3289,8 @@
 
   <div id="modalImagePreview" class="hidden">
     <div class="preview-box">
-      <button id="modalZoomClose" type="button">✕</button>
-      <img id="modalZoomImg" src="" alt="Prévia ampliada" />
+      <button id="modalZoomClose" type="button">âœ•</button>
+      <img id="modalZoomImg" src="" alt="PrÃ©via ampliada" />
     </div>
   </div>
 

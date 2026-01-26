@@ -1,7 +1,7 @@
 /* =========================================================
-   ShihTzuShop — Cards + Modal + Comparador Multilojas
+   MValue.Shop — Cards + Modal + Comparador Multilojas
    (Atual) — mantém todas as suas funções + botão flutuante
-             de “Fechar filtros”, carrossel compacto e tooltips
+             de "Fechar filtros", carrossel compacto e tooltips
    ========================================================= */
 
 /* ========= CSS: BOTÕES/LOGOS dos filtros (compactos) ========= */
@@ -10,70 +10,217 @@
   document.querySelector(`style[data-${id}]`)?.remove();
 
   const css = `
-    /* Container */
-    #filtroOrigem{
-      display:flex; flex-wrap:wrap; gap:8px; width:100%; align-items:center;
+    /* Force consistent filter layout even with legacy overrides in index.html */
+    #filtroLinhaProdutos{
+      width:100% !important;
+      display:block !important;
+      margin-top:0 !important;
+    }
+    #filtroLinhaProdutos .f-controls{
+      display:flex !important;
+      align-items:center !important;
+      gap:8px !important;
+      padding:6px !important;
+      border-radius:18px !important;
+      border:1px solid #dbe3ee !important;
+      background:#fff !important;
+      box-shadow:0 8px 20px rgba(15,23,42,.08) !important;
+      position:relative !important;
+      z-index:3 !important;
+    }
+    #filtroLinhaProdutos .search-wrap{
+      min-width:0 !important;
     }
 
-    /* Cápsula responsiva (compacta) - Vibrant Pill */
-    #filtroOrigem label{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:6px 14px;
-      border-radius: 999px; /* Pill shape total */
-      border: 1px solid #e2e8f0;
-      background: #ffffff;
-      cursor:pointer; user-select:none; overflow:hidden;
-      min-width:70px;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    /* Quick stores row for mobile-first navigation */
+    #filtroLinhaProdutos #filtroOrigem{
+      display:flex !important;
+      flex-wrap:nowrap !important;
+      gap:8px !important;
+      width:100% !important;
+      align-items:center !important;
+      overflow-x:auto !important;
+      overflow-y:hidden !important;
+      padding:2px 2px 6px !important;
+      scroll-snap-type:x proximity !important;
+      -webkit-overflow-scrolling:touch !important;
     }
-    
-    #filtroOrigem label:hover{
-      border-color: #cbd5e1;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.06);
+    #filtroLinhaProdutos #filtroOrigem::-webkit-scrollbar{ height:0 !important; }
+
+    #filtroLinhaProdutos #filtroOrigem label{
+      display:inline-flex !important;
+      align-items:center !important;
+      justify-content:center !important;
+      flex:0 0 auto !important;
+      min-width:88px !important;
+      height:38px !important;
+      padding:6px 12px !important;
+      border-radius:999px !important;
+      border:1px solid #dbe3ee !important;
+      background:#ffffff !important;
+      cursor:pointer !important;
+      user-select:none !important;
+      overflow:hidden !important;
+      scroll-snap-align:start !important;
+      transition:all .2s cubic-bezier(.4,0,.2,1) !important;
+      box-shadow:0 1px 2px rgba(15,23,42,.06) !important;
+      margin:0 !important;
     }
 
-    /* Logo (compacto) */
-    #filtroOrigem label img.filtro-logo{
-      display:block; object-fit:contain; pointer-events:none;
-      max-width:100%; height:auto; max-height:28px; /* logos menores p/ caber na pill */
-      filter: grayscale(100%) opacity(0.7);
-      transition: filter 0.2s;
-    }
-    
-    #filtroOrigem label:hover img.filtro-logo,
-    #filtroOrigem label.ativo img.filtro-logo {
-      filter: none; opacity: 1;
+    #filtroLinhaProdutos #filtroOrigem label:hover{
+      border-color:#bfdbfe !important;
+      transform:translateY(-1px) !important;
+      box-shadow:0 6px 12px rgba(15,23,42,.10) !important;
     }
 
-    @media (max-width:1024px){
-      #filtroOrigem label{ padding:6px 10px; }
-      #filtroOrigem label img.filtro-logo{ max-height:24px; }
+    #filtroLinhaProdutos #filtroOrigem label img.filtro-logo{
+      display:block !important;
+      object-fit:contain !important;
+      pointer-events:none !important;
+      max-width:100% !important;
+      height:auto !important;
+      max-height:20px !important;
+      filter:grayscale(100%) opacity(.72) !important;
+      transition:filter .2s !important;
     }
 
-    /* Esconde texto nos botões (só logo) */
-    #filtroOrigem label .texto{ display:none !important; }
-
-    /* Realce comum quando ATIVO */
-    #filtroOrigem label.ativo{
-      border-width: 2px;
-      background: #fff;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    #filtroLinhaProdutos #filtroOrigem label:hover img.filtro-logo,
+    #filtroLinhaProdutos #filtroOrigem label.ativo img.filtro-logo{
+      filter:none !important;
+      opacity:1 !important;
     }
 
-    /* ===== Ativos por marca (Mantendo Identidade mas Flat) ===== */
-    #filtroOrigem label.ativo[data-src="shopee"]{ border-color:#EE4D2D; background:#FFF5F2; }
-    #filtroOrigem label.ativo[data-src="petlove"]{ border-color:#00AEEF; background:#F0FAFF; }
-    #filtroOrigem label.ativo[data-src="amazon"]{ border-color:#232F3E; background:#F2F4F8; }
-    #filtroOrigem label.ativo[data-src="mercadolivre"]{ border-color:#FFE600; background:#FFFEEC; }
-    #filtroOrigem label.ativo[data-src="magalu"]{ border-color:#1976D2; background:#F0F7FF; }
-    #filtroOrigem label.ativo[data-src="petz"]{ border-color:#00B2FF; background:#F0FAFF; }
-    #filtroOrigem label.ativo[data-src="cobasi"]{ border-color:#0077BE; background:#F0F8FF; }
-    #filtroOrigem label.ativo[data-src="aliexpress"]{ border-color:#FF5A00; background:#FFF4EB; }
-    #filtroOrigem label.ativo[data-src="casasbahia"]{ border-color:#0033A0; background:#EBEEFF; }
-    #filtroOrigem label.ativo[data-src="ponto"]{ border-color:#FF5500; background:#FFF2EB; }
+    #filtroLinhaProdutos #filtroOrigem label .texto{
+      display:none !important;
+    }
+
+    #filtroLinhaProdutos #filtroOrigem label.ativo{
+      border-width:2px !important;
+      transform:translateY(-1px) !important;
+      box-shadow:0 6px 16px rgba(15,23,42,.14) !important;
+    }
+
+    .stores-toolbar{
+      display:flex !important;
+      align-items:center !important;
+      justify-content:space-between !important;
+      gap:10px !important;
+      margin-top:8px !important;
+      margin-bottom:6px !important;
+    }
+    .stores-count{
+      font-size:11px !important;
+      font-weight:800 !important;
+      color:#64748b !important;
+      letter-spacing:.2px !important;
+      text-transform:uppercase !important;
+    }
+    .stores-all-btn{
+      border:1px solid #dbeafe !important;
+      background:#eff6ff !important;
+      color:#1d4ed8 !important;
+      border-radius:999px !important;
+      font-size:11px !important;
+      font-weight:800 !important;
+      padding:4px 10px !important;
+      line-height:1.2 !important;
+      white-space:nowrap !important;
+    }
+    .stores-all-btn:hover{ background:#dbeafe !important; }
+
+    .quick-sort-row{
+      display:flex !important;
+      flex-wrap:nowrap !important;
+      gap:8px !important;
+      overflow-x:auto !important;
+      overflow-y:hidden !important;
+      padding-bottom:4px !important;
+      margin-bottom:6px !important;
+      -webkit-overflow-scrolling:touch !important;
+    }
+    .quick-sort-row::-webkit-scrollbar{ height:0 !important; }
+    .quick-sort-chip{
+      flex:0 0 auto !important;
+      border:1px solid #dbeafe !important;
+      background:#f8fafc !important;
+      color:#334155 !important;
+      border-radius:999px !important;
+      font-size:12px !important;
+      font-weight:800 !important;
+      padding:6px 12px !important;
+      line-height:1.2 !important;
+      transition:all .2s ease !important;
+      white-space:nowrap !important;
+    }
+    .quick-sort-chip:hover{
+      border-color:#93c5fd !important;
+      background:#eff6ff !important;
+    }
+    .quick-sort-chip.active{
+      background:#0f766e !important;
+      border-color:#0f766e !important;
+      color:#fff !important;
+      box-shadow:0 6px 14px rgba(15,118,110,.26) !important;
+    }
+
+    .drawer-advanced{
+      border:1px solid #e2e8f0 !important;
+      border-radius:16px !important;
+      background:rgba(255,255,255,.98) !important;
+      box-shadow:0 12px 26px rgba(15,23,42,.10) !important;
+    }
+
+    @media (max-width:640px){
+      #filtroLinhaProdutos{
+        position:sticky !important;
+        top:58px !important;
+        z-index:58 !important;
+        background:linear-gradient(180deg,#f8fbff 0%,rgba(248,251,255,.85) 100%) !important;
+        padding-top:6px !important;
+        padding-bottom:2px !important;
+        backdrop-filter:blur(6px) !important;
+      }
+      #filtroLinhaProdutos .f-controls{
+        border-radius:16px !important;
+      }
+      #filtroLinhaProdutos #filtroOrigem label{
+        min-width:84px !important;
+        height:36px !important;
+      }
+      .quick-sort-chip{
+        font-size:11px !important;
+        padding:6px 10px !important;
+      }
+      body.has-mobile-offers #listaProdutos{
+        padding-bottom:72px !important;
+      }
+    }
+
+    @media (min-width:640px){
+      #filtroLinhaProdutos #filtroOrigem{
+        flex-wrap:wrap !important;
+        overflow:visible !important;
+        padding-bottom:2px !important;
+      }
+      #filtroLinhaProdutos #filtroOrigem label{
+        min-width:98px !important;
+        height:40px !important;
+      }
+      #filtroLinhaProdutos #filtroOrigem label img.filtro-logo{
+        max-height:22px !important;
+      }
+      .quick-sort-row{
+        overflow:visible !important;
+        flex-wrap:wrap !important;
+      }
+    }
+
+    /* Active states by brand */
+    #filtroLinhaProdutos #filtroOrigem label.ativo[data-src="shopee"]{ border-color:#EE4D2D !important; background:#FFF5F2 !important; }
+    #filtroLinhaProdutos #filtroOrigem label.ativo[data-src="amazon"]{ border-color:#232F3E !important; background:#F2F4F8 !important; }
+    #filtroLinhaProdutos #filtroOrigem label.ativo[data-src="mercadolivre"]{ border-color:#FFE600 !important; background:#FFFEEC !important; }
+    #filtroLinhaProdutos #filtroOrigem label.ativo[data-src="magalu"]{ border-color:#1976D2 !important; background:#F0F7FF !important; }
+    #filtroLinhaProdutos #filtroOrigem label.ativo[data-src="aliexpress"]{ border-color:#FF5A00 !important; background:#FFF4EB !important; }
   `;
   const style = document.createElement('style');
   style.setAttribute(`data-${id}`, 'true');
@@ -113,6 +260,62 @@
   document.head.appendChild(style);
 })();
 
+/* === UX visual do catálogo (mobile-first) === */
+(function injectCatalogUXCSS() {
+  const id = "catalog-ux-mobile-v1";
+  document.querySelector(`style[data-${id}]`)?.remove();
+  const css = `
+    #listaProdutos{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+      padding-bottom:8px;
+    }
+    .card-geral{
+      border-radius:16px !important;
+      border-color:#e2e8f0 !important;
+      box-shadow:0 6px 16px rgba(15,23,42,.08);
+      overflow:hidden;
+    }
+    .card-geral .card-price{
+      font-size:1.35rem;
+      letter-spacing:-.02em;
+      color:#0f766e;
+    }
+    .card-geral .card-old{
+      font-size:11px;
+      color:#94a3b8;
+    }
+    .card-geral .card-off{
+      font-size:10px;
+      font-weight:900;
+      border-radius:999px;
+      background:#ecfeff;
+      color:#0f766e;
+      padding:2px 6px;
+    }
+    .card-geral .card-specs{
+      color:#64748b;
+      font-weight:600;
+    }
+    .card-geral .card-logo{
+      max-height:16px;
+    }
+    @media (min-width:768px){
+      #listaProdutos{
+        gap:12px;
+      }
+      .card-geral .card-price{
+        font-size:1.45rem;
+      }
+    }
+  `;
+  const style = document.createElement("style");
+  style.setAttribute(`data-${id}`, "true");
+  style.textContent = css;
+  document.head.appendChild(style);
+})();
+
 /* ================== IDENTIDADE POR LOJA ================== */
 const LOGO_BASE_URL = "logos/";
 const STORE_META = {
@@ -125,21 +328,8 @@ const STORE_META = {
     btn: ["#EE4D2D", "#FF7B5F"],
     off: "#7A1A0F",
     shipping: [
-      { nome: "Shopee Xpress", prazo: "2-4 dias úteis", detalhe: "capitais com estoque nacional", tipo: "regular", freteGratis: true },
-      { nome: "Entrega econômica", prazo: "5-12 dias úteis", detalhe: "parceiros e interior", tipo: "economy" }
-    ]
-  },
-  petlove: {
-    nome: "Petlove",
-    corBorda: "#00AEEF",
-    corTexto: "#0070A8",
-    bgCard: "linear-gradient(to bottom,#00AEEF,#B3ECFF)",
-    logo: `${LOGO_BASE_URL}petlove.svg`,
-    btn: ["#00AEEF", "#4FC3F7"],
-    off: "#0070A8",
-    shipping: [
-      { nome: "Expressa Petlove", prazo: "1-2 dias úteis", detalhe: "capitais e regiões metropolitanas", tipo: "express", freteGratis: true },
-      { nome: "Entrega programada", prazo: "3-5 dias úteis", detalhe: "todo Brasil com agendamento", tipo: "regular" }
+      { nome: "Shopee Xpress", prazo: "2-4 dias uteis", detalhe: "capitais com estoque nacional", tipo: "regular", freteGratis: true },
+      { nome: "Entrega economica", prazo: "5-12 dias uteis", detalhe: "parceiros e interior", tipo: "economy" }
     ]
   },
   amazon: {
@@ -151,8 +341,8 @@ const STORE_META = {
     btn: ["#232F3E", "#3A4553"],
     off: "#FF9900",
     shipping: [
-      { nome: "Prime 1 dia", prazo: "até 24h", detalhe: "capitais com estoque Prime", tipo: "express", freteGratis: true },
-      { nome: "Prime padrão", prazo: "2-3 dias úteis", detalhe: "demais regiões", tipo: "regular", freteGratis: true }
+      { nome: "Prime 1 dia", prazo: "ate 24h", detalhe: "capitais com estoque Prime", tipo: "express", freteGratis: true },
+      { nome: "Prime padrao", prazo: "2-3 dias uteis", detalhe: "demais regioes", tipo: "regular", freteGratis: true }
     ]
   },
   mercadolivre: {
@@ -164,8 +354,8 @@ const STORE_META = {
     btn: ["#FFE600", "#FFE24A"],
     off: "#0B4EA2",
     shipping: [
-      { nome: "Full 24h", prazo: "até 24h", detalhe: "estoque na sua cidade", tipo: "express", freteGratis: true },
-      { nome: "Envio Full", prazo: "1-2 dias úteis", detalhe: "Brasil via hubs Full", tipo: "regular", freteGratis: true }
+      { nome: "Full 24h", prazo: "ate 24h", detalhe: "estoque na sua cidade", tipo: "express", freteGratis: true },
+      { nome: "Envio Full", prazo: "1-2 dias uteis", detalhe: "Brasil via hubs Full", tipo: "regular", freteGratis: true }
     ]
   },
   magalu: {
@@ -177,37 +367,10 @@ const STORE_META = {
     btn: ["#1976D2", "#64B5F6"],
     off: "#0D47A1",
     shipping: [
-      { nome: "Chegou Hoje", prazo: "até 24h", detalhe: "quando há estoque local", tipo: "express" },
-      { nome: "Magalu Entregas", prazo: "2-4 dias úteis", detalhe: "transportadora própria", tipo: "regular" }
+      { nome: "Chegou Hoje", prazo: "ate 24h", detalhe: "quando ha estoque local", tipo: "express" },
+      { nome: "Magalu Entregas", prazo: "2-4 dias uteis", detalhe: "transportadora propria", tipo: "regular" }
     ]
   },
-  petz: {
-    nome: "Petz",
-    corBorda: "#00B2FF",
-    corTexto: "#004E92",
-    bgCard: "linear-gradient(to bottom,#B3E5FF,#E6F5FF)",
-    logo: `${LOGO_BASE_URL}petz.svg`,
-    btn: ["#00B2FF", "#66CCFF"],
-    off: "#004E92",
-    shipping: [
-      { nome: "Petz Delivery", prazo: "até 2h", detalhe: "lojas com estoque", tipo: "express" },
-      { nome: "Entrega padrão", prazo: "2-5 dias úteis", detalhe: "Correios/transportadora", tipo: "regular" }
-    ]
-  },
-  cobasi: {
-    nome: "Cobasi",
-    corBorda: "#0077BE",
-    corTexto: "#005A8C",
-    bgCard: "linear-gradient(to bottom,#B3DBFF,#E8F3FF)",
-    logo: `${LOGO_BASE_URL}cobasi.svg`,
-    btn: ["#0077BE", "#66AEE6"],
-    off: "#005A8C",
-    shipping: [
-      { nome: "Cobasi Já", prazo: "1-3h", detalhe: "retirada e parceiros delivery", tipo: "express" },
-      { nome: "Entrega econômica", prazo: "1-3 dias úteis", detalhe: "sudeste/sul", tipo: "regular" }
-    ]
-  },
-
   aliexpress: {
     nome: "AliExpress",
     corBorda: "#FF5A00",
@@ -217,44 +380,23 @@ const STORE_META = {
     btn: ["#FF5A00", "#FF8A50"],
     off: "#D84315",
     shipping: [
-      { nome: "Entrega Brasil", prazo: "7-12 dias úteis", detalhe: "depósitos nacionais", tipo: "regular" },
-      { nome: "Envio internacional", prazo: "12-20 dias úteis", detalhe: "frete combinado", tipo: "economy" }
+      { nome: "Entrega Brasil", prazo: "7-12 dias uteis", detalhe: "depositos nacionais", tipo: "regular" },
+      { nome: "Envio internacional", prazo: "12-20 dias uteis", detalhe: "frete combinado", tipo: "economy" }
     ]
-  },
-
-  casasbahia: {
-    nome: "Casas Bahia",
-    corBorda: "#0033A0",
-    corTexto: "#001A66",
-    bgCard: "linear-gradient(to bottom,#D0DBFF,#EEF3FF)",
-    logo: `${LOGO_BASE_URL}casasbahia.svg`,
-    btn: ["#0033A0", "#4D6DFF"],
-    off: "#001A66",
-    shipping: [
-      { nome: "Retira rápido", prazo: "2-4h", detalhe: "retirada em loja", tipo: "express" },
-      { nome: "Entrega Casas Bahia", prazo: "2-5 dias úteis", detalhe: "transportadora própria", tipo: "regular" }
-    ]
-  },
-  ponto: {
-    nome: "Ponto",
-    corBorda: "#111111",
-    corTexto: "#FF5500",
-    bgCard: "linear-gradient(to bottom,#F0F0F0,#FFFFFF)",
-    logo: `${LOGO_BASE_URL}ponto.svg`,
-    btn: ["#111111", "#444444"],
-    off: "#FF5500",
-    shipping: [
-      { nome: "Retira Ponto", prazo: "até 2h", detalhe: "lojas e lockers", tipo: "express" },
-      { nome: "Entrega padrão", prazo: "2-5 dias úteis", detalhe: "transportadora parceira", tipo: "regular" }
-    ]
-  },
+  }
 };
+const ALLOWED_STORES = ["mercadolivre", "magalu", "amazon", "shopee", "aliexpress"];
 
 /* ===================== PRODUTOS (catálogo com GTIN padronizado) ===================== */
 // Dados movidos para products.json
 
 function montarSpecsInfo(specs = {}) {
   const list = [];
+  if (specs.telaPolegadas) list.push({ label: "Tela", value: `${specs.telaPolegadas}"` });
+  if (specs.ramGb) list.push({ label: "Memória RAM", value: `${specs.ramGb} GB` });
+  if (specs.armazenamentoGb) list.push({ label: "Armazenamento", value: `${specs.armazenamentoGb} GB` });
+  if (specs.bateriaMah) list.push({ label: "Bateria", value: `${specs.bateriaMah} mAh` });
+  if (specs.cameraMp) list.push({ label: "Câmera", value: `${specs.cameraMp} MP` });
   if (specs.doseMg) list.push({ label: "Dose", value: `${specs.doseMg} mg` });
   if (specs.faixaPeso) list.push({ label: "Faixa de peso", value: specs.faixaPeso });
   if (specs.unidadesPorKit) {
@@ -357,15 +499,16 @@ async function loadProducts() {
     // Processa dados brutos para formato da aplicação
     produtos = data.flatMap(base =>
       (base.ofertas || []).map(oferta => montarProduto(base, oferta))
-    );
+    ).filter(p => ALLOWED_STORES.includes(p.tipo));
     window.produtos = produtos;
 
     // Inicializa interface
+    indexarSimilares(produtos);
     indexarPorGTIN(produtos);
     renderLista(produtos);
 
     // Renderiza banners iniciais
-    const lojasBanner = ["shopee", "amazon", "magalu", "aliexpress", "petlove", "mercadolivre", "petz", "cobasi", "casasbahia", "ponto"];
+    const lojasBanner = [...ALLOWED_STORES];
     if (typeof renderBanner === 'function') renderBanner("bannerA", lojasBanner);
 
   } catch (err) {
@@ -441,7 +584,7 @@ function makeSimKey(nome = "") {
     .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     .toLowerCase();
 
-  const stop = /\b(para|pra|de|do|da|dos|das|com|e|ou|o|a|os|as|kit|combo|original|novo|nova|pro|plus|max|premium|mega|ultra|pet|cao|cão|gato|cachorro|filhote|adulto|racoes?|ração|raças?|pequenas?|medias?|médias?|grandes?)\b/g;
+  const stop = /\b(para|pra|de|do|da|dos|das|com|e|ou|o|a|os|as|kit|combo|original|novo|nova|smartphone|celular|telefone|android|ios|dual|chip|desbloqueado|5g|4g|lte)\b/g;
   let s = base.replace(stop, " ");
 
   s = s
@@ -755,71 +898,191 @@ function comparablesFor(product, list = produtos) {
 
 let listaAtual = produtos.slice();
 window.listaAtual = listaAtual;
+window.quickSortMode = window.quickSortMode || "preco";
 
-/* ===================== LISTA PRINCIPAL ===================== */
+function discountPercent(prod = {}) {
+  if (typeof prod.descontoPercent === "number") return prod.descontoPercent;
+  const txt = String(prod.desconto || "");
+  const m = txt.match(/(\d+)\s*%/);
+  return m ? Number(m[1]) : 0;
+}
+
+function applyQuickSortDom(wrap) {
+  if (!wrap) return;
+  const cards = Array.from(wrap.querySelectorAll(".card-geral"));
+  if (!cards.length) return;
+
+  const mode = window.quickSortMode || "preco";
+  const byNum = (el, key) => Number(el.dataset[key] || 0);
+
+  cards.sort((a, b) => {
+    if (mode === "rating") return byNum(b, "rating") - byNum(a, "rating");
+    if (mode === "desconto") return byNum(b, "discount") - byNum(a, "discount");
+    return byNum(a, "price") - byNum(b, "price");
+  });
+
+  cards.forEach(card => wrap.appendChild(card));
+}
+
+/* ===================== LISTA PRINCIPAL (AGRUPADA) ===================== */
 function renderLista(lista) {
   const wrap = el("#listaProdutos"); if (!wrap) return;
   const data = Array.isArray(lista) ? lista : [];
   listaAtual = [...data];
   window.listaAtual = listaAtual;
   wrap.innerHTML = "";
-  data.forEach(obj => {
-    const p = autoFillDiscount({ ...obj });
-    const meta = STORE_META[p.tipo];
-    const finalPrice = getFinalPrice(p);
-    const prazoResumo = "";
-    const detalhes = Array.isArray(p.detalhes) ? p.detalhes.slice(0, 2) : [];
+
+  // 1. Agrupar produtos por chave única (GTIN ou Nome normalizado)
+  const grupos = new Map();
+  data.forEach(p => {
+    // Usa GTIN se houver, senão chave de similaridade (nome)
+    const key = p.gtin ? `gtin:${normalizeGTIN(p.gtin)}` : `sim:${p.simKey || makeSimKey(p.nome)}`;
+    if (!grupos.has(key)) grupos.set(key, []);
+    grupos.get(key).push(p);
+  });
+
+  // 2. Processar e Renderizar cada grupo
+  grupos.forEach(grupo => {
+    if (!grupo.length) return;
+
+    // Encontra a melhor oferta (menor preço final)
+    const sorted = grupo.sort((a, b) => getFinalPrice(a) - getFinalPrice(b));
+    const best = autoFillDiscount({ ...sorted[0] }); // Clone para não mutar original agressivamente
+    const others = sorted.slice(1); // Restante das ofertas
+
+    const meta = STORE_META[best.tipo] || {};
+    const finalPrice = getFinalPrice(best);
+
+    // Detalhes (bullets)
+    // Evita poluição visual nos cards principais (descrição completa fica no modal).
+    const detalhes = [];
     const detalhesHtml = detalhes.length
       ? `<p class="card-desc">&bull; ${detalhes.join("  &bull; ")}</p>`
       : "";
+
+    // HTML da linha de preço principal
     const priceLine = `
       <div class="card-price-row">
-        ${p.precoAntigo ? `<span class="card-old">${fmt(p.precoAntigo)}</span>` : ""}
-        ${p.desconto ? `<span class="card-off">${p.desconto}</span>` : ""}
+        ${best.precoAntigo ? `<span class="card-old">${fmt(best.precoAntigo)}</span>` : ""}
+        ${best.desconto ? `<span class="card-off">${best.desconto}</span>` : ""}
       </div>
-      <p class="card-price font-black leading-none">${fmt(finalPrice)}</p>
+      <p class="card-price font-black leading-none text-teal-700">${fmt(finalPrice)}</p>
+      ${best.parcelas ? `<p class="text-[10px] text-gray-400 mt-1 truncate">${best.parcelas}</p>` : ""}
     `;
 
+    // Cria o CARD
     const card = document.createElement("div");
-    card.className = "relative card-geral card-compact";
+    card.className = "relative card-geral card-compact bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col";
 
-    // === atributos p/ highlight ===
-    if (p.gtin) card.setAttribute("data-gtin", String(p.gtin));
-    if (!p.simKey) p.simKey = makeSimKey(p.nome || "");
-    card.setAttribute("data-simkey", p.simKey);
-    card.dataset.tipo = p.tipo || "default";
+    // Atributos de dados
+    const bestGTIN = normalizeGTIN(best.gtin);
+    if (bestGTIN) card.setAttribute("data-gtin", bestGTIN);
+    card.setAttribute("data-simkey", best.simKey || makeSimKey(best.nome || ""));
+    card.dataset.tipo = best.tipo || "default";
+    card.dataset.price = String(finalPrice || 0);
+    card.dataset.rating = String(Number(best.rating || 0));
+    card.dataset.discount = String(discountPercent(best));
 
+    // --- CONTEÚDO PRINCIPAL (Topo) ---
+    const mainContent = document.createElement("div");
+    mainContent.className = "flex flex-row p-3 sm:p-4 gap-3 items-start cursor-pointer";
+    mainContent.onclick = () => openModal(best); // Clicar na área principal abre modal de detalhes da MELHOR oferta
+
+    // Imagem
     const media = document.createElement("div");
-    media.className = "card-media";
-    const imgWrap = buildImg(p.imagem, p.nome, { variant: "card" });
+    media.className = "card-media w-24 h-24 flex-shrink-0";
+    const imgWrap = buildImg(best.imagem, best.nome, { variant: "card" });
     media.appendChild(imgWrap);
 
+    // Texto/Info
     const body = document.createElement("div");
-    body.className = "card-body";
+    body.className = "card-body flex-1 min-w-0 flex flex-col justify-between";
 
-    const text = document.createElement("div");
-    text.className = "card-text";
-    text.insertAdjacentHTML("beforeend", `
-        <div class="card-logo-row">
-          <img src="${meta.logo}" class="card-logo" alt="${meta.nome}">
+    body.innerHTML = `
+      <div class="card-text">
+        <div class="card-logo-row mb-1">
+           <img src="${meta.logo}" class="card-logo h-4 w-auto object-contain opacity-90" alt="${meta.nome}">
+           ${others.length > 0 ? `<span class="text-[10px] text-gray-400 font-bold ml-2 bg-gray-50 px-1.5 py-0.5 rounded">+${others.length} lojas</span>` : ""}
         </div>
-        <h2 class="font-semibold banner-title text-gray-800 leading-tight mb-1 line-clamp-2 text-left">${p.nome}</h2>
-        ${p.specsLabel ? `<p class="card-specs text-[10px] text-gray-500 mb-1">${p.specsLabel}</p>` : ""}
+        <h2 class="font-bold text-gray-800 leading-snug text-sm line-clamp-2 md:text-base">${best.nome}</h2>
+        ${best.specsLabel ? `<p class="card-specs text-[10px] text-gray-500 mt-0.5">${best.specsLabel}</p>` : ""}
         ${detalhesHtml}
-        ${priceLine}
-    `);
+        <div class="mt-auto pt-2">${priceLine}</div>
+      </div>
+    `;
 
-    body.appendChild(text);
-    card.appendChild(media);
-    card.appendChild(body);
+    mainContent.appendChild(media);
+    mainContent.appendChild(body);
+    card.appendChild(mainContent);
 
-    // clique no card abre o comparador entre lojas
-    card.addEventListener("click", () => abrirComparador(p));
+    // --- BARRA DE COMPARAÇÃO (Inline) ---
+    if (others.length > 0) {
+      const compareSection = document.createElement("div");
+      compareSection.className = "border-t border-gray-100 bg-gray-50/50 p-2 text-xs";
+
+      const label = document.createElement("div");
+      label.className = "text-gray-400 font-bold mb-1.5 px-1 uppercase tracking-wide text-[10px]";
+      label.textContent = "Outras opções:";
+      compareSection.appendChild(label);
+
+      const grid = document.createElement("div");
+      grid.className = "grid grid-cols-1 gap-1.5";
+
+      others.slice(0, 3).forEach(other => {
+        const oMeta = STORE_META[other.tipo] || {};
+        const oRow = document.createElement("div");
+        oRow.className = "flex items-center justify-between bg-white rounded-lg p-1.5 border border-gray-100 hover:border-teal-200 cursor-pointer transition-colors";
+
+        oRow.innerHTML = `
+          <div class="flex items-center gap-2 overflow-hidden">
+            <img src="${oMeta.logo}" class="h-4 w-10 object-contain" alt="${oMeta.nome}">
+            <span class="text-gray-900 font-bold truncate">${fmt(getFinalPrice(other))}</span>
+          </div>
+          <svg class="w-3 h-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+        `;
+
+        // Clicar na linha de outra loja abre o modal daquela oferta específica ou link direto? 
+        // User pediu "comparação na mesma tela". Vamos abrir o Modal de Produto para essa oferta específica.
+        oRow.onclick = (e) => {
+          e.stopPropagation();
+          openModal(other);
+        };
+        grid.appendChild(oRow);
+      });
+
+      if (others.length > 3) {
+        const more = document.createElement("div");
+        more.className = "text-center text-[10px] text-gray-400 mt-1 font-medium cursor-pointer hover:text-teal-600";
+        more.textContent = `Ver mais ${others.length - 3} ofertas...`;
+        more.onclick = (e) => {
+          e.stopPropagation();
+          // Aqui poderiamos expandir, ou abrir o "Modal de Comparação" antigo se o user quiser ver TUDO.
+          // Mas vamos manter a simplicidade: ao clicar abre modal da MELHOR oferta que lá tem botão comparar.
+          openModal(best);
+        };
+        grid.appendChild(more);
+      }
+
+      compareSection.appendChild(grid);
+      card.appendChild(compareSection);
+    }
+    // Se não tem outros, botão de ação direta?
+    else {
+      const actions = document.createElement("div");
+      actions.className = "p-2 border-t border-gray-100 bg-gray-50/30 flex justify-end";
+      actions.innerHTML = `
+         <button class="w-full py-1.5 rounded-lg bg-white border border-teal-100 text-teal-700 font-bold text-xs hover:bg-teal-50 transition">Ver Detalhes</button>
+       `;
+      actions.onclick = () => openModal(best);
+      card.appendChild(actions);
+    }
 
     wrap.appendChild(card);
   });
 
-  // aplica destaque se houver seleção
+  applyQuickSortDom(wrap);
+
+  // aplica destaque se houver sele??o
   destacarSelecao();
 }
 
@@ -989,7 +1252,7 @@ function openModal(obj) {
   if (link) {
     link.href = p.link || "#";
     link.style.background = `linear-gradient(90deg, ${meta.btn[0]}, ${meta.btn[1]})`;
-    link.style.color = (p.tipo === "petlove" || p.tipo === "mercadolivre") ? "#0b1322" : "#fff";
+    link.style.color = (p.tipo === "mercadolivre") ? "#0b1322" : "#fff";
     link.style.border = `1px solid ${meta.corBorda}88`;
     const lojaLabel = (meta && meta.nome) ? meta.nome : "loja";
     link.textContent = `Comprar na ${lojaLabel}`;
@@ -1091,6 +1354,61 @@ function closeModal() {
   if (modalBg) modalBg.addEventListener("click", (e) => { if (e.target.id === "productModal") closeModal(); });
 })();
 
+function hasAnyActiveFilters() {
+  const busca = (el("#buscaInput")?.value || "").trim();
+  const categoria = (el("#filtroCategoria")?.value || "").trim();
+  const preco = (el("#filtroPreco")?.value || "").trim();
+  const checks = Array.from(document.querySelectorAll(".origemCheck"));
+  const selected = checks.filter(c => c.checked).length;
+  const hasStoreFilter = checks.length > 0 && selected < checks.length;
+  const hasTarget = Boolean(window.filtrosAlvo?.gtin || window.filtrosAlvo?.simKey);
+  const hasSort = (window.quickSortMode || "preco") !== "preco";
+  return Boolean(busca || categoria || preco || hasStoreFilter || hasTarget || hasSort);
+}
+
+function ensureMobileOffersBar() {
+  let bar = document.getElementById("mobileOffersBar");
+  if (bar) return bar;
+
+  bar = document.createElement("div");
+  bar.id = "mobileOffersBar";
+  bar.className = "hidden fixed inset-x-0 bottom-0 z-[70] px-3 pb-[max(12px,env(safe-area-inset-bottom))] pt-2";
+  bar.innerHTML = `
+    <button id="mobileOffersBtn" type="button"
+      class="w-full h-11 rounded-xl bg-teal-600 text-white text-sm font-extrabold shadow-lg shadow-teal-900/20 active:scale-[0.99] transition">
+      Ver ofertas
+    </button>
+  `;
+  document.body.appendChild(bar);
+
+  const btn = bar.querySelector("#mobileOffersBtn");
+  btn?.addEventListener("click", () => {
+    const sec = document.getElementById("secListaProdutos");
+    sec?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  return bar;
+}
+
+function updateMobileOffersBar(total = 0) {
+  const bar = ensureMobileOffersBar();
+  const btn = bar.querySelector("#mobileOffersBtn");
+  const isMobile = window.innerWidth <= 768;
+  const hasActive = hasAnyActiveFilters();
+
+  if (!isMobile || !hasActive) {
+    bar.classList.add("hidden");
+    document.body.classList.remove("has-mobile-offers");
+    return;
+  }
+
+  const n = Number(total || 0);
+  const label = n === 1 ? "Ver 1 oferta" : `Ver ${n} ofertas`;
+  if (btn) btn.textContent = label;
+  bar.classList.remove("hidden");
+  document.body.classList.add("has-mobile-offers");
+}
+
 /* ===================== FILTROS ===================== */
 function aplicarFiltros(arg) {
   const isEvent = arg && typeof arg === "object" && "target" in arg && typeof arg.preventDefault === "function";
@@ -1103,11 +1421,11 @@ function aplicarFiltros(arg) {
   const origens = Array.from(document.querySelectorAll(".origemCheck:checked")).map(c => c.value);
 
   const mapaCat = {
-    "roupas": ["roupa", "tricot", "bandana", "gravata"],
-    "acessórios": ["laço", "peitoral", "gravata", "bandana", "escova", "pente"],
-    "higiene": ["shampoo", "condicionador", "perfume", "hidratante"],
-    "camas": ["cama", "donut"],
-    "rações": ["ração", "racao"]
+    "entrada": ["a15", "a16", "moto g24", "moto g34", "redmi 14c"],
+    "intermediario": ["a35", "a55", "moto g84", "edge", "redmi note", "poco x6"],
+    "premium": ["iphone", "s24", "s25", "ultra", "pixel", "xiaomi 14"],
+    "iphone": ["iphone", "apple", "ios"],
+    "dobravel": ["z flip", "z fold", "flip", "fold"]
   };
 
   const { gtin: alvoGTIN, simKey: alvoSIMK } = window.filtrosAlvo;
@@ -1126,9 +1444,9 @@ function aplicarFiltros(arg) {
       if (!termos.some(t => p.nome.toLowerCase().includes(t))) return false;
     }
     // preço
-    if (preco === "0" && precoFinal > 50) return false;
-    if (preco === "1" && (precoFinal < 50 || precoFinal > 150)) return false;
-    if (preco === "2" && precoFinal < 150) return false;
+    if (preco === "0" && precoFinal > 1500) return false;
+    if (preco === "1" && (precoFinal < 1500 || precoFinal > 3000)) return false;
+    if (preco === "2" && precoFinal < 3000) return false;
 
     // ==== interseção com alvo selecionado ====
     if (alvoGTIN || alvoSIMK) {
@@ -1166,146 +1484,163 @@ function aplicarFiltros(arg) {
       </div>`;
   }
 
+  updateMobileOffersBar(filtrados.length);
+
   // atualiza chip
   ensureChipSelecionado();
 }
 
-/* cria a barra de filtros rededesenhada (Search Focus + Drawer) */
+/* cria a barra de filtros rededesenhada (busca + filtros avancados sempre visiveis) */
 function criarBarraFiltros() {
-  const drawerSlot = document.getElementById("filtroLojasTopo"); // Agora atua como Drawer
-  const linhaSlot = document.getElementById("filtroLinhaProdutos"); // Barra principal (Search + Btn)
+  const drawerSlot = document.getElementById("filtroLojasTopo");
+  const linhaSlot = document.getElementById("filtroLinhaProdutos");
   if (!drawerSlot || !linhaSlot) return;
 
-  // 1. Monta o conteúdo do Drawer (Marcas + Selects)
   const origemHTML = Object.entries(STORE_META).map(([k, v]) => `
     <label data-src="${k}" class="ativo" aria-label="${v.nome}" title="${v.nome}">
       <input type="checkbox" class="origemCheck" value="${k}" checked />
-      <img src="${v.logo}" alt="" class="filtro-logo" />
+      <img src="${v.logo}" alt="${v.nome}" class="filtro-logo" />
     </label>
   `).join("");
 
   drawerSlot.innerHTML = `
-    <div class="flex flex-col gap-4 w-full">
-      <div class="flex flex-wrap gap-3 items-center justify-between">
-        <span class="text-sm font-bold text-gray-500 uppercase tracking-wider">Lojas</span>
-        <button id="closeDrawerBtn" class="text-xs font-bold text-teal-600 bg-teal-50 px-2 py-1 rounded hover:bg-teal-100 sm:hidden">Fechar painel</button>
+    <div class="drawer-advanced w-full p-3 sm:p-4 mt-2">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-xs sm:text-sm font-extrabold text-slate-600 uppercase tracking-wide">Filtros avancados</span>
       </div>
-      <div id="filtroOrigem" class="w-full pb-2 border-b border-gray-100">
-        ${origemHTML}
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <label class="filters-field px-0">
+          <select id="filtroPreco" class="select-pill w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-700 font-semibold focus:border-teal-500 focus:ring-1 focus:ring-teal-200 cursor-pointer text-sm">
+            <option value="">Faixa de preco</option>
+            <option value="0">Ate R$ 1.500</option>
+            <option value="1">R$ 1.500 - R$ 3.000</option>
+            <option value="2">Acima de R$ 3.000</option>
+          </select>
+        </label>
+        <label class="filters-field px-0">
+          <select id="filtroCategoria" class="select-pill w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-700 font-semibold focus:border-teal-500 focus:ring-1 focus:ring-teal-200 cursor-pointer text-sm">
+            <option value="">Categoria</option>
+            <option>Entrada</option><option>Intermediario</option><option>Premium</option><option>iPhone</option><option>Dobravel</option>
+          </select>
+        </label>
       </div>
-      <div class="flex flex-wrap gap-4 items-center">
-         <span class="text-sm font-bold text-gray-500 uppercase tracking-wider">Opções</span>
-         <div class="filters-panel flex gap-2">
-            <label class="filters-field">
-              <select id="filtroPreco" class="select-pill px-4 py-2 rounded-full border border-gray-200 bg-white text-gray-700 font-semibold focus:border-teal-500 focus:ring-1 focus:ring-teal-200 cursor-pointer">
-                <option value="">Faixa de Preço</option>
-                <option value="0">Até R$ 50</option>
-                <option value="1">R$ 50 – R$ 150</option>
-                <option value="2">+ R$ 150</option>
-              </select>
-            </label>
-            <label class="filters-field">
-              <select id="filtroCategoria" class="select-pill px-4 py-2 rounded-full border border-gray-200 bg-white text-gray-700 font-semibold focus:border-teal-500 focus:ring-1 focus:ring-teal-200 cursor-pointer">
-                <option value="">Categoria</option>
-                <option>Roupas</option><option>Acessórios</option><option>Higiene</option><option>Camas</option><option>Rações</option>
-              </select>
-            </label>
-         </div>
+      <div class="flex justify-end mt-3">
+        <button id="resetAdvancedBtn" class="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1.5 rounded-full hover:bg-slate-200">Limpar filtros</button>
       </div>
     </div>
   `;
 
-  // 2. Monta a Barra Principal (Search + Toggle Btn)
   linhaSlot.innerHTML = `
-    <div class="f-controls w-full flex items-center justify-between gap-3 bg-white p-1 rounded-full border border-gray-200 shadow-sm relative z-20">
-      
-      <!-- Search Input Wrapper -->
+    <div class="f-controls w-full flex items-center gap-2 bg-white p-1.5 rounded-2xl border border-gray-200 shadow-sm relative z-20">
       <div class="search-wrap flex-1 relative flex items-center h-11">
         <svg class="icon absolute left-4 text-gray-400" viewBox="0 0 24 24" width="20" height="20" fill="none">
           <path d="M21 21l-4.3-4.3M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        <input id="buscaInput" type="text" placeholder="O que seu pet precisa hoje?" 
-               class="w-full h-full rounded-full pl-11 pr-10 text-gray-800 placeholder-gray-400 font-medium outline-none bg-transparent" />
-        <button id="clearBusca" type="button"
-                class="hidden absolute right-2 w-7 h-7 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 font-bold grid place-items-center leading-none transition">&times;</button>
+        <input id="buscaInput" type="text" placeholder="Busque o celular que voce quer comprar" class="w-full h-full rounded-full pl-11 pr-10 text-gray-800 placeholder-gray-400 font-semibold outline-none bg-transparent" />
+        <button id="clearBusca" type="button" class="hidden absolute right-2 w-7 h-7 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 font-bold grid place-items-center leading-none transition">&times;</button>
       </div>
+    </div>
 
-      <!-- Filter Toggle Button -->
-      <button id="toggleDrawerBtn" class="flex items-center gap-2 px-5 h-9 mr-1 rounded-full bg-teal-50 text-teal-700 font-bold hover:bg-teal-100 active:scale-95 transition-all text-sm border border-teal-100">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7"/><path d="M4 10V3"/><path d="M12 21v-9"/><path d="M12 8V3"/><path d="M20 21v-5"/><path d="M20 12V3"/><path d="M1 14h6"/><path d="M9 8h6"/><path d="M17 16h6"/></svg>
-        <span>Filtros</span>
-      </button>
+    <div class="stores-toolbar">
+      <span class="stores-count">Lojas ativas: <strong id="storeCount">5/5</strong></span>
+      <button id="allStoresBtn" type="button" class="stores-all-btn">Selecionar todas</button>
+    </div>
 
+    <div id="quickSortRow" class="quick-sort-row" aria-label="Ordenacao rapida">
+      <button type="button" class="quick-sort-chip active" data-sort="preco">Menor preco</button>
+      <button type="button" class="quick-sort-chip" data-sort="rating">Melhor avaliados</button>
+      <button type="button" class="quick-sort-chip" data-sort="desconto">Maior desconto</button>
+    </div>
+
+    <div id="filtroOrigem" class="stores-quick-row">
+      ${origemHTML}
     </div>
   `;
 
-  // === Lógica de Interação === //
-
   const drawer = drawerSlot;
-  const toggleBtn = linhaSlot.querySelector("#toggleDrawerBtn");
-  const closeBtn = drawerSlot.querySelector("#closeDrawerBtn");
   const busca = linhaSlot.querySelector("#buscaInput");
   const clear = linhaSlot.querySelector("#clearBusca");
+  const resetAdvancedBtn = drawerSlot.querySelector("#resetAdvancedBtn");
+  const allStoresBtn = linhaSlot.querySelector("#allStoresBtn");
+  const quickSortRow = linhaSlot.querySelector("#quickSortRow");
+  const origemRoot = linhaSlot.querySelector("#filtroOrigem");
+  const storeCount = linhaSlot.querySelector("#storeCount");
 
-  // Estado inicial do drawer: escondido
-  drawer.style.display = 'none';
-  // (OBS: O CSS 'body.modo-filtro #filtroLojasTopo { display: block; }' no index.html deve ser ajustado ou sobrescrito 
-  // para não interferir, ou usamos display manual aqui).
+  drawer.style.display = "block";
 
-  // Função Toggle Drawer com Animação
-  const toggleDrawer = () => {
-    const isHidden = drawer.style.display === 'none';
-
-    if (isHidden) {
-      drawer.style.display = 'block';
-      drawer.style.opacity = '0';
-      drawer.style.transform = 'translateY(-10px)';
-      requestAnimationFrame(() => {
-        drawer.style.transition = 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)';
-        drawer.style.opacity = '1';
-        drawer.style.transform = 'translateY(0)';
-      });
-    } else {
-      drawer.style.transition = 'all 0.2s ease-in';
-      drawer.style.opacity = '0';
-      drawer.style.transform = 'translateY(-10px)';
-      setTimeout(() => {
-        drawer.style.display = 'none';
-      }, 200);
-    }
-
-    toggleBtn.classList.toggle("bg-teal-600", isHidden);
-    toggleBtn.classList.toggle("text-white", isHidden);
-    toggleBtn.classList.toggle("bg-teal-50", !isHidden);
-    toggleBtn.classList.toggle("text-teal-700", !isHidden);
+  const showClear = () => {
+    if (clear) clear.classList.toggle("hidden", !busca?.value);
   };
 
-  toggleBtn.addEventListener("click", toggleDrawer);
-  if (closeBtn) closeBtn.addEventListener("click", () => { drawer.style.display = 'none'; toggleBtn.classList.remove("bg-teal-600", "text-white"); toggleBtn.classList.add("bg-teal-50", "text-teal-700"); });
-
-  // Search Logic
-  const showClear = () => { if (clear) clear.classList.toggle("hidden", !busca.value); };
   ["input", "change"].forEach(evt => {
-    if (busca) busca.addEventListener(evt, () => { showClear(); aplicarFiltros(); });
-  });
-  if (clear) clear.addEventListener("click", () => { busca.value = ""; showClear(); aplicarFiltros(); });
-
-  // Filter Listeners (agora dentro do drawer)
-  ["filtroPreco", "filtroCategoria"].forEach(id => {
-    const elx = drawerSlot.querySelector(`#${id}`);
-    if (elx) elx.addEventListener("change", () => aplicarFiltros());
-  });
-
-  drawerSlot.querySelectorAll(".origemCheck").forEach(chk => {
-    const label = chk.closest("label");
-    chk.addEventListener("change", () => {
-      label.classList.toggle("ativo", chk.checked);
+    busca?.addEventListener(evt, () => {
+      showClear();
       aplicarFiltros();
     });
   });
 
-  // Attach Fallbacks logo
-  drawerSlot.querySelectorAll("#filtroOrigem img").forEach(attachLogoFallback);
+  clear?.addEventListener("click", () => {
+    if (busca) busca.value = "";
+    showClear();
+    aplicarFiltros();
+  });
+
+  ["filtroPreco", "filtroCategoria"].forEach(id => {
+    const node = drawerSlot.querySelector(`#${id}`);
+    node?.addEventListener("change", () => aplicarFiltros());
+  });
+
+  const syncStoreState = () => {
+    if (!origemRoot) return;
+    const checks = Array.from(origemRoot.querySelectorAll(".origemCheck"));
+    checks.forEach(chk => chk.closest("label")?.classList.toggle("ativo", chk.checked));
+    const on = checks.filter(chk => chk.checked).length;
+    if (storeCount) storeCount.textContent = `${on}/${checks.length}`;
+  };
+
+  origemRoot?.querySelectorAll(".origemCheck").forEach(chk => {
+    chk.addEventListener("change", () => {
+      syncStoreState();
+      aplicarFiltros();
+    });
+  });
+
+  allStoresBtn?.addEventListener("click", () => {
+    origemRoot?.querySelectorAll(".origemCheck").forEach(chk => {
+      chk.checked = true;
+    });
+    syncStoreState();
+    aplicarFiltros();
+  });
+
+  resetAdvancedBtn?.addEventListener("click", () => {
+    const precoSel = drawerSlot.querySelector("#filtroPreco");
+    const catSel = drawerSlot.querySelector("#filtroCategoria");
+    if (precoSel) precoSel.value = "";
+    if (catSel) catSel.value = "";
+    aplicarFiltros();
+  });
+
+  origemRoot?.querySelectorAll("img.filtro-logo").forEach(attachLogoFallback);
+
+  const syncSortState = () => {
+    const mode = window.quickSortMode || "preco";
+    quickSortRow?.querySelectorAll(".quick-sort-chip").forEach(btn => {
+      const on = btn.dataset.sort === mode;
+      btn.classList.toggle("active", on);
+    });
+  };
+
+  quickSortRow?.querySelectorAll(".quick-sort-chip").forEach(btn => {
+    btn.addEventListener("click", () => {
+      window.quickSortMode = btn.dataset.sort || "preco";
+      syncSortState();
+      aplicarFiltros();
+    });
+  });
+
+  syncSortState();
+  syncStoreState();
 }
 /* ===================== BUSCA INTELIGENTE (AUTOCOMPLETE) ===================== */
 function setupAutocomplete() {
@@ -1386,7 +1721,7 @@ function ativarFiltro(ativo) {
     destacarSelecao();
     if (header) header.classList.remove("hidden");
     if (selo) selo.classList.remove("hidden");
-    renderBanner("bannerA", ["shopee", "amazon", "magalu", "aliexpress", "petlove", "mercadolivre", "petz", "cobasi", "casasbahia", "ponto"]);
+    renderBanner("bannerA", ALLOWED_STORES);
     toggleComparador(false);
     listaAtual = produtos.slice();
     window.listaAtual = listaAtual;
@@ -1420,15 +1755,20 @@ function toggleComparador(show) {
   }
   if (!secCmp || !secList) return;
 
+  const mobBar = el("#mobileOffersBar");
+
   document.body.classList.toggle("comparador-focus", !!show);
 
   if (show) {
+    mobBar?.classList.add("hidden");
+    document.body.classList.remove("has-mobile-offers");
     secList.classList.add("hidden");
     secCmp.classList.remove("hidden");
     window.scrollTo({ top: 0, behavior: "smooth" });
   } else {
     secCmp.classList.add("hidden");
     secList.classList.remove("hidden");
+    updateMobileOffersBar((window.listaAtual || []).length);
   }
 }
 
@@ -1785,6 +2125,28 @@ function renderComparador(grupo, baseProduct) {
   }, { passive: true });
 
   // Decorar renderLista e renderBanner para anexar tooltips
+  function findCardProduct(card, list) {
+    const arr = Array.isArray(list) ? list : [];
+    const cardGTIN = card.getAttribute("data-gtin") || "";
+    const cardSIMK = card.getAttribute("data-simkey") || "";
+    const cardTipo = card.dataset.tipo || "";
+
+    let prod = null;
+    if (cardGTIN) {
+      prod = arr.find(p =>
+        normalizeGTIN(p.gtin) === cardGTIN &&
+        (!cardTipo || p.tipo === cardTipo)
+      );
+    }
+    if (!prod && cardSIMK) {
+      prod = arr.find(p =>
+        String(p.simKey || "") === String(cardSIMK) &&
+        (!cardTipo || p.tipo === cardTipo)
+      );
+    }
+    return prod || null;
+  }
+
   const _renderLista = window.renderLista;
   if (typeof _renderLista === 'function') {
     window.renderLista = function (lista) {
@@ -1792,8 +2154,8 @@ function renderComparador(grupo, baseProduct) {
       const wrap = document.querySelector('#listaProdutos');
       if (!wrap) return;
       const cards = wrap.querySelectorAll('.card-geral');
-      cards.forEach((card, idx) => {
-        const prod = lista[idx];
+      cards.forEach((card) => {
+        const prod = findCardProduct(card, lista);
         if (prod) bindHoverForCard(card, prod);
       });
     };
@@ -1819,15 +2181,15 @@ function renderComparador(grupo, baseProduct) {
     const wrap = document.querySelector('#listaProdutos');
     if (wrap) {
       const cards = wrap.querySelectorAll('.card-geral');
-      cards.forEach((card, idx) => {
-        const prod = (window.produtos || [])[idx];
+      cards.forEach((card) => {
+        const prod = findCardProduct(card, window.listaAtual || window.produtos || []);
         if (prod) bindHoverForCard(card, prod);
       });
     }
     // banners
     const faixa = document.getElementById('bannerA');
     if (faixa) {
-      const tipos = ['shopee', 'amazon', 'magalu', 'aliexpress', 'petlove', 'mercadolivre', 'petz', 'cobasi', 'casasbahia', 'ponto'];
+      const tipos = ALLOWED_STORES;
       const rendered = (window.produtos || []).filter(p => tipos.includes(p.tipo));
       const cards = faixa.querySelectorAll('.banner-card');
       cards.forEach((card, idx) => {
@@ -1851,12 +2213,18 @@ window.addEventListener("DOMContentLoaded", () => {
     const topo = document.getElementById("filtroLojasTopo");
     const barra = document.getElementById("filtroLinhaProdutos");
     if (topo && barra && !topo.contains(barra)) {
-      topo.appendChild(barra);
+      topo.insertBefore(barra, topo.firstChild);
       topo.style.display = "flex";
-      barra.style.display = "flex";
+      topo.style.flexDirection = "column";
+      topo.style.gap = "8px";
+      barra.style.display = "block";
     }
   })();
   setupAutocomplete();
+  ensureMobileOffersBar();
+  window.addEventListener("resize", () => {
+    updateMobileOffersBar((window.listaAtual || []).length);
+  });
   document.body.classList.remove("modo-filtro");
 
   // (Índice carregado via loadProducts)
