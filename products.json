@@ -1,0 +1,282 @@
+[
+  {
+    "gtin": "7898049719488",
+    "nome": "Simparic Zoetis 40 mg 10,1–20 kg — 1 unidade",
+    "brand": "Zoetis",
+    "specs": {
+      "doseMg": 40,
+      "faixaPeso": "10,1–20 kg",
+      "unidadesPorKit": 1,
+      "tipoUnidade": "comprimido mastigável",
+      "pesoLiquidoKg": 0.04
+    },
+    "descricaoPadrao": [
+      "Dose mastigável de 40 mg indicada para cães de 10,1–20 kg.",
+      "Protege contra pulgas e carrapatos por até 5 semanas.",
+      "Kit com 1 comprimido mastigável individual."
+    ],
+    "ofertas": [
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 118.33,
+        "precoFinal": 74.60,
+        "descontoPercent": 36,
+        "parcelas": "12x R$ 7,35",
+        "rating": 4.8,
+        "reviews": 29113,
+        "badges": ["Novo","Mais vendido"],
+        "categoryRank": "1º em Tratamentos Anti-Pulgas",
+        "cashback": "até R$ 2,24",
+        "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_905561-MLA88406142177_072025-F.webp",
+        "link": "https://mercadolivre.com/sec/1t7W5Sn",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Valores variam conforme o CEP e o tipo de envio."
+        }
+      },
+      {
+        "tipo": "cobasi",
+        "precoAntigo": 133.90,
+        "precoFinal": 79.90,
+        "descontoPercent": 40,
+        "parcelas": "à vista",
+        "rating": 4.8,
+        "reviews": 1370,
+        "badges": ["Produto original", "Compra Programada", "Amigo Cobasi"],
+        "loyaltyPoints": 79,
+        "pickupAvailable": true,
+        "imagem": "https://cobasi.vteximg.com.br/arquivos/ids/1089375-368-368/Antipulgas%20Simparic%2040mg%20para%20Caes%2010%20a%2020kg.webp?v=638974276600530000",
+        "link": "#",
+        "shippingOptions": [
+          { "nome": "Retire na loja", "prazo": "até 11h", "preco": 0, "freteGratis": true },
+          { "nome": "Econômica", "prazo": "até 1 dia útil", "preco": 15.90 },
+          { "nome": "Cobasi Já", "prazo": "até 1 hora*", "preco": 17.90 }
+        ],
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete varia por região",
+          "observacao": "Consulte retirada e entrega no site da Cobasi."
+        }
+      },
+      {
+        "tipo": "magalu",
+        "precoAntigo": 85.87,
+        "precoFinal": 74.97,
+        "precoPix": 59.98,
+        "descontoLabel": "≈30% OFF",
+        "parcelas": "1x R$ 74,97 sem juros",
+        "rating": 4.7,
+        "reviews": 232,
+        "badges": ["Magalu garante", "Olist Plus"],
+        "cupom": {
+          "codigo": "PET10",
+          "descricao": "10% OFF (válido até 16/11)"
+        },
+        "freteAPartir": 28.47,
+        "imagem": "https://a-static.mlcdn.com.br/800x560/antipulgas-simparic-1-comp-10-a-20kg-zoetis/olistplus/opmjuho68xxtdv8l/43719ef3c6447d809db36e10d861f933.jpeg",
+        "link": "https://divulgador.magalu.com/3BWYo8lG",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete varia por CEP",
+          "observacao": "Magalu calcula valores a partir do endereço informado.",
+          "valorReferencia": 28.47
+        }
+      }
+    ]
+  },
+  {
+    "gtin": "7898904621243",
+    "nome": "Ração Premier Ambientes Internos Adultos Castrados Raças Pequenas 12kg",
+    "brand": "PremierPet",
+    "specs": {
+      "unidadesPorKit": 1,
+      "tipoUnidade": "saco",
+      "pesoLiquidoKg": 12,
+      "faixaPeso": "Raças pequenas adultas castradas"
+    },
+    "descricaoPadrao": [
+      "Ração Super Premium para cães adultos castrados de raças pequenas.",
+      "Embalagem de 12 kg com sabor frango e salmão.",
+      "Ajuda no controle de peso e na saúde urinária."
+    ],
+    "ofertas": [
+      {
+        "tipo": "magalu",
+        "precoAntigo": 263.41,
+        "precoFinal": 237.07,
+        "precoPix": 237.07,
+        "descontoPercent": 10,
+        "parcelas": "1x R$ 263,41 sem juros",
+        "rating": 4.9,
+        "reviews": 17,
+        "badges": ["Magalu garante"],
+        "freteAPartir": 62.90,
+        "imagem": "https://a-static.mlcdn.com.br/800x560/racao-premier-ambientes-internos-caes-adultos-castrados-racas-pequenas-frango-e-salmao-12kg/tudodebichoii/101927/668e894ba2fb3213df9ae0338500762d.jpeg",
+        "link": "https://divulgador.magalu.com/vc8Itlv6",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete varia por CEP",
+          "observacao": "O valor mostrado é apenas uma referência inicial.",
+          "valorReferencia": 62.90
+        }
+      },
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 295.00,
+        "precoFinal": 260.00,
+        "precoPix": 260.00,
+        "descontoPercent": 11,
+        "parcelas": "6x de R$ 46,83 sem juros",
+        "rating": 4.9,
+        "reviews": 63,
+        "badges": ["Loja oficial Long Dog", "Mais vendido"],
+        "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_841714-MLA84121834736_052025-F.webp",
+        "link": "https://mercadolivre.com/sec/1hrWuPA",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "O marketplace mostra opções após informar o CEP."
+        }
+      }
+    ]
+  },
+  {
+    "gtin": "7897930881226",
+    "nome": "Bravecto MSD 1000 mg 4,4–10 kg — 1 comprimido",
+    "brand": "MSD",
+    "specs": {
+      "doseMg": 1000,
+      "faixaPeso": "4,4–10 kg",
+      "unidadesPorKit": 1,
+      "tipoUnidade": "comprimido mastigável"
+    },
+    "descricaoPadrao": [
+      "Proteção contra pulgas e carrapatos por até 12 semanas.",
+      "Comprimido mastigável sabor carne para cães de 4,4 a 10 kg.",
+      "Dose única mensal com rápida ação."
+    ],
+    "ofertas": [
+      {
+        "tipo": "shopee",
+        "precoAntigo": 189.90,
+        "precoFinal": 129.90,
+        "descontoPercent": 32,
+        "parcelas": "3x R$ 43,30",
+        "rating": 4.9,
+        "reviews": 8200,
+        "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_795281-MLB72321177243_102023-F.webp",
+        "link": "#"
+      },
+      {
+        "tipo": "amazon",
+        "precoAntigo": 199.90,
+        "precoFinal": 149.90,
+        "descontoPercent": 25,
+        "parcelas": "2x R$ 74,95",
+        "rating": 4.9,
+        "reviews": 5400,
+        "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_795281-MLB72321177243_102023-F.webp",
+        "link": "#"
+      }
+    ]
+  },
+  {
+    "gtin": "7896200701834",
+    "nome": "NexGard 28 mg 4–10 kg — 1 unidade",
+    "brand": "Boehringer",
+    "specs": {
+      "doseMg": 28,
+      "faixaPeso": "4–10 kg",
+      "unidadesPorKit": 1,
+      "tipoUnidade": "tablete mastigável"
+    },
+    "descricaoPadrao": [
+      "Controle de pulgas e carrapatos por 30 dias.",
+      "Tablete palatável para cães de 4 a 10 kg.",
+      "Ação rápida nas primeiras horas."
+    ],
+    "ofertas": [
+      {
+        "tipo": "petlove",
+        "precoAntigo": 155.00,
+        "precoFinal": 119.90,
+        "descontoPercent": 23,
+        "parcelas": "3x R$ 39,97",
+        "rating": 4.8,
+        "reviews": 2100,
+        "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_807045-MLB72174136457_102023-F.webp",
+        "link": "#"
+      },
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 165.00,
+        "precoFinal": 129.00,
+        "descontoPercent": 22,
+        "parcelas": "4x R$ 32,25",
+        "rating": 4.9,
+        "reviews": 9800,
+        "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_807045-MLB72174136457_102023-F.webp",
+        "link": "#"
+      }
+    ]
+  },
+  {
+    "gtin": "7896004001009",
+    "nome": "Ração Golden Special Cães Adultos Frango e Carne 15kg",
+    "brand": "Golden",
+    "specs": {
+      "unidadesPorKit": 1,
+      "tipoUnidade": "saco",
+      "pesoLiquidoKg": 15,
+      "faixaPeso": "Cães adultos"
+    },
+    "descricaoPadrao": [
+      "Ração premium sabor frango e carne para cães adultos.",
+      "Pacote econômico de 15kg.",
+      "Equilíbrio de proteínas e fibras para saúde diária."
+    ],
+    "ofertas": [
+      {
+        "tipo": "magalu",
+        "precoAntigo": 159.90,
+        "precoFinal": 139.90,
+        "descontoPercent": 12,
+        "parcelas": "3x R$ 46,63",
+        "rating": 4.8,
+        "reviews": 460,
+        "imagem": "https://a-static.mlcdn.com.br/800x560/racao-golden-special-caes-adultos-frango-e-carne-15kg/zagodao2/d18a621f12bf11ef8c3042010a180051/8c35a38dcd54b66ea336ad1e4c4d71bc.jpeg",
+        "link": "#"
+      }
+    ]
+  },
+  {
+    "gtin": "7898010000011",
+    "nome": "Areia Sanitária Pipicat Multi-Cat 12kg",
+    "brand": "Kelco",
+    "specs": {
+      "unidadesPorKit": 1,
+      "tipoUnidade": "saco",
+      "pesoLiquidoKg": 12,
+      "faixaPeso": "Gatos"
+    },
+    "descricaoPadrao": [
+      "Areia sanitária aglomerante para múltiplos gatos.",
+      "Controle de odores com grãos finos.",
+      "Pacote de 12kg com alta absorção."
+    ],
+    "ofertas": [
+      {
+        "tipo": "shopee",
+        "precoAntigo": 62.90,
+        "precoFinal": 55.90,
+        "descontoPercent": 11,
+        "parcelas": "2x R$ 27,95",
+        "rating": 4.7,
+        "reviews": 2100,
+        "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_704099-MLB45678723044_042021-F.webp",
+        "link": "#"
+      }
+    ]
+  }
+]
