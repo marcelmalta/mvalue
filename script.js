@@ -32,27 +32,23 @@
       min-width:0 !important;
     }
 
-    /* Quick stores row for mobile-first navigation */
+    /* Stores row */
     #filtroLinhaProdutos #filtroOrigem{
       display:flex !important;
-      flex-wrap:nowrap !important;
+      flex-wrap:wrap !important;
       gap:8px !important;
       width:100% !important;
       align-items:center !important;
-      overflow-x:auto !important;
-      overflow-y:hidden !important;
-      padding:2px 2px 6px !important;
-      scroll-snap-type:x proximity !important;
-      -webkit-overflow-scrolling:touch !important;
+      overflow:visible !important;
+      padding:2px 0 6px !important;
     }
-    #filtroLinhaProdutos #filtroOrigem::-webkit-scrollbar{ height:0 !important; }
 
     #filtroLinhaProdutos #filtroOrigem label{
       display:inline-flex !important;
       align-items:center !important;
       justify-content:center !important;
       flex:0 0 auto !important;
-      min-width:88px !important;
+      min-width:96px !important;
       height:38px !important;
       padding:6px 12px !important;
       border-radius:999px !important;
@@ -61,7 +57,6 @@
       cursor:pointer !important;
       user-select:none !important;
       overflow:hidden !important;
-      scroll-snap-align:start !important;
       transition:all .2s cubic-bezier(.4,0,.2,1) !important;
       box-shadow:0 1px 2px rgba(15,23,42,.06) !important;
       margin:0 !important;
@@ -170,7 +165,7 @@
       box-shadow:0 12px 26px rgba(15,23,42,.10) !important;
     }
 
-    @media (max-width:640px){
+    @media (max-width:768px){
       #filtroLinhaProdutos{
         position:sticky !important;
         top:58px !important;
@@ -183,9 +178,22 @@
       #filtroLinhaProdutos .f-controls{
         border-radius:16px !important;
       }
+      #filtroLinhaProdutos #filtroOrigem{
+        display:grid !important;
+        grid-template-columns:repeat(5, minmax(0, 1fr)) !important;
+        gap:6px !important;
+        overflow:visible !important;
+        padding:2px 0 4px !important;
+      }
       #filtroLinhaProdutos #filtroOrigem label{
-        min-width:84px !important;
-        height:36px !important;
+        width:100% !important;
+        min-width:0 !important;
+        height:34px !important;
+        padding:4px 6px !important;
+        border-radius:12px !important;
+      }
+      #filtroLinhaProdutos #filtroOrigem label img.filtro-logo{
+        max-height:13px !important;
       }
       .quick-sort-chip{
         font-size:11px !important;
@@ -196,7 +204,20 @@
       }
     }
 
-    @media (min-width:640px){
+    @media (max-width:390px){
+      #filtroLinhaProdutos #filtroOrigem{
+        gap:5px !important;
+      }
+      #filtroLinhaProdutos #filtroOrigem label{
+        height:32px !important;
+        padding:4px 5px !important;
+      }
+      #filtroLinhaProdutos #filtroOrigem label img.filtro-logo{
+        max-height:11px !important;
+      }
+    }
+
+    @media (min-width:769px){
       #filtroLinhaProdutos #filtroOrigem{
         flex-wrap:wrap !important;
         overflow:visible !important;
@@ -2036,10 +2057,14 @@ function renderComparador(grupo, baseProduct) {
     return { nome: tipo || 'Loja', logo: '' };
   }
 
+  function tooltipDisabledOnDevice() {
+    const coarse = window.matchMedia && window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    return coarse || window.innerWidth <= 768;
+  }
+
   function showHoverTip(prod, px, py) {
-    if (!prod) return;
-    const isMobile = window.innerWidth <= 640;
-    tip.classList.toggle('is-mobile', isMobile);
+    if (!prod || tooltipDisabledOnDevice()) return;
+    tip.classList.remove('is-mobile');
     const meta = storeMeta(prod.tipo);
 
     tipImg.src = prod.imagem || '';
@@ -2066,16 +2091,10 @@ function renderComparador(grupo, baseProduct) {
 
     tip.classList.add('show');
     tip.setAttribute('aria-hidden', 'false');
-    if (isMobile) {
-      tip.style.left = '50%';
-      tip.style.top = '50%';
-      tip.style.transform = 'translate(-50%,-50%) scale(1)';
-    } else {
-      tip.style.left = '';
-      tip.style.top = '';
-      tip.style.transform = '';
-      moveHoverTip(px, py);
-    }
+    tip.style.left = '';
+    tip.style.top = '';
+    tip.style.transform = '';
+    moveHoverTip(px, py);
   }
 
   function hideHoverTip() {
@@ -2088,7 +2107,7 @@ function renderComparador(grupo, baseProduct) {
   }
 
   function bindHoverForCard(cardEl, prod) {
-    if (!cardEl || !prod) return;
+    if (!cardEl || !prod || tooltipDisabledOnDevice()) return;
 
     // mouse
     cardEl.addEventListener('mouseenter', e => {
@@ -2101,27 +2120,12 @@ function renderComparador(grupo, baseProduct) {
       if (e.relatedTarget && tip.contains(e.relatedTarget)) return;
       hideHoverTip();
     });
-
-    // touch
-    let touchTimer = null;
-    cardEl.addEventListener('touchstart', e => {
-      const t = e.touches[0];
-      showHoverTip(prod, t.clientX, t.clientY);
-    }, { passive: true });
-    cardEl.addEventListener('touchmove', e => {
-      const t = e.touches[0];
-      moveHoverTip(t.clientX, t.clientY);
-    }, { passive: true });
-    cardEl.addEventListener('touchend', () => {
-      if (touchTimer) clearTimeout(touchTimer);
-    });
   }
 
   tip.addEventListener('mouseleave', hideHoverTip);
   window.addEventListener('scroll', hideHoverTip, { passive: true });
-  document.addEventListener('touchstart', (e) => {
-    if (tip.contains(e.target) || e.target.closest('.card-geral')) return;
-    hideHoverTip();
+  window.addEventListener('resize', () => {
+    if (tooltipDisabledOnDevice()) hideHoverTip();
   }, { passive: true });
 
   // Decorar renderLista e renderBanner para anexar tooltips
