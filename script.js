@@ -391,6 +391,94 @@
       color:#0f766e;
       padding:2px 6px;
     }
+    .card-geral .card-topline{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:6px;
+      margin-bottom:4px;
+    }
+    .card-geral .card-topline--outside{
+      display:none;
+      width:100%;
+      margin-bottom:2px;
+    }
+    .card-geral .card-store{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      min-width:0;
+    }
+    .card-geral .card-store-name{
+      font-size:10px;
+      font-weight:900;
+      color:#334155;
+      text-transform:uppercase;
+      letter-spacing:.02em;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width:88px;
+    }
+    .card-geral .best-gold-chip{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:999px;
+      padding:2px 7px;
+      font-size:9px;
+      line-height:1;
+      font-weight:900;
+      letter-spacing:.02em;
+      color:#78350f;
+      border:1px solid #facc15;
+      background:linear-gradient(90deg,#fef3c7,#fde68a);
+      white-space:nowrap;
+      flex:0 0 auto;
+    }
+    .card-geral .card-model{
+      margin-bottom:4px;
+    }
+    .card-geral .card-spec-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:4px;
+      margin-top:4px;
+      margin-bottom:4px;
+    }
+    .card-geral .spec-mini{
+      border:1px solid #e2e8f0;
+      background:#f8fafc;
+      border-radius:8px;
+      padding:3px 4px;
+      min-width:0;
+    }
+    .card-geral .spec-mini b{
+      display:block;
+      font-size:9px;
+      color:#64748b;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.02em;
+      line-height:1.1;
+    }
+    .card-geral .spec-mini span{
+      display:block;
+      font-size:10px;
+      color:#0f172a;
+      font-weight:800;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      line-height:1.2;
+      margin-top:1px;
+    }
+    .card-geral .card-market-info{
+      font-size:10px;
+      color:#64748b;
+      font-weight:700;
+      margin-top:3px;
+    }
     .card-geral .card-specs{
       color:#64748b;
       font-weight:600;
@@ -412,12 +500,18 @@
         gap:6px !important;
         align-items:stretch !important;
       }
+      .card-geral .card-topline--outside{
+        display:flex;
+      }
+      .card-geral .card-topline--inside{
+        display:none;
+      }
       .card-geral .card-media{
         width:100% !important;
         height:auto !important;
       }
       .card-geral .card-img-wrap{
-        min-height:74px !important;
+        min-height:82px !important;
       }
       .card-geral .card-body{
         width:100% !important;
@@ -436,6 +530,26 @@
       .card-geral .card-price-row{
         margin-top:2px !important;
       }
+      .card-geral .card-installments{
+        display:none !important;
+      }
+      .card-geral .card-store-name{
+        max-width:72px;
+      }
+      .card-geral .best-gold-chip{
+        font-size:8px;
+        padding:2px 6px;
+      }
+      .card-geral .spec-mini{
+        border-radius:7px;
+        padding:2px 3px;
+      }
+      .card-geral .spec-mini b{
+        font-size:8px;
+      }
+      .card-geral .spec-mini span{
+        font-size:9px;
+      }
       .card-geral > .border-t{
         display:none !important;
       }
@@ -449,6 +563,12 @@
       }
       .card-geral .card-price{
         font-size:.98rem !important;
+      }
+      .card-geral .card-spec-grid{
+        gap:3px;
+      }
+      .card-geral .spec-mini span{
+        font-size:8.5px;
       }
     }
     @media (min-width:768px){
@@ -599,6 +719,9 @@ function montarProduto(base, oferta) {
     gtin: base.gtin,
     nome: base.nome,
     brand: base.brand,
+    cor: base.specs?.cor || oferta.cor || base.cor || "",
+    ramGb: base.specs?.ramGb ?? null,
+    armazenamentoGb: base.specs?.armazenamentoGb ?? null,
     doseMg: base.specs?.doseMg ?? null,
     weightRange: base.specs?.faixaPeso || "",
     packQty: base.specs?.unidadesPorKit ?? null,
@@ -683,6 +806,77 @@ const getFinalPrice = (prod) => {
   const value = Number(prod?.precoFinal ?? prod?.precoAtual ?? 0);
   return Number.isFinite(value) ? value : 0;
 };
+
+function detectDeviceColor(prod = {}) {
+  const explicit = prod.cor || prod.color || prod.corAparelho || "";
+  if (explicit) return String(explicit);
+
+  const nome = String(prod.nome || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+
+  const modelHints = [
+    { rx: /iphone 15/, name: "Preto" },
+    { rx: /iphone 14/, name: "Azul" },
+    { rx: /galaxy s24 ultra/, name: "Titanio Cinza" },
+    { rx: /galaxy z flip5/, name: "Grafite" },
+    { rx: /galaxy a55/, name: "Azul" },
+    { rx: /galaxy a35/, name: "Lilas" },
+    { rx: /moto g84/, name: "Azul" },
+    { rx: /edge 40 neo/, name: "Verde" },
+    { rx: /redmi note 13 pro/, name: "Preto" },
+    { rx: /poco x6 pro/, name: "Preto" },
+    { rx: /xiaomi 14t/, name: "Azul" },
+    { rx: /realme 12 pro plus/, name: "Dourado" },
+    { rx: /pixel 8/, name: "Rosa" }
+  ];
+  const hint = modelHints.find((c) => c.rx.test(nome));
+  if (hint) return hint.name;
+
+  const palette = [
+    { rx: /\bpreto|black\b/, name: "Preto" },
+    { rx: /\bbranco|white\b/, name: "Branco" },
+    { rx: /\bazul|blue\b/, name: "Azul" },
+    { rx: /\bverde|green\b/, name: "Verde" },
+    { rx: /\broxo|purple\b/, name: "Roxo" },
+    { rx: /\brosa|pink\b/, name: "Rosa" },
+    { rx: /\bprata|silver\b/, name: "Prata" },
+    { rx: /\bdourado|gold\b/, name: "Dourado" },
+    { rx: /\bgrafite|graphite\b/, name: "Grafite" },
+    { rx: /\btitanio|titanium\b/, name: "Titanio" },
+    { rx: /\bnatural\b/, name: "Natural" }
+  ];
+
+  const hit = palette.find((c) => c.rx.test(nome));
+  return hit ? hit.name : "";
+}
+
+function normalizeSpecGb(value = "") {
+  if (value == null || value === "") return "";
+  const txt = String(value).trim();
+  const m = txt.match(/(\d+)/);
+  if (!m) return txt;
+  return `${m[1]} GB`;
+}
+
+function pickCardSpecs(prod = {}) {
+  const list = Array.isArray(prod.specsList) ? prod.specsList : [];
+  const findBy = (rx) => {
+    const item = list.find((s) => rx.test(String(s.label || "")));
+    return item ? item.value : "";
+  };
+
+  const ram = normalizeSpecGb(prod.ramGb ? `${prod.ramGb}` : findBy(/ram/i));
+  const storage = normalizeSpecGb(prod.armazenamentoGb ? `${prod.armazenamentoGb}` : findBy(/armazen/i));
+  const color = detectDeviceColor(prod) || "Consultar";
+
+  return {
+    cor: color,
+    ram: ram || "Consultar",
+    armazenamento: storage || "Consultar"
+  };
+}
 
 function copyTextToClipboard(text) {
   if (!text) return Promise.resolve(false);
@@ -1102,6 +1296,17 @@ function renderLista(lista) {
 
     const meta = STORE_META[best.tipo] || {};
     const finalPrice = getFinalPrice(best);
+    const specsCard = pickCardSpecs(best);
+    const hasComparedPrice = others.length > 0;
+    const topLineHTML = `
+      <div class="card-topline card-topline--inside">
+        <div class="card-store">
+          <img src="${meta.logo}" class="card-logo h-4 w-auto object-contain opacity-90" alt="${meta.nome}">
+          <span class="card-store-name">${meta.nome || "Loja"}</span>
+        </div>
+        ${hasComparedPrice ? `<span class="best-gold-chip">Menor preco</span>` : ""}
+      </div>
+    `;
 
     // Detalhes (bullets)
     // Evita poluição visual nos cards principais (descrição completa fica no modal).
@@ -1117,7 +1322,7 @@ function renderLista(lista) {
         ${best.desconto ? `<span class="card-off">${best.desconto}</span>` : ""}
       </div>
       <p class="card-price font-black leading-none text-teal-700">${fmt(finalPrice)}</p>
-      ${best.parcelas ? `<p class="text-[10px] text-gray-400 mt-1 truncate">${best.parcelas}</p>` : ""}
+      ${best.parcelas ? `<p class="card-installments text-[10px] text-gray-400 mt-1 truncate">${best.parcelas}</p>` : ""}
     `;
 
     // Cria o CARD
@@ -1138,6 +1343,16 @@ function renderLista(lista) {
     mainContent.className = "flex flex-row p-3 sm:p-4 gap-3 items-start cursor-pointer";
     mainContent.onclick = () => openModal(best); // Clicar na área principal abre modal de detalhes da MELHOR oferta
 
+    const topLineOutside = document.createElement("div");
+    topLineOutside.className = "card-topline card-topline--outside";
+    topLineOutside.innerHTML = `
+      <div class="card-store">
+        <img src="${meta.logo}" class="card-logo h-4 w-auto object-contain opacity-90" alt="${meta.nome}">
+        <span class="card-store-name">${meta.nome || "Loja"}</span>
+      </div>
+      ${hasComparedPrice ? `<span class="best-gold-chip">Menor preco</span>` : ""}
+    `;
+
     // Imagem
     const media = document.createElement("div");
     media.className = "card-media w-24 h-24 flex-shrink-0";
@@ -1150,17 +1365,20 @@ function renderLista(lista) {
 
     body.innerHTML = `
       <div class="card-text">
-        <div class="card-logo-row mb-1">
-           <img src="${meta.logo}" class="card-logo h-4 w-auto object-contain opacity-90" alt="${meta.nome}">
-           ${others.length > 0 ? `<span class="text-[10px] text-gray-400 font-bold ml-2 bg-gray-50 px-1.5 py-0.5 rounded">+${others.length} lojas</span>` : ""}
+        ${topLineHTML}
+        <h2 class="card-model font-bold text-gray-800 leading-snug text-sm line-clamp-2 md:text-base">${best.nome}</h2>
+        <div class="card-spec-grid">
+          <div class="spec-mini"><b>Cor</b><span>${specsCard.cor}</span></div>
+          <div class="spec-mini"><b>RAM</b><span>${specsCard.ram}</span></div>
+          <div class="spec-mini"><b>Memoria</b><span>${specsCard.armazenamento}</span></div>
         </div>
-        <h2 class="font-bold text-gray-800 leading-snug text-sm line-clamp-2 md:text-base">${best.nome}</h2>
-        ${best.specsLabel ? `<p class="card-specs text-[10px] text-gray-500 mt-0.5">${best.specsLabel}</p>` : ""}
         ${detalhesHtml}
-        <div class="mt-auto pt-2">${priceLine}</div>
+        ${hasComparedPrice ? `<p class="card-market-info">Comparado em ${grupo.length} lojas</p>` : ""}
+        <div class="mt-auto pt-1">${priceLine}</div>
       </div>
     `;
 
+    mainContent.appendChild(topLineOutside);
     mainContent.appendChild(media);
     mainContent.appendChild(body);
     card.appendChild(mainContent);
