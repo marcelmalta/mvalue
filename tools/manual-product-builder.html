@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MValue - Gerador manual de produtos</title>
+    <style>
+      :root {
+        --bg: #f4f7fb;
+        --panel: #ffffff;
+        --line: #d8e1ef;
+        --text: #0f172a;
+        --muted: #64748b;
+        --brand: #0f766e;
+        --brand-soft: #d8f3ef;
+        --danger: #be123c;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Roboto, Arial, sans-serif;
+        color: var(--text);
+        background: radial-gradient(circle at top left, #eaf7f4, var(--bg) 34%);
+      }
+
+      .wrap {
+        max-width: 1060px;
+        margin: 0 auto;
+        padding: 20px 14px 40px;
+      }
+
+      .title {
+        margin: 0;
+        font-size: clamp(1.2rem, 3vw, 1.9rem);
+        font-weight: 800;
+      }
+
+      .sub {
+        margin: 8px 0 20px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 14px;
+        box-shadow: 0 8px 26px rgba(15, 23, 42, 0.08);
+      }
+
+      .panel + .panel {
+        margin-top: 12px;
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        font-size: 1.05rem;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      @media (min-width: 800px) {
+        .grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      label {
+        display: block;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #334155;
+        margin-bottom: 4px;
+      }
+
+      input,
+      select,
+      textarea,
+      button {
+        font: inherit;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        padding: 10px 11px;
+        background: #fff;
+        color: #0f172a;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 90px;
+      }
+
+      .inline {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .btn {
+        border: 1px solid transparent;
+        border-radius: 10px;
+        padding: 10px 13px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        background: var(--brand);
+        color: #fff;
+      }
+
+      .btn-soft {
+        background: var(--brand-soft);
+        color: #07534e;
+        border-color: #b2e7dd;
+      }
+
+      .btn-muted {
+        background: #f8fafc;
+        color: #334155;
+        border-color: #cbd5e1;
+      }
+
+      .btn-danger {
+        background: #fff1f2;
+        color: var(--danger);
+        border-color: #fecdd3;
+      }
+
+      .section-head {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .offer-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .offer-card {
+        border: 1px solid #dbe6f6;
+        border-radius: 12px;
+        padding: 10px;
+        background: #fbfdff;
+      }
+
+      .offer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      .offer-title {
+        margin: 0;
+        font-size: 0.9rem;
+        font-weight: 800;
+      }
+
+      .status {
+        min-height: 22px;
+        margin-top: 8px;
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+
+      .status.ok {
+        color: #047857;
+      }
+
+      .status.err {
+        color: #b91c1c;
+      }
+
+      .out-label {
+        display: block;
+        margin: 10px 0 6px;
+        font-size: 0.83rem;
+        font-weight: 800;
+        color: #334155;
+      }
+
+      .mono {
+        font-family: Consolas, Menlo, Monaco, monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1 class="title">Gerador manual de produto (MValue)</h1>
+      <p class="sub">
+        Preencha os dados do aparelho e as ofertas por loja. O sistema gera um bloco JSON pronto para colar
+        no arquivo <span class="mono">products.json</span>.
+      </p>
+
+      <section class="panel">
+        <h2>1) Dados base do aparelho</h2>
+        <div class="grid">
+          <div>
+            <label for="gtin">GTIN (13 digitos recomendado)</label>
+            <div class="inline">
+              <input id="gtin" type="text" placeholder="7891234567890" />
+              <button id="btnGenGtin" class="btn btn-soft" type="button">Gerar</button>
+            </div>
+          </div>
+          <div>
+            <label for="nome">Nome do modelo</label>
+            <input id="nome" type="text" placeholder="iPhone 15 Pro Max 256GB" />
+          </div>
+          <div>
+            <label for="brand">Marca</label>
+            <input id="brand" type="text" placeholder="Apple" />
+          </div>
+          <div>
+            <label for="cor">Cor</label>
+            <input id="cor" type="text" placeholder="Titanio Natural" />
+          </div>
+          <div>
+            <label for="ramGb">RAM (GB)</label>
+            <input id="ramGb" type="number" min="1" step="1" placeholder="8" />
+          </div>
+          <div>
+            <label for="armazenamentoGb">Armazenamento (GB)</label>
+            <input id="armazenamentoGb" type="number" min="1" step="1" placeholder="256" />
+          </div>
+          <div>
+            <label for="telaPolegadas">Tela (polegadas)</label>
+            <input id="telaPolegadas" type="number" min="1" step="0.1" placeholder="6.7" />
+          </div>
+          <div>
+            <label for="bateriaMah">Bateria (mAh)</label>
+            <input id="bateriaMah" type="number" min="1" step="1" placeholder="5000" />
+          </div>
+          <div>
+            <label for="cameraMp">Camera (MP)</label>
+            <input id="cameraMp" type="number" min="1" step="1" placeholder="48" />
+          </div>
+        </div>
+        <div style="margin-top: 10px">
+          <label for="descricaoPadrao">Descricao padrao (uma linha por bullet)</label>
+          <textarea
+            id="descricaoPadrao"
+            placeholder="Tela OLED 120Hz&#10;Chipset de alto desempenho&#10;Bateria para o dia todo"
+          ></textarea>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-head">
+          <h2 style="margin: 0">2) Ofertas por loja</h2>
+          <div class="actions">
+            <button id="btnAddOffer" class="btn btn-soft" type="button">Adicionar oferta</button>
+            <button id="btnAddPack" class="btn btn-muted" type="button">Adicionar 5 lojas</button>
+          </div>
+        </div>
+        <div id="offers" class="offer-list"></div>
+      </section>
+
+      <section class="panel">
+        <h2>3) Gerar bloco JSON</h2>
+        <div class="actions">
+          <button id="btnGenerate" class="btn btn-primary" type="button">Gerar JSON</button>
+          <button id="btnCopy" class="btn btn-soft" type="button">Copiar JSON</button>
+          <button id="btnCopyWithComma" class="btn btn-muted" type="button">Copiar com virgula</button>
+          <button id="btnClear" class="btn btn-danger" type="button">Limpar formulario</button>
+        </div>
+        <div id="status" class="status"></div>
+
+        <label class="out-label" for="output">Bloco principal</label>
+        <textarea id="output" class="mono" rows="18" readonly></textarea>
+
+        <label class="out-label" for="outputWithComma">Bloco com virgula (para append)</label>
+        <textarea id="outputWithComma" class="mono" rows="18" readonly></textarea>
+      </section>
+    </main>
+
+    <template id="offerTemplate">
+      <article class="offer-card">
+        <div class="offer-top">
+          <p class="offer-title">Oferta <span data-role="offer-index"></span></p>
+          <button class="btn btn-danger" data-action="remove-offer" type="button">Remover</button>
+        </div>
+
+        <div class="grid">
+          <div>
+            <label>Loja</label>
+            <select data-field="tipo">
+              <option value="mercadolivre">Mercado Livre</option>
+              <option value="magalu">Magalu</option>
+              <option value="amazon">Amazon</option>
+              <option value="shopee">Shopee</option>
+              <option value="aliexpress">AliExpress</option>
+            </select>
+          </div>
+          <div>
+            <label>Preco final *</label>
+            <input data-field="precoFinal" type="number" min="0.01" step="0.01" placeholder="1999.90" />
+          </div>
+          <div>
+            <label>Preco antigo</label>
+            <input data-field="precoAntigo" type="number" min="0" step="0.01" placeholder="2299.90" />
+          </div>
+          <div>
+            <label>Preco pix</label>
+            <input data-field="precoPix" type="number" min="0" step="0.01" placeholder="1899.00" />
+          </div>
+          <div>
+            <label>Desconto (%)</label>
+            <input data-field="descontoPercent" type="number" min="0" step="1" placeholder="12" />
+          </div>
+          <div>
+            <label>Parcelamento</label>
+            <input data-field="parcelas" type="text" placeholder="12x R$ 166,58 sem juros" />
+          </div>
+          <div>
+            <label>Rating</label>
+            <input data-field="rating" type="number" min="0" max="5" step="0.1" placeholder="4.8" />
+          </div>
+          <div>
+            <label>Reviews</label>
+            <input data-field="reviews" type="number" min="0" step="1" placeholder="1200" />
+          </div>
+          <div>
+            <label>Frete a partir de (R$)</label>
+            <input data-field="freteAPartir" type="number" min="0" step="0.01" placeholder="19.90" />
+          </div>
+          <div style="grid-column: 1 / -1">
+            <label>Link de afiliado *</label>
+            <input data-field="link" type="url" placeholder="https://..." />
+          </div>
+          <div style="grid-column: 1 / -1">
+            <label>Link da imagem *</label>
+            <input data-field="imagem" type="url" placeholder="https://..." />
+          </div>
+          <div>
+            <label>Badges (separar por virgula)</label>
+            <input data-field="badges" type="text" placeholder="Loja oficial, Envio rapido" />
+          </div>
+          <div>
+            <label>Cupom codigo</label>
+            <input data-field="cupomCodigo" type="text" placeholder="CEL100" />
+          </div>
+          <div>
+            <label>Cupom descricao</label>
+            <input data-field="cupomDescricao" type="text" placeholder="R$ 100 OFF acima de R$ 1.999" />
+          </div>
+          <div>
+            <label>Frete tipo</label>
+            <select data-field="freteTipo">
+              <option value="variavel">variavel</option>
+              <option value="fixo">fixo</option>
+              <option value="gratis">gratis</option>
+            </select>
+          </div>
+          <div>
+            <label>Frete label</label>
+            <input data-field="freteLabel" type="text" placeholder="Frete calculado no checkout" />
+          </div>
+          <div>
+            <label>Frete observacao</label>
+            <input data-field="freteObservacao" type="text" placeholder="Prazo e valor variam por CEP" />
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script src="./manual-product-builder.js"></script>
+  </body>
+</html>
