@@ -1515,5 +1515,591 @@
         }
       }
     ]
+  },
+  {
+    "gtin": "7892509123456",
+    "nome": "Samsung Galaxy S22 5G 128GB 8GB RAM Bora Purple",
+    "brand": "Samsung",
+    "specs": {
+      "telaPolegadas": 6.1,
+      "ramGb": 8,
+      "armazenamentoGb": 128,
+      "bateriaMah": 3700,
+      "cameraMp": 50
+    },
+    "descricaoPadrao": [
+      "Tela Dynamic AMOLED 2X de 6.1 polegadas com 120Hz adaptativo.",
+      "Processador Snapdragon 8 Gen 1 com alto desempenho.",
+      "Design premium na cor Bora Purple com acabamento fosco."
+    ],
+    "ofertas": [
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 3999,
+        "precoFinal": 2899,
+        "precoPix": 2754.05,
+        "descontoPercent": 28,
+        "parcelas": "12x R$ 241,58 sem juros",
+        "rating": 4.8,
+        "reviews": 3240,
+        "badges": [
+          "Loja oficial",
+          "Envio Full"
+        ],
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-s901eidgzto/gallery/br-galaxy-s22-s901-412948-sm-s901eidgzto-530178208?$684_547_PNG$",
+        "link": "https://www.mercadolivre.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Entrega Full disponivel em regioes selecionadas."
+        }
+      },
+      {
+        "tipo": "magalu",
+        "precoAntigo": 4099,
+        "precoFinal": 2999,
+        "precoPix": 2849.05,
+        "descontoPercent": 27,
+        "parcelas": "10x R$ 299,90 sem juros",
+        "rating": 4.7,
+        "reviews": 1680,
+        "badges": [
+          "Magalu garante"
+        ],
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-s901eidgzto/gallery/br-galaxy-s22-s901-412948-sm-s901eidgzto-530178208?$684_547_PNG$",
+        "link": "https://www.magazineluiza.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete varia por CEP",
+          "observacao": "Consulte opcoes de retirada em loja."
+        }
+      },
+      {
+        "tipo": "amazon",
+        "precoAntigo": 3999,
+        "precoFinal": 3099,
+        "descontoPercent": 23,
+        "parcelas": "10x R$ 309,90 sem juros",
+        "rating": 4.8,
+        "reviews": 2150,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-s901eidgzto/gallery/br-galaxy-s22-s901-412948-sm-s901eidgzto-530178208?$684_547_PNG$",
+        "link": "https://www.amazon.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Prime com entrega acelerada",
+          "observacao": "Entrega em ate 24h em capitais selecionadas."
+        }
+      },
+      {
+        "tipo": "shopee",
+        "precoAntigo": 3899,
+        "precoFinal": 2959,
+        "descontoPercent": 24,
+        "parcelas": "12x R$ 246,58",
+        "rating": 4.8,
+        "reviews": 2780,
+        "badges": [
+          "Frete gratis",
+          "Top vendedor"
+        ],
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-s901eidgzto/gallery/br-galaxy-s22-s901-412948-sm-s901eidgzto-530178208?$684_547_PNG$",
+        "link": "https://shopee.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete promocional",
+          "observacao": "Cupom de frete disponivel no app."
+        }
+      },
+      {
+        "tipo": "aliexpress",
+        "precoAntigo": 3799,
+        "precoFinal": 2799,
+        "descontoPercent": 26,
+        "parcelas": "ate 12x no cartao",
+        "rating": 4.7,
+        "reviews": 980,
+        "badges": [
+          "Choice"
+        ],
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-s901eidgzto/gallery/br-galaxy-s22-s901-412948-sm-s901eidgzto-530178208?$684_547_PNG$",
+        "link": "https://pt.aliexpress.com/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega internacional",
+          "observacao": "Prazo medio de 15 a 25 dias uteis."
+        }
+      }
+    ]
+  },
+  {
+    "gtin": "7892509123457",
+    "nome": "Samsung Galaxy S23 5G 128GB 8GB RAM",
+    "brand": "Samsung",
+    "specs": {
+      "telaPolegadas": 6.1,
+      "ramGb": 8,
+      "armazenamentoGb": 128,
+      "bateriaMah": 3900,
+      "cameraMp": 50
+    },
+    "descricaoPadrao": [
+      "Tela Dynamic AMOLED 2X de 6.1 polegadas com 120Hz adaptativo.",
+      "Processador Snapdragon 8 Gen 2 para Galaxy exclusivo.",
+      "Camera noturna aprimorada com Nightography."
+    ],
+    "ofertas": [
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 4999,
+        "precoFinal": 3799,
+        "precoPix": 3609.05,
+        "descontoPercent": 24,
+        "parcelas": "12x R$ 316,58 sem juros",
+        "rating": 4.9,
+        "reviews": 2150,
+        "badges": [
+          "Loja oficial",
+          "Envio Full"
+        ],
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-s911bzskzto/gallery/br-galaxy-s23-s911-sm-s911bzskzto-534863208?$684_547_PNG$",
+        "link": "https://www.mercadolivre.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Entrega expressa disponivel."
+        }
+      },
+      {
+        "tipo": "magalu",
+        "precoAntigo": 5199,
+        "precoFinal": 3899,
+        "precoPix": 3704.05,
+        "descontoPercent": 25,
+        "parcelas": "10x R$ 389,90 sem juros",
+        "rating": 4.8,
+        "reviews": 1120,
+        "badges": [
+          "Magalu garante"
+        ],
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-s911bzskzto/gallery/br-galaxy-s23-s911-sm-s911bzskzto-534863208?$684_547_PNG$",
+        "link": "https://www.magazineluiza.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete varia por CEP",
+          "observacao": "Retirada em loja disponivel."
+        }
+      },
+      {
+        "tipo": "amazon",
+        "precoAntigo": 4999,
+        "precoFinal": 3999,
+        "descontoPercent": 20,
+        "parcelas": "10x R$ 399,90 sem juros",
+        "rating": 4.9,
+        "reviews": 1480,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-s911bzskzto/gallery/br-galaxy-s23-s911-sm-s911bzskzto-534863208?$684_547_PNG$",
+        "link": "https://www.amazon.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Prime com frete rapido",
+          "observacao": "Entrega no mesmo dia em regioes elegiveis."
+        }
+      },
+      {
+        "tipo": "shopee",
+        "precoAntigo": 4899,
+        "precoFinal": 3849,
+        "descontoPercent": 21,
+        "parcelas": "12x R$ 320,75",
+        "rating": 4.8,
+        "reviews": 1890,
+        "badges": [
+          "Frete gratis"
+        ],
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-s911bzskzto/gallery/br-galaxy-s23-s911-sm-s911bzskzto-534863208?$684_547_PNG$",
+        "link": "https://shopee.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete com cupom no app",
+          "observacao": "Cupons promocionais aplicaveis."
+        }
+      },
+      {
+        "tipo": "aliexpress",
+        "precoAntigo": 4799,
+        "precoFinal": 3699,
+        "descontoPercent": 23,
+        "parcelas": "ate 12x no cartao",
+        "rating": 4.7,
+        "reviews": 760,
+        "badges": [
+          "Choice"
+        ],
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-s911bzskzto/gallery/br-galaxy-s23-s911-sm-s911bzskzto-534863208?$684_547_PNG$",
+        "link": "https://pt.aliexpress.com/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega internacional",
+          "observacao": "Prazo medio de 12 a 20 dias uteis."
+        }
+      }
+    ]
+  },
+  {
+    "gtin": "194253487105",
+    "nome": "Apple iPhone 16 128GB",
+    "brand": "Apple",
+    "specs": {
+      "telaPolegadas": 6.1,
+      "ramGb": 8,
+      "armazenamentoGb": 128,
+      "bateriaMah": 3561,
+      "cameraMp": 48
+    },
+    "descricaoPadrao": [
+      "Chip A18 Bionic com desempenho de ultima geracao.",
+      "Camera Fusion de 48MP com controle de camera.",
+      "Botao de Acao personalizavel para funcoes rapidas."
+    ],
+    "ofertas": [
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 6999,
+        "precoFinal": 5899,
+        "precoPix": 5604.05,
+        "descontoPercent": 16,
+        "parcelas": "12x R$ 491,58 sem juros",
+        "rating": 4.9,
+        "reviews": 890,
+        "badges": [
+          "Loja oficial",
+          "Envio Full"
+        ],
+        "imagem": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch-black_AV1?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1723857132688",
+        "link": "https://www.mercadolivre.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Entrega expressa em capitais."
+        }
+      },
+      {
+        "tipo": "magalu",
+        "precoAntigo": 7199,
+        "precoFinal": 5999,
+        "precoPix": 5699.05,
+        "descontoPercent": 17,
+        "parcelas": "10x R$ 599,90 sem juros",
+        "rating": 4.8,
+        "reviews": 520,
+        "badges": [
+          "Entrega rapida"
+        ],
+        "imagem": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch-black_AV1?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1723857132688",
+        "link": "https://www.magazineluiza.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete varia por CEP",
+          "observacao": "Retirada em loja parceira."
+        }
+      },
+      {
+        "tipo": "amazon",
+        "precoAntigo": 6999,
+        "precoFinal": 6099,
+        "descontoPercent": 13,
+        "parcelas": "10x R$ 609,90 sem juros",
+        "rating": 4.9,
+        "reviews": 680,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch-black_AV1?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1723857132688",
+        "link": "https://www.amazon.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Prime com entrega acelerada",
+          "observacao": "Consulte disponibilidade na sua regiao."
+        }
+      },
+      {
+        "tipo": "shopee",
+        "precoAntigo": 6899,
+        "precoFinal": 5949,
+        "descontoPercent": 14,
+        "parcelas": "12x R$ 495,75",
+        "rating": 4.8,
+        "reviews": 820,
+        "badges": [
+          "Frete gratis",
+          "Top vendedor"
+        ],
+        "imagem": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch-black_AV1?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1723857132688",
+        "link": "https://shopee.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete promocional",
+          "observacao": "Cupom de frete no app."
+        }
+      },
+      {
+        "tipo": "aliexpress",
+        "precoAntigo": 6799,
+        "precoFinal": 5799,
+        "descontoPercent": 15,
+        "parcelas": "ate 12x no cartao",
+        "rating": 4.7,
+        "reviews": 340,
+        "badges": [
+          "Global version"
+        ],
+        "imagem": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch-black_AV1?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1723857132688",
+        "link": "https://pt.aliexpress.com/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega internacional",
+          "observacao": "Pode haver tributacao na importacao."
+        }
+      }
+    ]
+  },
+  {
+    "gtin": "7892597352021",
+    "nome": "Samsung Galaxy A15 4G 128GB 4GB RAM",
+    "brand": "Samsung",
+    "specs": {
+      "telaPolegadas": 6.5,
+      "ramGb": 4,
+      "armazenamentoGb": 128,
+      "bateriaMah": 5000,
+      "cameraMp": 50
+    },
+    "descricaoPadrao": [
+      "Tela Super AMOLED de 6.5 polegadas com 90Hz.",
+      "Bateria de 5000 mAh com carregamento rapido de 25W.",
+      "Camera tripla de 50MP para fotos de qualidade."
+    ],
+    "ofertas": [
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 1399,
+        "precoFinal": 1049,
+        "precoPix": 996.55,
+        "descontoPercent": 25,
+        "parcelas": "10x R$ 104,90 sem juros",
+        "rating": 4.7,
+        "reviews": 4560,
+        "badges": [
+          "Mais vendido",
+          "Envio Full"
+        ],
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a155mzbezto/gallery/br-galaxy-a15-sm-a155-sm-a155mzbezto-539972045?$684_547_PNG$",
+        "link": "https://www.mercadolivre.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Entrega rapida via Full."
+        }
+      },
+      {
+        "tipo": "magalu",
+        "precoAntigo": 1449,
+        "precoFinal": 1099,
+        "precoPix": 1044.05,
+        "descontoPercent": 24,
+        "parcelas": "10x R$ 109,90 sem juros",
+        "rating": 4.6,
+        "reviews": 2340,
+        "badges": [
+          "Oferta do dia"
+        ],
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a155mzbezto/gallery/br-galaxy-a15-sm-a155-sm-a155mzbezto-539972045?$684_547_PNG$",
+        "link": "https://www.magazineluiza.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete varia por CEP",
+          "observacao": "Entrega no mesmo dia em cidades selecionadas."
+        }
+      },
+      {
+        "tipo": "amazon",
+        "precoAntigo": 1399,
+        "precoFinal": 1149,
+        "descontoPercent": 18,
+        "parcelas": "10x R$ 114,90 sem juros",
+        "rating": 4.7,
+        "reviews": 2890,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a155mzbezto/gallery/br-galaxy-a15-sm-a155-sm-a155mzbezto-539972045?$684_547_PNG$",
+        "link": "https://www.amazon.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Prime com frete rapido",
+          "observacao": "Consulte disponibilidade."
+        }
+      },
+      {
+        "tipo": "shopee",
+        "precoAntigo": 1349,
+        "precoFinal": 1079,
+        "descontoPercent": 20,
+        "parcelas": "10x R$ 107,90",
+        "rating": 4.7,
+        "reviews": 3450,
+        "badges": [
+          "Frete gratis"
+        ],
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a155mzbezto/gallery/br-galaxy-a15-sm-a155-sm-a155mzbezto-539972045?$684_547_PNG$",
+        "link": "https://shopee.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete com cupom no app",
+          "observacao": "Cupons disponiveis no aplicativo."
+        }
+      },
+      {
+        "tipo": "aliexpress",
+        "precoAntigo": 1299,
+        "precoFinal": 999,
+        "descontoPercent": 23,
+        "parcelas": "ate 12x no cartao",
+        "rating": 4.6,
+        "reviews": 1560,
+        "badges": [
+          "Choice"
+        ],
+        "imagem": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a155mzbezto/gallery/br-galaxy-a15-sm-a155-sm-a155mzbezto-539972045?$684_547_PNG$",
+        "link": "https://pt.aliexpress.com/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega internacional",
+          "observacao": "Prazo medio de 15 a 25 dias."
+        }
+      }
+    ]
+  },
+  {
+    "gtin": "7892597352120",
+    "nome": "Motorola Moto G54 5G 256GB 8GB RAM",
+    "brand": "Motorola",
+    "specs": {
+      "telaPolegadas": 6.5,
+      "ramGb": 8,
+      "armazenamentoGb": 256,
+      "bateriaMah": 5000,
+      "cameraMp": 50
+    },
+    "descricaoPadrao": [
+      "Tela IPS LCD de 6.5 polegadas com 120Hz.",
+      "Processador Dimensity 7020 com 5G.",
+      "Som stereo com Dolby Atmos para imersao."
+    ],
+    "ofertas": [
+      {
+        "tipo": "mercadolivre",
+        "precoAntigo": 1699,
+        "precoFinal": 1299,
+        "precoPix": 1234.05,
+        "descontoPercent": 24,
+        "parcelas": "10x R$ 129,90 sem juros",
+        "rating": 4.8,
+        "reviews": 2890,
+        "badges": [
+          "Envio Full"
+        ],
+        "imagem": "https://motorolanews.com/wp-content/uploads/2023/09/Moto-G54-5G-Blue.png",
+        "link": "https://www.mercadolivre.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete calculado no checkout",
+          "observacao": "Entrega Full em regioes elegiveis."
+        }
+      },
+      {
+        "tipo": "magalu",
+        "precoAntigo": 1749,
+        "precoFinal": 1349,
+        "precoPix": 1281.55,
+        "descontoPercent": 23,
+        "parcelas": "10x R$ 134,90 sem juros",
+        "rating": 4.7,
+        "reviews": 1450,
+        "badges": [
+          "Magalu garante"
+        ],
+        "imagem": "https://motorolanews.com/wp-content/uploads/2023/09/Moto-G54-5G-Blue.png",
+        "link": "https://www.magazineluiza.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete varia por CEP",
+          "observacao": "Retirada em loja disponivel."
+        }
+      },
+      {
+        "tipo": "amazon",
+        "precoAntigo": 1699,
+        "precoFinal": 1399,
+        "descontoPercent": 18,
+        "parcelas": "10x R$ 139,90 sem juros",
+        "rating": 4.8,
+        "reviews": 1780,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://motorolanews.com/wp-content/uploads/2023/09/Moto-G54-5G-Blue.png",
+        "link": "https://www.amazon.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Prime com frete rapido",
+          "observacao": "Entrega acelerada disponivel."
+        }
+      },
+      {
+        "tipo": "shopee",
+        "precoAntigo": 1649,
+        "precoFinal": 1319,
+        "descontoPercent": 20,
+        "parcelas": "10x R$ 131,90",
+        "rating": 4.8,
+        "reviews": 2120,
+        "badges": [
+          "Frete gratis"
+        ],
+        "imagem": "https://motorolanews.com/wp-content/uploads/2023/09/Moto-G54-5G-Blue.png",
+        "link": "https://shopee.com.br/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Frete com cupom no app",
+          "observacao": "Cupons promocionais aplicaveis."
+        }
+      },
+      {
+        "tipo": "aliexpress",
+        "precoAntigo": 1599,
+        "precoFinal": 1249,
+        "descontoPercent": 22,
+        "parcelas": "ate 12x no cartao",
+        "rating": 4.7,
+        "reviews": 980,
+        "badges": [
+          "Choice"
+        ],
+        "imagem": "https://motorolanews.com/wp-content/uploads/2023/09/Moto-G54-5G-Blue.png",
+        "link": "https://pt.aliexpress.com/",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Entrega internacional",
+          "observacao": "Prazo medio de 12 a 20 dias."
+        }
+      }
+    ]
   }
 ]
