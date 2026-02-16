@@ -164,6 +164,46 @@
       background:rgba(255,255,255,.98) !important;
       box-shadow:0 12px 26px rgba(15,23,42,.10) !important;
     }
+    .advanced-details{
+      width:100%;
+    }
+    .advanced-details > summary{
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      cursor:pointer;
+      user-select:none;
+      padding:10px 14px;
+      color:#475569;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .advanced-details > summary::-webkit-details-marker{
+      display:none;
+    }
+    .advanced-details > summary small{
+      font-size:10px;
+      font-weight:800;
+      color:#64748b;
+      text-transform:none;
+      letter-spacing:0;
+    }
+    .advanced-details > summary::after{
+      content:"▾";
+      font-size:13px;
+      color:#64748b;
+      transition:transform .2s ease;
+    }
+    .advanced-details[open] > summary::after{
+      transform:rotate(180deg);
+    }
+    .advanced-body{
+      padding-top:0;
+    }
 
     @media (max-width:768px){
       #filtroLinhaProdutos{
@@ -171,29 +211,59 @@
         top:58px !important;
         z-index:58 !important;
         background:linear-gradient(180deg,#f8fbff 0%,rgba(248,251,255,.85) 100%) !important;
-        padding-top:6px !important;
-        padding-bottom:2px !important;
+        padding-top:2px !important;
+        padding-bottom:0 !important;
         backdrop-filter:blur(6px) !important;
       }
       #filtroLinhaProdutos .f-controls{
-        border-radius:16px !important;
+        border-radius:14px !important;
+        padding:4px !important;
+        box-shadow:0 5px 14px rgba(15,23,42,.08) !important;
+      }
+      #filtroLinhaProdutos .search-wrap{
+        height:38px !important;
+      }
+      #filtroLinhaProdutos #buscaInput{
+        font-size:15px !important;
       }
       #filtroLinhaProdutos #filtroOrigem{
         display:grid !important;
         grid-template-columns:repeat(5, minmax(0, 1fr)) !important;
-        gap:6px !important;
+        gap:5px !important;
         overflow:visible !important;
-        padding:2px 0 4px !important;
+        padding:1px 0 2px !important;
       }
       #filtroLinhaProdutos #filtroOrigem label{
         width:100% !important;
         min-width:0 !important;
-        height:34px !important;
-        padding:4px 6px !important;
-        border-radius:12px !important;
+        height:30px !important;
+        padding:3px 5px !important;
+        border-radius:10px !important;
       }
       #filtroLinhaProdutos #filtroOrigem label img.filtro-logo{
-        max-height:13px !important;
+        max-height:10px !important;
+      }
+      .stores-toolbar{
+        display:none !important;
+      }
+      .quick-sort-row{
+        display:none !important;
+      }
+      .drawer-advanced{
+        margin-top:4px !important;
+      }
+      .advanced-details{
+        border-radius:12px;
+      }
+      .advanced-details > summary{
+        padding:8px 10px;
+        font-size:10px;
+      }
+      .advanced-details > summary small{
+        font-size:9px;
+      }
+      .advanced-body{
+        padding:0 10px 10px !important;
       }
       .quick-sort-chip{
         font-size:11px !important;
@@ -233,6 +303,12 @@
       .quick-sort-row{
         overflow:visible !important;
         flex-wrap:wrap !important;
+      }
+      .advanced-details > summary{
+        display:none !important;
+      }
+      details.advanced-details > *:not(summary){
+        display:block !important;
       }
     }
 
@@ -321,6 +397,59 @@
     }
     .card-geral .card-logo{
       max-height:16px;
+    }
+    @media (max-width:768px){
+      #listaProdutos{
+        grid-template-columns:repeat(2, minmax(0,1fr)) !important;
+        gap:8px !important;
+      }
+      .card-geral{
+        border-radius:12px !important;
+      }
+      .card-geral > .flex.flex-row{
+        flex-direction:column !important;
+        padding:8px !important;
+        gap:6px !important;
+        align-items:stretch !important;
+      }
+      .card-geral .card-media{
+        width:100% !important;
+        height:auto !important;
+      }
+      .card-geral .card-img-wrap{
+        min-height:74px !important;
+      }
+      .card-geral .card-body{
+        width:100% !important;
+      }
+      .card-geral h2{
+        font-size:12px !important;
+        line-height:1.2 !important;
+        min-height:2.4em;
+      }
+      .card-geral .card-specs{
+        display:none !important;
+      }
+      .card-geral .card-price{
+        font-size:1.05rem !important;
+      }
+      .card-geral .card-price-row{
+        margin-top:2px !important;
+      }
+      .card-geral > .border-t{
+        display:none !important;
+      }
+    }
+    @media (max-width:390px){
+      #listaProdutos{
+        gap:6px !important;
+      }
+      .card-geral > .flex.flex-row{
+        padding:7px !important;
+      }
+      .card-geral .card-price{
+        font-size:.98rem !important;
+      }
     }
     @media (min-width:768px){
       #listaProdutos{
@@ -1511,7 +1640,7 @@ function aplicarFiltros(arg) {
   ensureChipSelecionado();
 }
 
-/* cria a barra de filtros rededesenhada (busca + filtros avancados sempre visiveis) */
+/* cria a barra de filtros rededesenhada (modo compacto mobile + avancados) */
 function criarBarraFiltros() {
   const drawerSlot = document.getElementById("filtroLojasTopo");
   const linhaSlot = document.getElementById("filtroLinhaProdutos");
@@ -1525,29 +1654,41 @@ function criarBarraFiltros() {
   `).join("");
 
   drawerSlot.innerHTML = `
-    <div class="drawer-advanced w-full p-3 sm:p-4 mt-2">
-      <div class="flex items-center gap-2 mb-3">
-        <span class="text-xs sm:text-sm font-extrabold text-slate-600 uppercase tracking-wide">Filtros avancados</span>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-        <label class="filters-field px-0">
-          <select id="filtroPreco" class="select-pill w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-700 font-semibold focus:border-teal-500 focus:ring-1 focus:ring-teal-200 cursor-pointer text-sm">
-            <option value="">Faixa de preco</option>
-            <option value="0">Ate R$ 1.500</option>
-            <option value="1">R$ 1.500 - R$ 3.000</option>
-            <option value="2">Acima de R$ 3.000</option>
-          </select>
-        </label>
-        <label class="filters-field px-0">
-          <select id="filtroCategoria" class="select-pill w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-700 font-semibold focus:border-teal-500 focus:ring-1 focus:ring-teal-200 cursor-pointer text-sm">
-            <option value="">Categoria</option>
-            <option>Entrada</option><option>Intermediario</option><option>Premium</option><option>iPhone</option><option>Dobravel</option>
-          </select>
-        </label>
-      </div>
-      <div class="flex justify-end mt-3">
-        <button id="resetAdvancedBtn" class="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1.5 rounded-full hover:bg-slate-200">Limpar filtros</button>
-      </div>
+    <div class="drawer-advanced w-full mt-2">
+      <details id="advancedDetails" class="advanced-details">
+        <summary>
+          <span>Refinar busca</span>
+          <small>faixa, categoria e ordenacao</small>
+        </summary>
+        <div class="advanced-body p-3 sm:p-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <label class="filters-field px-0">
+              <select id="filtroPreco" class="select-pill w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-700 font-semibold focus:border-teal-500 focus:ring-1 focus:ring-teal-200 cursor-pointer text-sm">
+                <option value="">Faixa de preco</option>
+                <option value="0">Ate R$ 1.500</option>
+                <option value="1">R$ 1.500 - R$ 3.000</option>
+                <option value="2">Acima de R$ 3.000</option>
+              </select>
+            </label>
+            <label class="filters-field px-0">
+              <select id="filtroCategoria" class="select-pill w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-700 font-semibold focus:border-teal-500 focus:ring-1 focus:ring-teal-200 cursor-pointer text-sm">
+                <option value="">Categoria</option>
+                <option>Entrada</option><option>Intermediario</option><option>Premium</option><option>iPhone</option><option>Dobravel</option>
+              </select>
+            </label>
+            <label class="filters-field px-0">
+              <select id="filtroOrdenacao" class="select-pill w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-700 font-semibold focus:border-teal-500 focus:ring-1 focus:ring-teal-200 cursor-pointer text-sm">
+                <option value="preco">Menor preco</option>
+                <option value="rating">Melhor avaliados</option>
+                <option value="desconto">Maior desconto</option>
+              </select>
+            </label>
+          </div>
+          <div class="flex justify-end mt-2">
+            <button id="resetAdvancedBtn" class="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1.5 rounded-full hover:bg-slate-200">Limpar</button>
+          </div>
+        </div>
+      </details>
     </div>
   `;
 
@@ -1584,10 +1725,18 @@ function criarBarraFiltros() {
   const resetAdvancedBtn = drawerSlot.querySelector("#resetAdvancedBtn");
   const allStoresBtn = linhaSlot.querySelector("#allStoresBtn");
   const quickSortRow = linhaSlot.querySelector("#quickSortRow");
+  const sortSelect = drawerSlot.querySelector("#filtroOrdenacao");
+  const advancedDetails = drawerSlot.querySelector("#advancedDetails");
   const origemRoot = linhaSlot.querySelector("#filtroOrigem");
   const storeCount = linhaSlot.querySelector("#storeCount");
 
   drawer.style.display = "block";
+  if (window.innerWidth >= 769) advancedDetails?.setAttribute("open", "");
+  window.addEventListener("resize", () => {
+    if (!advancedDetails) return;
+    if (window.innerWidth >= 769) advancedDetails.setAttribute("open", "");
+    else advancedDetails.removeAttribute("open");
+  }, { passive: true });
 
   const showClear = () => {
     if (clear) clear.classList.toggle("hidden", !busca?.value);
@@ -1609,6 +1758,11 @@ function criarBarraFiltros() {
   ["filtroPreco", "filtroCategoria"].forEach(id => {
     const node = drawerSlot.querySelector(`#${id}`);
     node?.addEventListener("change", () => aplicarFiltros());
+  });
+  sortSelect?.addEventListener("change", () => {
+    window.quickSortMode = sortSelect.value || "preco";
+    syncSortState();
+    aplicarFiltros();
   });
 
   const syncStoreState = () => {
@@ -1637,8 +1791,11 @@ function criarBarraFiltros() {
   resetAdvancedBtn?.addEventListener("click", () => {
     const precoSel = drawerSlot.querySelector("#filtroPreco");
     const catSel = drawerSlot.querySelector("#filtroCategoria");
+    const ordSel = drawerSlot.querySelector("#filtroOrdenacao");
     if (precoSel) precoSel.value = "";
     if (catSel) catSel.value = "";
+    if (ordSel) ordSel.value = "preco";
+    window.quickSortMode = "preco";
     aplicarFiltros();
   });
 
@@ -1650,6 +1807,7 @@ function criarBarraFiltros() {
       const on = btn.dataset.sort === mode;
       btn.classList.toggle("active", on);
     });
+    if (sortSelect) sortSelect.value = mode;
   };
 
   quickSortRow?.querySelectorAll(".quick-sort-chip").forEach(btn => {
