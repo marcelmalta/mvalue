@@ -1836,44 +1836,185 @@ function setupAutocomplete() {
   input.parentElement.style.position = "relative";
   input.parentElement.appendChild(box);
 
-  function renderSuggestions(txt, allowDefault = false) {
-    const val = txt.toLowerCase().trim();
-    const matches = val
-      ? produtos.filter(p => p.nome.toLowerCase().includes(val)).slice(0, 8)
-      : (allowDefault ? produtos.slice(0, 8) : []);
-    if (!matches.length) {
-      box.innerHTML = "<div style='padding:6px;color:#555;font-size:13px;'>Nenhum resultado encontrado</div>";
-      box.style.display = "block"; return;
+  const normalizeText = (txt = "") => String(txt)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+
+  const getModelKey = (prod = {}) =>
+    normalizeGTIN(prod.gtin) || prod.simKey || makeSimKey(prod.nome || "");
+
+  const buildModelSuggestions = () => {
+    const map = new Map();
+    (produtos || []).forEach((p) => {
+      const key = getModelKey(p);
+      if (!key) return;
+
+      const price = getFinalPrice(p);
+      let rec = map.get(key);
+      if (!rec) {
+        rec = {
+          key,
+          produto: p,
+          nome: p.nome || "Produto",
+          nomeNorm: normalizeText(p.nome || ""),
+          precoMin: price,
+          lojas: new Set()
+        };
+        map.set(key, rec);
+      }
+
+      rec.lojas.add(p.tipo || "");
+      if (price < rec.precoMin) {
+        rec.precoMin = price;
+        rec.produto = p;
+      }
+    });
+    return Array.from(map.values());
+  };
+
+  const scoreSuggestion = (nameNorm, queryNorm) => {
+    if (!queryNorm) return 1;
+    let score = 0;
+    if (nameNorm === queryNorm) score += 140;
+    if (nameNorm.startsWith(queryNorm)) score += 95;
+    if (nameNorm.includes(queryNorm)) score += 70;
+
+    const tokens = queryNorm.split(/\s+/).filter(Boolean);
+    if (tokens.length && tokens.every((t) => nameNorm.includes(t))) score += 40;
+    if (tokens.length && nameNorm.startsWith(tokens[0])) score += 15;
+    return score;
+  };
+
+  const highlightName = (elName, text, query) => {
+    elName.textContent = "";
+    const q = String(query || "").trim();
+    if (!q) {
+      elName.textContent = text;
+      return;
     }
+
+    const textLower = text.toLowerCase();
+    const qLower = q.toLowerCase();
+    const pos = textLower.indexOf(qLower);
+    if (pos < 0) {
+      elName.textContent = text;
+      return;
+    }
+
+    const before = document.createTextNode(text.slice(0, pos));
+    const mark = document.createElement("b");
+    mark.textContent = text.slice(pos, pos + q.length);
+    const after = document.createTextNode(text.slice(pos + q.length));
+    elName.appendChild(before);
+    elName.appendChild(mark);
+    elName.appendChild(after);
+  };
+
+  let currentSuggestions = [];
+
+  const chooseSuggestion = (rec) => {
+    if (!rec) return;
+    input.value = rec.nome || "";
+    selecionarProdutoNosFiltros(rec.produto);
+    box.style.display = "none";
+  };
+
+  function renderSuggestions(txt, allowDefault = false) {
+    const raw = String(txt || "").trim();
+    const queryNorm = normalizeText(raw);
+    const modelSuggestions = buildModelSuggestions();
+
+    let ranked = [];
+    if (queryNorm) {
+      ranked = modelSuggestions
+        .map((rec) => ({ ...rec, score: scoreSuggestion(rec.nomeNorm, queryNorm) }))
+        .filter((rec) => rec.score > 0)
+        .sort((a, b) => b.score - a.score || a.nome.length - b.nome.length || a.nome.localeCompare(b.nome));
+    } else if (allowDefault) {
+      ranked = modelSuggestions.sort((a, b) => a.nome.localeCompare(b.nome));
+    }
+
+    currentSuggestions = ranked.slice(0, 8);
+
+    if (!currentSuggestions.length) {
+      box.innerHTML = "<div style='padding:6px;color:#555;font-size:13px;'>Nenhum modelo encontrado</div>";
+      box.style.display = raw ? "block" : "none";
+      return;
+    }
+
     box.innerHTML = "";
-    matches.forEach(p => {
-      const meta = STORE_META[p.tipo] || {};
-      const item = document.createElement("div");
-      item.style.display = "flex"; item.style.alignItems = "center"; item.style.gap = "8px";
-      item.style.padding = "5px 6px"; item.style.cursor = "pointer"; item.style.borderRadius = "8px";
-      item.style.transition = "background .15s"; item.onmouseenter = () => item.style.background = "#fff3d6";
-      item.onmouseleave = () => item.style.background = "transparent";
+    currentSuggestions.forEach((rec) => {
+      const item = document.createElement("button");
+      item.type = "button";
+      item.style.display = "flex";
+      item.style.alignItems = "center";
+      item.style.gap = "8px";
+      item.style.width = "100%";
+      item.style.padding = "6px";
+      item.style.cursor = "pointer";
+      item.style.borderRadius = "8px";
+      item.style.border = "0";
+      item.style.background = "transparent";
+      item.style.textAlign = "left";
+      item.style.transition = "background .15s";
+      item.onmouseenter = () => { item.style.background = "#fff3d6"; };
+      item.onmouseleave = () => { item.style.background = "transparent"; };
 
       const img = document.createElement("img");
-      img.src = p.imagem || IMG_PLACEHOLDER; img.alt = p.nome;
-      Object.assign(img.style, { width: "40px", height: "40px", objectFit: "contain", borderRadius: "6px", flexShrink: "0" });
+      img.src = rec.produto?.imagem || IMG_PLACEHOLDER;
+      img.alt = rec.nome;
+      Object.assign(img.style, {
+        width: "40px",
+        height: "40px",
+        objectFit: "contain",
+        borderRadius: "6px",
+        flexShrink: "0"
+      });
+
+      const textWrap = document.createElement("div");
+      textWrap.style.flex = "1";
+      textWrap.style.minWidth = "0";
 
       const name = document.createElement("div");
-      name.style.flex = "1"; name.style.fontSize = "13px"; name.style.fontWeight = "600"; name.style.color = "#333";
-      const regex = new RegExp(`(${val})`, "gi");
-      name.innerHTML = p.nome.replace(regex, "<b>$1</b>");
+      name.style.fontSize = "13px";
+      name.style.fontWeight = "700";
+      name.style.color = "#1f2937";
+      highlightName(name, rec.nome, raw);
 
-      item.appendChild(img); item.appendChild(name);
-      item.onclick = () => {
-        selecionarProdutoNosFiltros(p);
-        box.style.display = "none";
-      };
+      const meta = document.createElement("small");
+      const storeCount = rec.lojas.size;
+      meta.textContent = `${storeCount} loja${storeCount > 1 ? "s" : ""} - a partir de ${fmt(rec.precoMin)}`;
+      meta.style.display = "block";
+      meta.style.fontSize = "11px";
+      meta.style.color = "#64748b";
+      meta.style.marginTop = "1px";
+
+      textWrap.appendChild(name);
+      textWrap.appendChild(meta);
+      item.appendChild(img);
+      item.appendChild(textWrap);
+      item.addEventListener("click", () => chooseSuggestion(rec));
+
       box.appendChild(item);
     });
+
     box.style.display = "block";
   }
+
   input.addEventListener("input", () => renderSuggestions(input.value, true));
   input.addEventListener("focus", () => renderSuggestions(input.value, true));
+  input.addEventListener("keydown", (ev) => {
+    if (ev.key === "Enter" && currentSuggestions.length) {
+      ev.preventDefault();
+      chooseSuggestion(currentSuggestions[0]);
+    }
+    if (ev.key === "Escape") {
+      box.style.display = "none";
+    }
+  });
+
   document.addEventListener("click", e => {
     if (!box.contains(e.target) && e.target !== input) box.style.display = "none";
   });
