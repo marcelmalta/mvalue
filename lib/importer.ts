@@ -63,14 +63,40 @@ const executeProviderSearch = async (
   }
 
   if (providerName === "amazon") {
-    return withRetry(() => searchAmazon(), 1, 450);
+    return withRetry(
+      () =>
+        searchAmazon({
+          query,
+          limit,
+          category: rule.category,
+          tags: rule.tags,
+          config: provider.config_json
+        }),
+      1,
+      450
+    );
   }
 
   if (providerName === "shopee") {
-    return withRetry(() => searchShopee(), 1, 450);
+    return withRetry(
+      () =>
+        searchShopee({
+          query,
+          limit,
+          category: rule.category,
+          tags: rule.tags,
+          config: provider.config_json
+        }),
+      1,
+      450
+    );
   }
 
-  return withRetry(() => searchMagalu(), 1, 450);
+  return withRetry(
+    () => searchMagalu({ query, limit, category: rule.category, tags: rule.tags }),
+    1,
+    450
+  );
 };
 
 const createRunningRun = async (

@@ -9,8 +9,16 @@ Copy `.env.example` to `.env.local` and fill values:
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `CRON_SECRET`
 - `MERCADOLIVRE_SITE_ID` (example: `MLB`)
-- `AMAZON_PAAPI_*` (stub for future connector)
-- `SHOPEE_*` (stub for future connector)
+- `AMAZON_PAAPI_*`
+- `AMAZON_PAAPI_HOST` (default: `webservices.amazon.com.br`)
+- `AMAZON_PAAPI_REGION` (default: `us-east-1`)
+- `AMAZON_PAAPI_MARKETPLACE` (default: `www.amazon.com.br`)
+- `SHOPEE_PARTNER_ID` (or `SHOPEE_API_KEY`)
+- `SHOPEE_PARTNER_KEY` (or `SHOPEE_API_SECRET`)
+- `SHOPEE_SHOP_ID`
+- `SHOPEE_ACCESS_TOKEN`
+- `SHOPEE_HOST` (default: `partner.shopeemobile.com`)
+- `SHOPEE_STOREFRONT_URL` (default: `https://shopee.com.br`)
 - `MAGALU_*` (stub for future connector)
 
 ## 2) Run SQL migration on Supabase
@@ -68,3 +76,33 @@ Security:
 ## 6) Manual import fallback
 
 If cron is disabled, use Admin > Rules > `Rodar agora`.
+
+## 7) Amazon provider config (optional)
+
+In `Admin > Providers`, you can override Amazon connector settings via `config_json`:
+
+```json
+{
+  "host": "webservices.amazon.com.br",
+  "region": "us-east-1",
+  "marketplace": "www.amazon.com.br",
+  "search_index": "All"
+}
+```
+
+## 8) Shopee provider config (optional)
+
+In `Admin > Providers`, optional `config_json` for Shopee:
+
+```json
+{
+  "host": "partner.shopeemobile.com",
+  "shop_id": "123456789",
+  "storefront_url": "https://shopee.com.br",
+  "max_scan_pages": 4
+}
+```
+
+Important:
+
+- current connector reads products from your authenticated Shopee shop catalog and filters by rule query.

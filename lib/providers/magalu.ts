@@ -1,5 +1,12 @@
-﻿import { hasEnv } from "@/lib/env";
+import { hasEnv } from "@/lib/env";
 import type { NormalizedProductInput } from "@/lib/types";
+
+interface MagaluSearchOptions {
+  query: string;
+  limit?: number;
+  category?: string | null;
+  tags?: string[];
+}
 
 export const validateMagaluConnector = (): void => {
   if (!hasEnv("MAGALU_CLIENT_ID", "MAGALU_CLIENT_SECRET")) {
@@ -7,7 +14,9 @@ export const validateMagaluConnector = (): void => {
   }
 };
 
-export const searchMagalu = async (): Promise<NormalizedProductInput[]> => {
+export const searchMagalu = async (
+  _options: MagaluSearchOptions
+): Promise<NormalizedProductInput[]> => {
   validateMagaluConnector();
   throw new Error("TODO: implementar connector Magalu no backend.");
 };
