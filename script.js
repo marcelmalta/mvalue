@@ -915,6 +915,54 @@ const IMG_PLACEHOLDER =
     </g>
   </svg>`);
 
+
+function isAmazonImageUrl(url = "") {
+  return /^https?:\/\/m\.media-amazon\.com\/images\/I\//i.test(String(url || "").trim());
+}
+
+function toAmazonBaseImageUrl(url = "") {
+  const clean = String(url || "").trim();
+  if (!isAmazonImageUrl(clean)) return "";
+  return clean.replace(/\._[^/]+_\.(jpe?g|png|webp|gif)(\?.*)?$/i, ".$1");
+}
+
+function getImageCandidates(url = "") {
+  const clean = String(url || "").trim();
+  if (!clean) return [IMG_PLACEHOLDER];
+
+  const list = [clean];
+  const amazonBase = toAmazonBaseImageUrl(clean);
+  if (amazonBase && amazonBase !== clean) list.push(amazonBase);
+  return list;
+}
+
+function assignProductImage(imgEl, src, alt = "", onLoad) {
+  if (!imgEl) return;
+
+  const candidates = getImageCandidates(src);
+  let idx = 0;
+
+  imgEl.alt = alt || "";
+  imgEl.decoding = "async";
+  imgEl.referrerPolicy = "no-referrer";
+
+  imgEl.onload = () => {
+    if (typeof onLoad === "function") onLoad();
+  };
+
+  imgEl.onerror = () => {
+    idx += 1;
+    if (idx < candidates.length) {
+      imgEl.src = candidates[idx];
+      return;
+    }
+    imgEl.onerror = null;
+    imgEl.src = IMG_PLACEHOLDER;
+  };
+
+  imgEl.src = candidates[idx] || IMG_PLACEHOLDER;
+}
+
 /* ======= Estado de filtros-alvo (item + similares) ======= */
 window.filtrosAlvo = {
   gtin: null,
@@ -1066,13 +1114,8 @@ function buildImg(src, alt, opts = "") {
   ].join(" ").trim();
   const img = document.createElement("img");
   img.loading = "lazy";
-  img.decoding = "async";
-  img.referrerPolicy = "no-referrer";
-  img.src = src || IMG_PLACEHOLDER;
-  img.alt = alt || "";
   img.className = `card-img max-h-full object-contain transition-transform duration-200 ${extraImgClass}`.trim();
-  img.onerror = () => { img.src = IMG_PLACEHOLDER; };
-  img.onload = () => { wrap.classList.remove("skel"); };
+  assignProductImage(img, src, alt, () => wrap.classList.remove("skel"));
 
   wrap.appendChild(img);
   return wrap;
@@ -1547,12 +1590,11 @@ function renderModalCoupon(p) {
 }
 
 /* ===================== MODAL ===================== */
-function showImagePreview(src, alt = "Prévia do produto") {
+function showImagePreview(src, alt = "Previa do produto") {
   const overlay = el("#modalImagePreview");
   const img = el("#modalZoomImg");
   if (!overlay || !img) return;
-  img.src = src || IMG_PLACEHOLDER;
-  img.alt = alt || "Prévia do produto";
+  assignProductImage(img, src, alt || "Previa do produto");
   overlay.classList.remove("hidden");
   overlay.classList.add("flex");
 }
@@ -1588,9 +1630,7 @@ function openModal(obj) {
 
   const modalImg = el("#modalImage");
   if (modalImg) {
-    modalImg.src = p.imagem || IMG_PLACEHOLDER;
-    modalImg.onerror = () => { modalImg.src = IMG_PLACEHOLDER; };
-    modalImg.alt = p.nome || "Produto";
+    assignProductImage(modalImg, p.imagem, p.nome || "Produto");
     modalImg.classList.add("modal-img-zoomable");
     modalImg.onclick = () => showImagePreview(p.imagem || IMG_PLACEHOLDER, p.nome);
   }

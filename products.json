@@ -1,122 +1,41 @@
 ﻿[
   {
-  "gtin": "7896869290629",
-  "nome": "Celular Samsung Galaxy 128GB Preto B0fphyc9fq",
-  "brand": "Samsung",
-  "specs": {
-    "telaPolegadas": 6.5,
-    "ramGb": 8,
-    "armazenamentoGb": 128,
-    "bateriaMah": 5000,
-    "cameraMp": 50
-  },
-  "descricaoPadrao": [
-    "Tela Super AMOLED de 6.5 polegadas com excelente qualidade visual.",
-    "Processador potente para jogos e aplicativos do dia a dia.",
-    "Bateria de 5000 mAh para durar o dia todo."
-  ],
-  "ofertas": [
-    {
-      "tipo": "amazon",
-      "precoAntigo": 2499,
-      "precoFinal": 1999,
-      "precoPix": 1899.05,
-      "descontoPercent": 20,
-      "parcelas": "10x R$ 199,90 sem juros",
-      "rating": 4.7,
-      "reviews": 1000,
-      "badges": [
-        "Prime"
-      ],
-      "imagem": "https://m.media-amazon.com/images/I/51tlBWtwWEL._AC_SX679_.jpg",
-      "link": "https://amzn.to/4rOBdiI",
-      "freteInfo": {
-        "tipo": "variavel",
-        "label": "Prime com entrega acelerada",
-        "observacao": "Entrega em ate 24h em capitais selecionadas."
-      }
+    "gtin": "7896869290629",
+    "nome": "Celular Samsung Galaxy 128GB Preto B0fphyc9fq",
+    "brand": "Samsung",
+    "specs": {
+      "telaPolegadas": 6.5,
+      "ramGb": 8,
+      "armazenamentoGb": 128,
+      "bateriaMah": 5000,
+      "cameraMp": 50
     },
-    {
-      "tipo": "mercadolivre",
-      "precoAntigo": 2233,
-      "precoFinal": 1942,
-      "precoPix": 1844.9,
-      "descontoPercent": 13,
-      "parcelas": "10x R$ 194,20 sem juros",
-      "rating": 4.7,
-      "reviews": 976,
-      "badges": [
-        "Loja oficial",
-        "Envio Full"
-      ],
-      "imagem": "https://m.media-amazon.com/images/I/51tlBWtwWEL._AC_SX679_.jpg",
-      "link": "https://www.mercadolivre.com.br/",
-      "freteInfo": {
-        "tipo": "variavel",
-        "label": "Frete calculado no checkout",
-        "observacao": "Entrega Full disponivel em regioes selecionadas."
+    "descricaoPadrao": [
+      "Tela Super AMOLED de 6.5 polegadas com excelente qualidade visual.",
+      "Processador potente para jogos e aplicativos do dia a dia.",
+      "Bateria de 5000 mAh para durar o dia todo."
+    ],
+    "ofertas": [
+      {
+        "tipo": "amazon",
+        "precoAntigo": 2499,
+        "precoFinal": 1999,
+        "precoPix": 1899.05,
+        "descontoPercent": 20,
+        "parcelas": "10x R$ 199,90 sem juros",
+        "rating": 4.7,
+        "reviews": 1000,
+        "badges": [
+          "Prime"
+        ],
+        "imagem": "https://m.media-amazon.com/images/I/51tlBWtwWEL._AC_SX679_.jpg",
+        "link": "https://amzn.to/4kEDACp",
+        "freteInfo": {
+          "tipo": "variavel",
+          "label": "Prime com entrega acelerada",
+          "observacao": "Entrega em ate 24h em capitais selecionadas."
+        }
       }
-    },
-    {
-      "tipo": "magalu",
-      "precoAntigo": 2394,
-      "precoFinal": 2082,
-      "precoPix": 1977.9,
-      "descontoPercent": 13,
-      "parcelas": "10x R$ 208,20 sem juros",
-      "rating": 4.6,
-      "reviews": 819,
-      "badges": [
-        "Magalu garante"
-      ],
-      "imagem": "https://m.media-amazon.com/images/I/51tlBWtwWEL._AC_SX679_.jpg",
-      "link": "https://www.magazineluiza.com.br/",
-      "freteInfo": {
-        "tipo": "variavel",
-        "label": "Frete varia por CEP",
-        "observacao": "Consulte opcoes de retirada em loja."
-      }
-    },
-    {
-      "tipo": "shopee",
-      "precoAntigo": 2383,
-      "precoFinal": 2072,
-      "precoPix": 1968.4,
-      "descontoPercent": 13,
-      "parcelas": "10x R$ 207,20",
-      "rating": 4.7,
-      "reviews": 885,
-      "badges": [
-        "Frete gratis"
-      ],
-      "imagem": "https://m.media-amazon.com/images/I/51tlBWtwWEL._AC_SX679_.jpg",
-      "link": "https://shopee.com.br/",
-      "freteInfo": {
-        "tipo": "variavel",
-        "label": "Frete promocional",
-        "observacao": "Cupom de frete disponivel no app."
-      }
-    },
-    {
-      "tipo": "aliexpress",
-      "precoAntigo": 2232,
-      "precoFinal": 1941,
-      "precoPix": 1843.95,
-      "descontoPercent": 13,
-      "parcelas": "12x R$ 161,75",
-      "rating": 4.8,
-      "reviews": 897,
-      "badges": [
-        "Choice"
-      ],
-      "imagem": "https://m.media-amazon.com/images/I/51tlBWtwWEL._AC_SX679_.jpg",
-      "link": "https://pt.aliexpress.com/",
-      "freteInfo": {
-        "tipo": "variavel",
-        "label": "Entrega internacional",
-        "observacao": "Prazo medio de 15 a 25 dias uteis."
-      }
-    }
-  ]
-}
+    ]
+  }
 ]
